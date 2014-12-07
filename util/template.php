@@ -1,7 +1,13 @@
 <?php
 
 class Template {
-	public static function toString($name, $args = array()) {
+	/**
+	 * Loads a template, subtitutes in arguments, and outputs it.
+	 *
+	 * @param string $name The name of the template file (not including the extension).
+	 * @param array $args The arguments to be subtituted into the $viewBag variable in the template.
+	 */
+	public static function render($name, $args = array()) {
 		if (!preg_match('@^[^/?*:;{}\\\\]+$@', $name)) {
 			throw new Exception("Invalid template name '{$name}'");
 		}
@@ -16,9 +22,19 @@ class Template {
 			throw new Exception("Could not find template '{$name}'");
 		}
 
-		ob_start();
 		$viewBag = $args;
 		require($filename);
+	}
+
+	/**
+	 * Loads a template, subtitutes in arguments, and returns it as a string.
+	 *
+	 * @param string $name The name of the template file (not including the extension).
+	 * @param array $args The arguments to be subtituted into the $viewBag variable in the template.
+	 */
+	public static function toString($name, $args = array()) {
+		ob_start();
+		self::render($name, $args);
 		return ob_get_clean();
 	}
 }
