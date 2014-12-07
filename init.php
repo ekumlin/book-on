@@ -6,8 +6,11 @@ define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVE
 global $CONFIG, $DB;
 
 require(_ROOT . 'config.php');
+require(_ROOT . 'util/string.php');
 require(_ROOT . 'util/database.php');
 require(_ROOT . 'util/template.php');
+require(_ROOT . 'util/author.php');
+require(_ROOT . 'util/book.php');
 
 $DB = new Connection($CONFIG['db-host'], $CONFIG['db-user'], $CONFIG['db-pass'], $CONFIG['db-name']);
 
