@@ -3,7 +3,7 @@
 class Author {
 	private $firstName;
 	private $lastName;
-	private $birthDate;
+	private $birthdate;
 	private $homeCountry;
 
 	/**
@@ -14,7 +14,7 @@ class Author {
 	public function __construct($row) {
 		$this->firstName = $row['FirstName'];
 		$this->lastName = $row['LastName'];
-		$this->birthDate = $row['BirthDate'];
+		$this->birthdate = $row['Birthdate'];
 		$this->homeCountry = $row['HomeCountry'];
 	}
 }
