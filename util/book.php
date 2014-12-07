@@ -1,14 +1,14 @@
 <?php
 
 class Book {
-	private $isbn;
-	private $title;
-	private $salePrice;
-	private $pageCount;
-	private $edition;
-	private $language;
-	private $publisher;
-	private $author;
+	public $isbn;
+	public $title;
+	public $salePrice;
+	public $pageCount;
+	public $edition;
+	public $language;
+	public $publisher;
+	public $author;
 
 	/**
 	 * Creates a new book instance from a database row.
