@@ -18,6 +18,7 @@ class Connection {
 			));
 		} catch (PDOException $pdoe) {
 			// TODO Do something with exception
+			var_dump($pdoe);
 		}
 	}
 
