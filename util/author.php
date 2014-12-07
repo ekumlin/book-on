@@ -1,10 +1,10 @@
 <?php
 
 class Author {
-	private $firstName;
-	private $lastName;
-	private $birthdate;
-	private $homeCountry;
+	public $firstName;
+	public $lastName;
+	public $birthdate;
+	public $homeCountry;
 
 	/**
 	 * Creates a new author instance from a database row.
