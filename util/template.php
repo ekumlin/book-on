@@ -16,7 +16,7 @@ class Template {
 			throw new Exception("Provided arguments were " . gettype($args) . "; expected array");
 		}
 
-		$filename = realpath(_ROOT . "/templates/{$name}.tpl");
+		$filename = realpath(_ROOT . "templates/{$name}.tpl");
 
 		if (!file_exists($filename)) {
 			throw new Exception("Could not find template '{$name}'");
