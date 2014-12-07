@@ -1,3 +1,3 @@
 <div class="header">
-	Book-On
+	<a href="<?php echo _HOST; ?>" id="logo">Book-On</a>
 </div>

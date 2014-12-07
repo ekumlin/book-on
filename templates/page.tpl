@@ -11,7 +11,12 @@
 	</head>
 	<body>
 		<?php Template::render('header'); ?>
-		<?php echo $viewBag['body']; ?>
+		<div class="drawer"></div>
+		<div class="content">
+			<div class="container">
+				<?php echo $viewBag['body']; ?>
+			</div>
+		</div>
 		<?php
 			foreach ($viewBag['scripts'] as $script) {
 				echo '<script type="text/javascript" src="' . _HOST . 'scripts/' . $script . '.js"></script>';
