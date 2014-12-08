@@ -6,17 +6,23 @@ if (!defined('VALID_REQUEST')) {
 }
 
 $content = '';
+$desiredIsbn = $_GET['isbn'];
 
 $books = json_decode(apiCall(array(
 		'mode' => 'read',
-		'data' => 'allBooks',
+		'data' => 'viewBook',
+		'isbn' => $desiredIsbn,
 	)));
 
 if ($books->success) {
 
-	foreach ($books->data as $obj) {
-		$content .= Template::toString("bookCard", array(
-			'book' => $obj,
+	if (count($books->data) >= 1) {
+		$content .= Template::toString("bookView", array(
+			'book' => $books->data[0],
+		));
+	} else {
+		$content .= Template::toString("error", array(
+			'error' => "No such book found.",
 		));
 	}
 } else {
