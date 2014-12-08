@@ -5,6 +5,41 @@ body {
 	padding: 0;
 }
 
+body > div.header {
+	background: #4CAF50;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+	color: #FFF;
+	font-size: 20px;
+	padding: 12px;
+	position: relative;
+	z-index: 9;
+}
+
+body > div.header > span#hamburger {
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+body > div.header > span#hamburger:hover {
+	opacity: 1;
+}
+
+body > div.header > span#hamburger > img {
+	padding: 4px;
+	vertical-align: bottom;
+}
+
+body > .drawer {
+	background: #FAFAFA;
+	bottom: 0;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.25);
+	left: -290px;
+	position: fixed;
+	top: 0;
+	width: 280px;
+	z-index: 5;
+}
+
 a#logo {
 	border-radius: 2px;
 	color: inherit;
@@ -19,19 +54,8 @@ a#logo:hover {
 	text-decoration: none;
 }
 
-div.header {
-	background: #4CAF50;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-	color: #FFF;
-	font-size: 20px;
-	padding: 12px;
-}
-
-div.drawer {
-	bottom: 0;
-	left: 0;
-	position: fixed;
-	top: 0;
+h1 {
+	font: 100 36px Roboto, Helvetica, 'Trebuchet MS', sans-serif;
 }
 
 div.content {
@@ -50,7 +74,15 @@ div.card {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 	display: inline-block;
 	margin: 8px;
+}
+
+div.card.book-card {
 	width: 300px;
+}
+
+div.card.error-card {
+	padding: 0;
+	width: 100%;
 }
 
 div.card h1 {
@@ -62,6 +94,18 @@ div.card h1 {
 	white-space: nowrap;
 }
 
+div.card.error-card h1 {
+	background: #F44336;
+	border-radius: 2px 2px 0 0;
+	color: #FFF;
+	font-family: Roboto, Helvetica, 'Trebuchet MS', sans-serif;
+}
+
+div.card.error-card > * {
+	margin: 0;
+	padding: 16px;
+}
+
 div.card > div {
 	margin: 16px 16px 0;
 }
@@ -70,6 +114,19 @@ div.card > div.buttons {
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	margin: 16px 0 0;
 	padding: 8px 8px;
+}
+
+div.card.book-card > div.info > span {
+	display: inline-block;
+	margin-right: 12px;
+}
+
+div.card.book-card > div.info > span.pri1 {
+	font-weight: bold;
+}
+
+div.card.book-card > div.info > span.pri3 {
+	opacity: 0.5;
 }
 
 div.card .card-button {
