@@ -12,6 +12,7 @@ global $CONFIG, $DB;
 
 require(_ROOT . 'config.php');
 require(_ROOT . 'util/string.php');
+require(_ROOT . 'util/locale.php');
 require(_ROOT . 'util/database.php');
 require(_ROOT . 'util/template.php');
 require(_ROOT . 'models/author.php');
