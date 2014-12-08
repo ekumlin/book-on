@@ -9,8 +9,8 @@ require(_ROOT . 'config.php');
 require(_ROOT . 'util/string.php');
 require(_ROOT . 'util/database.php');
 require(_ROOT . 'util/template.php');
-require(_ROOT . 'util/author.php');
-require(_ROOT . 'util/book.php');
+require(_ROOT . 'models/author.php');
+require(_ROOT . 'models/book.php');
 
 $DB = new Connection($CONFIG['db-host'], $CONFIG['db-user'], $CONFIG['db-pass'], $CONFIG['db-name']);
 
