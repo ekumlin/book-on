@@ -1,5 +1,5 @@
 body {
-	background: #fafafa;
+	background: #FAFAFA;
 	font: 16px Roboto, Helvetica, 'Trebuchet MS', sans-serif;
 	margin: 0;
 	padding: 0;
@@ -39,23 +39,68 @@ div.content {
 }
 
 div.content > div.container {
+	margin: 0 auto;
 	min-width: 800px;
 	width: 90%;
 }
 
 div.card {
-	background: #fff;
+	background: #FFF;
 	border-radius: 2px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 	display: inline-block;
-	padding: 16px;
 	margin: 8px;
 	width: 300px;
 }
 
 div.card h1 {
-	font-size: 22px;
-	font-weight: 300;
-	margin: 0;
+	font: 300 22px 'Roboto Slab', Georgia, serif;
+	margin: 16px;
+	overflow: hidden;
 	padding: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+div.card > div {
+	margin: 16px 16px 0;
+}
+
+div.card > div.buttons {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	margin: 16px 0 0;
+	padding: 8px 8px;
+}
+
+div.card .card-button {
+	border-radius: 2px;
+	color: #333;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0;
+	padding: 8px 12px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+div.card .card-button:hover {
+	background: rgba(153, 153, 153, 0.2); /* #999 */
+}
+
+div.card .card-button:active {
+	background: rgba(153, 153, 153, 0.4); /* #999 */
+}
+
+div.card .card-button.primary {
+	color: #4CAF50;
+}
+
+div.card .card-button.primary:hover {
+	background: #43A047;
+	color: #FFF;
+}
+
+div.card .card-button.primary:active {
+	background: #388E3C;
 }
