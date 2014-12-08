@@ -1,12 +1,12 @@
 <?php
 
-define('_ROOT', rtrim(realpath(dirname(__FILE__)), '/') . '/');
-define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' . rtrim(substr(realpath(dirname($_SERVER['SCRIPT_FILENAME'])), strlen($_SERVER['DOCUMENT_ROOT'])), '/') . '/');
-
 if (!defined('VALID_REQUEST')) {
 	http_response_code(404);
 	exit;
 }
+
+define('_ROOT', rtrim(realpath(dirname(__FILE__)), '/') . '/');
+define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' . rtrim(substr(realpath(dirname($_SERVER['SCRIPT_FILENAME'])), strlen($_SERVER['DOCUMENT_ROOT'])), '/') . '/');
 
 global $CONFIG, $DB;
 
