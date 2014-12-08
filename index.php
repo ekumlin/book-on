@@ -2,6 +2,10 @@
 
 define('IS_PAGEVIEW', true);
 
+if (!defined('VALID_REQUEST')) {
+	define('VALID_REQUEST', true);
+}
+
 require_once('init.php');
 require('api.php');
 

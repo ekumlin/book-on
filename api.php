@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('VALID_REQUEST')) {
+	define('VALID_REQUEST', true);
+}
+
 require_once('init.php');
 
 function apiCall($request) {
