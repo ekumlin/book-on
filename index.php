@@ -1,31 +1,32 @@
 <?php
 
-require('init.php');
+define('IS_PAGEVIEW', true);
+
+require_once('init.php');
+require('api.php');
 
 $bookIndex = '';
 
-$query = <<<EOD
-SELECT
-	b.*, a.*
-FROM
-	Book AS b
-	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
-	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
-	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-EOD;
-$books = $DB->query($query);
+$books = json_decode(apiCall(array(
+		'mode' => 'read',
+		'data' => 'allBooks',
+	)));
 
-foreach ($books as $row) {
-	$bookIndex .= Template::toString("bookCard", array(
-		'book' => new Book($row, true),
-	));
+if ($books->success) {
+	foreach ($books->data as $obj) {
+		$bookIndex .= Template::toString("bookCard", array(
+			'book' => $obj,
+		));
+	}
+
+	print Template::toString("page", array(
+			'title' => 'Book-On',
+			'styles' => array('base'),
+			'scripts' => array(''),
+			'body' => $bookIndex,
+		));
+} else {
+	die("Error");
 }
-
-print Template::toString("page", array(
-	'title' => 'Book-On',
-	'styles' => array('base'),
-	'scripts' => array(''),
-	'body' => $bookIndex,
-));
 
 ?>
