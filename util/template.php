@@ -1,5 +1,10 @@
 <?php
 
+if (!defined('VALID_REQUEST')) {
+	http_response_code(404);
+	exit;
+}
+
 class Template {
 	/**
 	 * Loads a template, subtitutes in arguments, and outputs it.

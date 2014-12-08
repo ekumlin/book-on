@@ -1,5 +1,10 @@
 <?php
 
+if (!defined('VALID_REQUEST')) {
+	http_response_code(404);
+	exit;
+}
+
 class String {
 	/**
 	 * Takes in a number and returns a string representing the ordinal ("nth"). Based on solution found here: http://stackoverflow.com/a/3110033/1438733
