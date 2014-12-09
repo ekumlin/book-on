@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2014 at 03:04 PM
+-- Generation Time: Dec 09, 2014 at 06:58 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `Author` (
   `Birthdate` date DEFAULT NULL,
   `HomeCountry` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`AuthorId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `Book` (
   `Publisher` int(11) NOT NULL,
   PRIMARY KEY (`ISBN`),
   KEY `Publisher` (`Publisher`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `BookAuthor` (
   `AuthorId` int(11) NOT NULL,
   KEY `ISBN` (`ISBN`),
   KEY `AuthorId` (`AuthorId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `BookCopy` (
   `ISBN` bigint(13) NOT NULL,
   PRIMARY KEY (`BookCopyId`),
   KEY `ISBN` (`ISBN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `BookFave` (
   `Rating` tinyint(1) NOT NULL,
   KEY `CollectionId` (`CollectionId`),
   KEY `ISBN` (`ISBN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `BookTransaction` (
   PRIMARY KEY (`BookTransactionId`),
   KEY `BookCopyId` (`BookCopyId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `Collection` (
   `CardNumber` int(11) NOT NULL,
   PRIMARY KEY (`CollectionId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `Publisher` (
   `Address` varchar(511) NOT NULL,
   `Phone` bigint(11) NOT NULL,
   PRIMARY KEY (`PublisherId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `AccountStatus` tinyint(1) NOT NULL,
   PRIMARY KEY (`CardNumber`),
   UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Constraints for dumped tables
@@ -171,8 +171,8 @@ ALTER TABLE `Book`
 -- Constraints for table `BookAuthor`
 --
 ALTER TABLE `BookAuthor`
-  ADD CONSTRAINT `BookAuthor_ibfk_2` FOREIGN KEY (`AuthorId`) REFERENCES `Author` (`AuthorId`),
-  ADD CONSTRAINT `BookAuthor_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
+  ADD CONSTRAINT `BookAuthor_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`),
+  ADD CONSTRAINT `BookAuthor_ibfk_2` FOREIGN KEY (`AuthorId`) REFERENCES `Author` (`AuthorId`);
 
 --
 -- Constraints for table `BookCopy`
@@ -184,15 +184,15 @@ ALTER TABLE `BookCopy`
 -- Constraints for table `BookFave`
 --
 ALTER TABLE `BookFave`
-  ADD CONSTRAINT `BookFave_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`),
-  ADD CONSTRAINT `BookFave_ibfk_1` FOREIGN KEY (`CollectionId`) REFERENCES `Collection` (`CollectionId`);
+  ADD CONSTRAINT `BookFave_ibfk_1` FOREIGN KEY (`CollectionId`) REFERENCES `Collection` (`CollectionId`),
+  ADD CONSTRAINT `BookFave_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
 
 --
 -- Constraints for table `BookTransaction`
 --
 ALTER TABLE `BookTransaction`
-  ADD CONSTRAINT `BookTransaction_ibfk_2` FOREIGN KEY (`CardNumber`) REFERENCES `User` (`CardNumber`),
-  ADD CONSTRAINT `BookTransaction_ibfk_1` FOREIGN KEY (`BookCopyId`) REFERENCES `BookCopy` (`BookCopyId`);
+  ADD CONSTRAINT `BookTransaction_ibfk_1` FOREIGN KEY (`BookCopyId`) REFERENCES `BookCopy` (`BookCopyId`),
+  ADD CONSTRAINT `BookTransaction_ibfk_2` FOREIGN KEY (`CardNumber`) REFERENCES `User` (`CardNumber`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
