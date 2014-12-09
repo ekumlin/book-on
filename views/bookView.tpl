@@ -6,10 +6,13 @@
 			if (!$noComma) { echo ', '; } $noComma = false;
 			echo "{$a->firstName} {$a->lastName} (Author)";
 		}
-	?></div>
-	<div class="info"><?php echo $viewBag['book']->publisher; ?></div>
-	<div class="cover"><img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/></div>
-	<div class="data">
+	?></div><div class="info">
+		<?php echo $viewBag['book']->publisher; ?>
+	</div><div class="cover">
+		<img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/>
+		<a href="#" class="button button-raised">Collect</a>
+	</div><div class="data">
+		<div id="collect-button"><a href="#" class="button button-floating"><img src="<?php echo _HOST; ?>assets/icon-collect.white.png" title="Collect"/></a></div>
 		<table>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-buy.png" title="Price"/></td>
