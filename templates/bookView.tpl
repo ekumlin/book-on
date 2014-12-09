@@ -1,16 +1,17 @@
 <div class="book-info">
+	<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1>
 	<table>
 		<tr>
-			<td colspan=4><h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1></td>
-		</tr>
-		<tr>
-			<td rowspan=5><img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/></td>
+			<td rowspan=6><img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/></td>
 			<td colspan=3>(AUTHORS)<br/>(PUBLISHER)</td>
 		</tr>
 		<tr>
 			<td>(ICON)</td>
+			<td><div><?php echo $viewBag['book']->copies; ?> copies</div></td>
+		</tr>
+		<tr>
+			<td>(ICON)</td>
 			<td><div><?php echo $viewBag['book']->isbn; ?></div></td>
-			<td rowspan=4>(DESCRIPTION)</td>
 		</tr>
 		<tr>
 			<td>(ICON)</td>
