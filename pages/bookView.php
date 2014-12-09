@@ -9,8 +9,8 @@ $content = '';
 $desiredIsbn = $_GET['isbn'];
 
 $books = json_decode(apiCall(array(
-		'mode' => 'read',
-		'data' => 'viewBook',
+		'controller' => 'read',
+		'action' => 'viewBook',
 		'isbn' => $desiredIsbn,
 	)));
 

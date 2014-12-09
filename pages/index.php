@@ -8,12 +8,11 @@ if (!defined('VALID_REQUEST')) {
 $content = '';
 
 $books = json_decode(apiCall(array(
-		'mode' => 'read',
-		'data' => 'allBooks',
+		'controller' => 'read',
+		'action' => 'allBooks',
 	)));
 
 if ($books->success) {
-
 	foreach ($books->data as $obj) {
 		$content .= View::toString("bookCard", array(
 			'book' => $obj,
