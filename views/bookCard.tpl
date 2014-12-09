@@ -1,5 +1,6 @@
 <div class="card book-card">
 	<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1>
+	<div class="cover"><img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/></div>
 	<div class="info">
 		<?php if ($viewBag['book']->copies == 0): ?>
 			<span class="pri3"><em>Out of stock</em></span>

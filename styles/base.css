@@ -144,6 +144,15 @@ div.card.book-card > div.info > span.pri3 {
 	opacity: 0.5;
 }
 
+div.card.book-card > div.cover {
+	text-align: center;
+}
+
+div.card.book-card > div.cover > img {
+	height: 128px;
+	width: auto;
+}
+
 div.card .card-button {
 	border-radius: 2px;
 	color: #333;
