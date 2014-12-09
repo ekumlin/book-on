@@ -26,13 +26,13 @@ class Book {
 	public function __construct($row) {
 		$this->isbn = $row['ISBN'];
 		$this->title = $row['Title'];
-		$this->salePrice = $row['SalePrice'];
-		$this->pageCount = $row['PageCount'];
-		$this->edition = $row['Edition'];
+		$this->salePrice = floatval($row['SalePrice']);
+		$this->pageCount = intval($row['PageCount']);
+		$this->edition = intval($row['Edition']);
 		$this->language = $row['Language'];
 		$this->publisher = $row['PublisherName'];
-		$this->copiesForRent = $row['CopiesForRent'];
-		$this->copiesForSale = $row['CopiesForSale'];
+		$this->copiesForSale = intval($row['CopiesForSale']);
+		$this->copiesForRent = intval($row['CopiesForRent']);
 
 		$this->copies = $this->copiesForRent + $this->copiesForSale;
 		$this->authors = array();
