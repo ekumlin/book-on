@@ -76,6 +76,11 @@ h1 {
 	font: 100 36px Roboto, Helvetica, 'Trebuchet MS', sans-serif;
 }
 
+h1 a {
+	color: inherit;
+	text-decoration: none;
+}
+
 img {
 	border: 0;
 }
@@ -83,6 +88,13 @@ img {
 div.content {
 	margin: 56px 50px 0;
 	padding: 16px;
+}
+
+@media (max-width: 720px) {
+	div.content {
+		margin: 56px 25px 0;
+		padding: 8px;
+	}
 }
 
 div.card-box.columnar {
@@ -130,7 +142,7 @@ div.card h1 {
 	font: 300 22px 'Roboto Slab', Georgia, serif;
 	margin: 0;
 	overflow: hidden;
-	padding: 16px;
+	padding: 16px 16px 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
@@ -174,7 +186,7 @@ div.card.book-card > div.cover {
 	text-align: center;
 }
 
-div.card.book-card > div.cover > img {
+div.card.book-card > div.cover img {
 	height: 128px;
 	width: auto;
 }
