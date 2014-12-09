@@ -133,7 +133,7 @@ div.card > div.buttons {
 
 div.card.book-card > div.info > span {
 	display: inline-block;
-	margin-right: 12px;
+	margin-right: 16px;
 }
 
 div.card.book-card > div.info > span.pri1 {

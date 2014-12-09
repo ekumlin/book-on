@@ -13,6 +13,8 @@ class Book {
 	public $edition;
 	public $language;
 	public $publisher;
+	public $copiesForRent;
+	public $copiesForSale;
 	public $copies;
 	public $author;
 
@@ -30,8 +32,10 @@ class Book {
 		$this->edition = $row['Edition'];
 		$this->language = $row['Language'];
 		$this->publisher = $row['Publisher'];
-		$this->copies = $row['Copies'];
-
+		$this->copiesForRent = $row['CopiesForRent'];
+		$this->copiesForSale = $row['CopiesForSale'];
+		
+		$this->copies = $this->copiesForRent + $this->copiesForSale;
 		$this->author = new Author($row);
 	}
 }
