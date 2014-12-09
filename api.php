@@ -30,12 +30,14 @@ function apiCall($request) {
 			$query =
 <<<EOD
 SELECT
-	b.*, a.*
+	b.*, a.*, COUNT(bc.ISBN) AS Copies
 FROM
 	Book AS b
 	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
 	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
 	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
+    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
+GROUP BY b.ISBN
 EOD;
 			$books = $DB->query($query);
 
@@ -47,14 +49,16 @@ EOD;
 			$query =
 <<<EOD
 SELECT
-	b.*, a.*
+	b.*, a.*, COUNT(bc.ISBN) AS Copies
 FROM
 	Book AS b
 	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
 	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
 	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
+    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
 WHERE
 	b.ISBN = :isbn
+GROUP BY b.ISBN
 EOD;
 			$books = $DB->query($query, array(
 					'isbn' => $request['isbn'],
