@@ -15,26 +15,46 @@ class ReadController {
 	public function allBooks($request, &$jsonResult) {
 		global $DB;
 
-		$query =
-<<<EOD
-SELECT
-	b.*,
-    a.*,
-    SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
-    SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
-FROM
-	Book AS b
-	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
-	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
-	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
-GROUP BY b.ISBN
-EOD;
+		$query = "
+			SELECT
+				ba.ISBN, a.*
+			FROM
+				BookAuthor AS ba
+				JOIN Author AS a ON ba.AuthorId = a.AuthorId
+		";
+		$authors = $DB->query($query);
+
+		$authorTable = array();
+		foreach ($authors as $a) {
+			if (!isset($authorTable[$a['ISBN']])) {
+				$authorTable[$a['ISBN']] = array();
+			}
+
+			$authorTable[$a['ISBN']][] = $a;
+		}
+
+		$query = "
+			SELECT
+				b.*,
+				p.Name AS PublisherName,
+				SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
+				SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
+			FROM
+				Book AS b
+				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
+				LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
+			GROUP BY b.ISBN, p.Name
+		";
 		$books = $DB->query($query);
 
 		$jsonResult['success'] = true;
 		foreach ($books as $book) {
-			$jsonResult['data'][] = new Book($book);
+			$b = new Book($book);
+			foreach ($authorTable[$b->isbn] as $a) {
+				$b->addAuthor(new Author($a));
+			}
+
+			$jsonResult['data'][] = $b;
 		}
 	}
 
@@ -47,30 +67,50 @@ EOD;
 	public function viewBook($request, &$jsonResult) {
 		global $DB;
 
-		$query =
-<<<EOD
-SELECT
-	b.*,
-    a.*,
-    SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
-    SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
-FROM
-	Book AS b
-	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
-	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
-	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
-WHERE
-	b.ISBN = :isbn
-GROUP BY b.ISBN
-EOD;
+		$query = "
+			SELECT
+				ba.ISBN, a.*
+			FROM
+				BookAuthor AS ba
+				JOIN Author AS a ON ba.AuthorId = a.AuthorId
+		";
+		$authors = $DB->query($query);
+
+		$authorTable = array();
+		foreach ($authors as $a) {
+			if (!isset($authorTable[$a['ISBN']])) {
+				$authorTable[$a['ISBN']] = array();
+			}
+
+			$authorTable[$a['ISBN']][] = $a;
+		}
+
+		$query = "
+			SELECT
+				b.*,
+				p.Name AS PublisherName,
+				SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
+				SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
+			FROM
+				Book AS b
+				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
+				LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
+			WHERE
+				b.ISBN = :isbn
+			GROUP BY b.ISBN, p.Name
+		";
 		$books = $DB->query($query, array(
 				'isbn' => $request['isbn'],
 			));
 
 		$jsonResult['success'] = true;
 		foreach ($books as $book) {
-			$jsonResult['data'][] = new Book($book);
+			$b = new Book($book);
+			foreach ($authorTable[$b->isbn] as $a) {
+				$b->addAuthor(new Author($a));
+			}
+
+			$jsonResult['data'][] = $b;
 		}
 	}
 }
