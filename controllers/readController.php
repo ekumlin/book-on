@@ -18,7 +18,10 @@ class ReadController {
 		$query =
 <<<EOD
 SELECT
-	b.*, a.*, COUNT(bc.ISBN) AS Copies
+	b.*,
+    a.*,
+    SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
+    SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
 FROM
 	Book AS b
 	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
@@ -47,7 +50,10 @@ EOD;
 		$query =
 <<<EOD
 SELECT
-	b.*, a.*, COUNT(bc.ISBN) AS Copies
+	b.*,
+    a.*,
+    SUM(CASE WHEN bc.IsForSale = 0 THEN 1 ELSE 0 END) AS CopiesForRent,
+    SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
 FROM
 	Book AS b
 	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
