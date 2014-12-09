@@ -16,27 +16,34 @@ class Book {
 	public $copiesForRent;
 	public $copiesForSale;
 	public $copies;
-	public $author;
+	public $authors;
 
 	/**
 	 * Creates a new book instance from a database row.
 	 *
 	 * @param string $row The database row containing book data.
-	 * @param boolean $hasAuthor true if the row also contains author data, false otherwise.
 	 */
-	public function __construct($row, $hasAuthor = false) {
+	public function __construct($row) {
 		$this->isbn = $row['ISBN'];
 		$this->title = $row['Title'];
 		$this->salePrice = $row['SalePrice'];
 		$this->pageCount = $row['PageCount'];
 		$this->edition = $row['Edition'];
 		$this->language = $row['Language'];
-		$this->publisher = $row['Publisher'];
+		$this->publisher = $row['PublisherName'];
 		$this->copiesForRent = $row['CopiesForRent'];
 		$this->copiesForSale = $row['CopiesForSale'];
-		
+
 		$this->copies = $this->copiesForRent + $this->copiesForSale;
-		$this->author = new Author($row);
+		$this->authors = array();
+	}
+
+	public function addAuthor($author) {
+		if (get_class($author) != 'Author') {
+			throw new Exception('Provided author argument is ' . get_class($author) . ', expected Author');
+		}
+
+		$this->authors[] = $author;
 	}
 }
 
