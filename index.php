@@ -10,7 +10,7 @@ require_once('init.php');
 require('api.php');
 
 $view = isset($_GET['view']) ? $_GET['view'] : null;
-if (!$view || !preg_match('@^[^/?*:;{}\\\\]+$@', $view)) {
+if (!$view || !preg_match(String::FILE_TITLE_REGEX, $view)) {
 	$view = 'index';
 }
 

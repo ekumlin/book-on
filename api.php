@@ -25,49 +25,16 @@ function apiCall($request) {
 			'data' => array(),
 		);
 
-	if ($request['mode'] == "read") {
-		if ($request['data'] == "allBooks") {
-			$query =
-<<<EOD
-SELECT
-	b.*, a.*, COUNT(bc.ISBN) AS Copies
-FROM
-	Book AS b
-	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
-	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
-	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
-GROUP BY b.ISBN
-EOD;
-			$books = $DB->query($query);
+	$controllerFile = $request['controller'] . "Controller";
+	if (preg_match(String::FILE_TITLE_REGEX, $controllerFile)) {
+		require(_ROOT . "controllers/{$controllerFile}.php");
 
-			$jsonResult['success'] = true;
-			foreach ($books as $book) {
-				$jsonResult['data'][] = new Book($book);
-			}
-		} else if ($request['data'] == "viewBook") {
-			$query =
-<<<EOD
-SELECT
-	b.*, a.*, COUNT(bc.ISBN) AS Copies
-FROM
-	Book AS b
-	LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
-	LEFT JOIN Author AS a ON ba.AuthorId = a.AuthorId
-	LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-    LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
-WHERE
-	b.ISBN = :isbn
-GROUP BY b.ISBN
-EOD;
-			$books = $DB->query($query, array(
-					'isbn' => $request['isbn'],
-				));
+		$controllerName = ucfirst($controllerFile);
+		$controller = new $controllerName;
+		$method = $request['action'];
 
-			$jsonResult['success'] = true;
-			foreach ($books as $book) {
-				$jsonResult['data'][] = new Book($book);
-			}
+		if (method_exists($controller, $method)) {
+			call_user_func_array(array($controller, $method), array($request, &$jsonResult));
 		}
 	}
 

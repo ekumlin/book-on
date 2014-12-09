@@ -13,7 +13,7 @@ class View {
 	 * @param array $args The arguments to be subtituted into the $viewBag variable in the view.
 	 */
 	public static function render($name, $args = array()) {
-		if (!preg_match('@^[^/?*:;{}\\\\]+$@', $name)) {
+		if (!preg_match(String::FILE_TITLE_REGEX, $name)) {
 			throw new Exception("Invalid view name '{$name}'");
 		}
 

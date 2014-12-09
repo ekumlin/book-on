@@ -6,6 +6,8 @@ if (!defined('VALID_REQUEST')) {
 }
 
 class String {
+	const FILE_TITLE_REGEX = '@^[^/?*:;{}\\\\]+$@';
+
 	/**
 	 * Takes in a number and returns a string representing the ordinal ("nth"). Based on solution found here: http://stackoverflow.com/a/3110033/1438733
 	 *
