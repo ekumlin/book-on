@@ -9,8 +9,7 @@ class String {
 	/**
 	 * Takes in a number and returns a string representing the ordinal ("nth"). Based on solution found here: http://stackoverflow.com/a/3110033/1438733
 	 *
-	 * @param string $name The name of the template file (not including the extension).
-	 * @param array $args The arguments to be subtituted into the $viewBag variable in the template.
+	 * @param string $number The number to get the orginal of. Can be a string or integer.
 	 */
 	public static function ordinal($number) {
 		$value = intval($number) % 100;

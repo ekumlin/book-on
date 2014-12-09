@@ -17,21 +17,21 @@ $books = json_decode(apiCall(array(
 if ($books->success) {
 
 	if (count($books->data) >= 1) {
-		$content .= Template::toString("bookView", array(
+		$content .= View::toString("bookView", array(
 			'book' => $books->data[0],
 		));
 	} else {
-		$content .= Template::toString("error", array(
+		$content .= View::toString("error", array(
 			'error' => "No such book found.",
 		));
 	}
 } else {
-	$content .= Template::toString("error", array(
+	$content .= View::toString("error", array(
 		'error' => "Unknown error.",
 	));
 }
 
-print Template::toString("page", array(
+print View::toString("page", array(
 		'title' => 'Book-On',
 		'styles' => array(),
 		'scripts' => array(),

@@ -15,17 +15,17 @@ $books = json_decode(apiCall(array(
 if ($books->success) {
 
 	foreach ($books->data as $obj) {
-		$content .= Template::toString("bookCard", array(
+		$content .= View::toString("bookCard", array(
 			'book' => $obj,
 		));
 	}
 } else {
-	$content .= Template::toString("error", array(
+	$content .= View::toString("error", array(
 		'error' => "Unknown error.",
 	));
 }
 
-print Template::toString("page", array(
+print View::toString("page", array(
 		'title' => 'Book-On',
 		'styles' => array(),
 		'scripts' => array(),
