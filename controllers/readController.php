@@ -6,6 +6,12 @@ if (!defined('VALID_REQUEST')) {
 }
 
 class ReadController {
+	/**
+	 * Makes an API call to list all books.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
 	public function allBooks($request, &$jsonResult) {
 		global $DB;
 
@@ -29,6 +35,12 @@ EOD;
 		}
 	}
 
+	/**
+	 * Makes an API call to get all data for a specific book.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
 	public function viewBook($request, &$jsonResult) {
 		global $DB;
 
