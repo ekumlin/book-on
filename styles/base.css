@@ -261,16 +261,16 @@ div.book-info > .cover img {
 	display: block;
 }
 
-div.book-info > .cover .button {
+div.book-info > .cover .button, #collect-button > a {
 	background: #3F51B5;
 	color: #FFF;
 }
 
-div.book-info > .cover .button:hover {
+div.book-info > .cover .button:hover, #collect-button > a:hover{
 	background: #3949AB;
 }
 
-div.book-info > .cover .button:active {
+div.book-info > .cover .button:active, #collect-button > a:active {
 	background: #303F9F;
 }
 
@@ -361,20 +361,11 @@ div.book-info > .data table img {
 	}
 
 	#collect-button > a {
-		background: #FFC107;
 		border-radius: 50%;
 		box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.25);
 		display: block;
 		position: absolute;
 		top: -30px;
-	}
-
-	#collect-button > a:hover {
-		background: #FFB300;
-	}
-
-	#collect-button > a:active {
-		background: #FFA000;
 	}
 
 	#collect-button img {
