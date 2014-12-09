@@ -33,8 +33,8 @@ if ($books->success) {
 
 print Template::toString("page", array(
 		'title' => 'Book-On',
-		'styles' => array('base'),
-		'scripts' => array(''),
+		'styles' => array(),
+		'scripts' => array(),
 		'body' => $content,
 	));
 
