@@ -4,13 +4,15 @@
 		<title><?php echo $viewBag['title']; ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<?php
-			foreach ($viewBag['styles'] as $style) {
+			$styles = array_merge(array('base'), $viewBag['styles']);
+			foreach ($styles as $style) {
 				echo '<link href="' . _HOST . 'styles/' . $style . '.css" rel="stylesheet" type="text/css"/>';
 			}
 		?>
 	</head>
 	<body>
 		<?php Template::render('header'); ?>
+		<div id="curtain" style="display: none"></div>
 		<div class="drawer"></div>
 		<div class="content">
 			<div class="container">
@@ -18,7 +20,8 @@
 			</div>
 		</div>
 		<?php
-			foreach ($viewBag['scripts'] as $script) {
+			$scripts = array_merge(array('jquery-1.11.1.min', 'base'), $viewBag['scripts']);
+			foreach ($scripts as $script) {
 				echo '<script type="text/javascript" src="' . _HOST . 'scripts/' . $script . '.js"></script>';
 			}
 		?>

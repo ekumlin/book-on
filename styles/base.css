@@ -18,6 +18,7 @@ body > div.header {
 body > div.header > span#hamburger {
 	border-radius: 16px;
 	cursor: pointer;
+	margin: 0 4px;
 	opacity: 0.6;
 }
 
@@ -39,10 +40,19 @@ body > .drawer {
 	bottom: 0;
 	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.25);
 	left: -290px;
+	padding: 72px 16px 16px;
 	position: fixed;
 	top: 0;
-	width: 280px;
+	width: 248px;
 	z-index: 5;
+}
+
+body > div#curtain {
+	background: #000;
+	height: 100%;
+	position: fixed;
+	width: 100%;
+	z-index: 3;
 }
 
 a#logo {
