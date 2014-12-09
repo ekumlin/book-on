@@ -38,6 +38,26 @@ body > div.header > span#hamburger > img {
 	vertical-align: bottom;
 }
 
+body > div.header > input#header-search {
+	background: rgba(255, 255, 255, 0.5);
+	border: none;
+	border-radius: 2px;
+	color: #FFF;
+	font-family: inherit;
+	font-size: 85%;
+	outline: none;
+	padding: 4px 16px;
+	max-width: 400px;
+	margin: 0 24px;
+	width: 75%;
+}
+
+/* Do not combine these */
+body > div.header > input#header-search::-webkit-input-placeholder { color: #FFF; }
+body > div.header > input#header-search:-moz-placeholder { color: #FFF; }
+body > div.header > input#header-search::-moz-placeholder { color: #FFF; }
+body > div.header > input#header-search:-ms-input-placeholder { color: #FFF; }
+
 body > .drawer {
 	background: #FAFAFA;
 	bottom: 0;
