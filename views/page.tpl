@@ -11,7 +11,7 @@
 		?>
 	</head>
 	<body>
-		<?php Template::render('header'); ?>
+		<?php View::render('header'); ?>
 		<div id="curtain" style="display: none"></div>
 		<div class="drawer"></div>
 		<div class="content">
