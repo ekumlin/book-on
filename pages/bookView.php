@@ -33,7 +33,7 @@ if ($books->success) {
 
 print View::toString("page", array(
 		'title' => 'Book-On',
-		'styles' => array(),
+		'styles' => array('bookView'),
 		'scripts' => array(),
 		'body' => $content,
 	));
