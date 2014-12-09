@@ -13,7 +13,7 @@
 	<body>
 		<?php View::render('header'); ?>
 		<div id="curtain" style="display: none"></div>
-		<div class="drawer"></div>
+		<?php View::render('drawer'); ?>
 		<div class="content">
 			<div class="container">
 				<?php echo $viewBag['body']; ?>
