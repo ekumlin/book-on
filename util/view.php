@@ -13,6 +13,16 @@ class View {
 	 * @param array $args The arguments to be subtituted into the $viewBag variable in the view.
 	 */
 	public static function render($name, $args = array()) {
+		echo self::toString($name, $args);
+	}
+
+	/**
+	 * Loads a view, subtitutes in arguments, and returns it as a string.
+	 *
+	 * @param string $name The name of the view file (not including the extension).
+	 * @param array $args The arguments to be subtituted into the $viewBag variable in the view.
+	 */
+	public static function toString($name, $args = array()) {
 		if (!preg_match(String::FILE_TITLE_REGEX, $name)) {
 			throw new Exception("Invalid view name '{$name}'");
 		}
@@ -28,19 +38,9 @@ class View {
 		}
 
 		$viewBag = $args;
-		require($filename);
-	}
-
-	/**
-	 * Loads a view, subtitutes in arguments, and returns it as a string.
-	 *
-	 * @param string $name The name of the view file (not including the extension).
-	 * @param array $args The arguments to be subtituted into the $viewBag variable in the view.
-	 */
-	public static function toString($name, $args = array()) {
 		ob_start();
-		self::render($name, $args);
-		return ob_get_clean();
+		require($filename);
+		return trim(ob_get_clean());
 	}
 }
 
