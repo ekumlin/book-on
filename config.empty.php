@@ -13,4 +13,6 @@ $CONFIG['db-user'] = '';
 $CONFIG['db-pass'] = '';
 $CONFIG['db-name'] = '';
 
+$CONFIG['language'] = 'en';
+
 ?>
