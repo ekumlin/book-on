@@ -153,11 +153,7 @@ a {
 }
 
 a:hover {
-	color: #1E88E5;
-}
-
-a:active {
-	color: #1976D2;
+	text-decoration: underline;
 }
 
 a#logo {
@@ -203,7 +199,7 @@ input {
 	margin: 0;
 	outline: none;
 	padding: 8px 12px;
-	text-decoration: none;
+	text-decoration: none !important;
 	text-transform: uppercase;
 }
 
