@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-isbn.png" title="ISBN"/></td>
-				<td><div><?php echo $viewBag['book']->isbn; ?></div></td>
+				<td><div><?php echo String::formatIsbn($viewBag['book']->isbn); ?></div></td>
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-pages.png" title="Page count"/></td>
