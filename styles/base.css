@@ -58,10 +58,6 @@ body > div.header > input#header-search:focus {
 	background: rgba(255, 255, 255, 0.4);
 }
 
-body > div.header > input#header-search:active {
-	background: rgba(255, 255, 255, 0.5);
-}
-
 /* Do not combine these */
 body > div.header > input#header-search::-webkit-input-placeholder { color: #FFF; }
 body > div.header > input#header-search:-moz-placeholder { color: #FFF; }
