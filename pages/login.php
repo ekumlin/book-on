@@ -5,18 +5,33 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
+$isLoggedIn = isset($_SESSION['User']);
+
 $content = '';
-$givenCardNo = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : NULL;
-$givenPwd = isset($_POST['password']) ? $_POST['password'] : NULL;
 
-if ($givenPwd) {
-	$canLogin = json_decode(apiCall(array(
-			'controller' => 'user',
-			'action' => 'login',
-			'cardNumber' => $givenCardNo,
-			'password' => $givenPwd,
-		)));
+if (!$isLoggedIn) {
+	$givenCardNo = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : NULL;
+	$givenPwd = isset($_POST['password']) ? $_POST['password'] : NULL;
 
+	if ($givenPwd) {
+		$canLogin = json_decode(apiCall(array(
+				'controller' => 'user',
+				'action' => 'login',
+				'cardNumber' => $givenCardNo,
+				'password' => $givenPwd,
+			)));
+
+		if ($canLogin->success) {
+			$isLoggedIn = true;
+		} else {
+			$content .= View::toString('error', array(
+					'error' => $canLogin->errstr,
+				));
+		}
+	}
+}
+
+if ($isLoggedIn) {
 	$returnUrl = _HOST;
 	if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'login') === false) {
 		$returnUrl = $_SERVER['HTTP_REFERER'];
