@@ -25,5 +25,6 @@
 				echo '<script type="text/javascript" src="' . _HOST . 'scripts/' . $script . '.js"></script>';
 			}
 		?>
+		<input type="hidden" name="php-host" value="<?php echo _HOST; ?>" />
 	</body>
 </html>
