@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2014 at 12:43 PM
+-- Generation Time: Dec 10, 2014 at 05:45 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `Book` (
   `PageCount` int(6) NOT NULL,
   `Edition` smallint(3) NOT NULL,
   `Language` varchar(2) NOT NULL,
-  `Publisher` int(11) NOT NULL,
+  `Publisher` int(11) DEFAULT NULL,
   PRIMARY KEY (`ISBN`),
   KEY `Publisher` (`Publisher`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `BookCollected` (
 CREATE TABLE IF NOT EXISTS `BookCopy` (
   `BookCopyId` bigint(20) NOT NULL AUTO_INCREMENT,
   `IsForSale` tinyint(1) NOT NULL,
+  `IsStocked` tinyint(1) NOT NULL,
   `ISBN` bigint(13) NOT NULL,
   PRIMARY KEY (`BookCopyId`),
   KEY `ISBN` (`ISBN`)
