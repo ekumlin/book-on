@@ -180,6 +180,10 @@ img {
 	border: 0;
 }
 
+input {
+	font-family: inherit;
+}
+
 .button-raised {
 	background: #EEE;
 	border: none;
