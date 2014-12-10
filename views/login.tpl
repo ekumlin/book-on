@@ -10,7 +10,7 @@
 		<div class="input-status input-dependent" data-dependence="login-password" data-attribute="length"></div>
 	</div>
 	<div class="form-controls">
-		<input type="button" name="cancel" value="Register" class="button-flat" />
-		<input type="submit" name="submit" value="Log in" class="button-flat" />
+		<a href="<?php echo _HOST; ?>register" class="button-flat register">Register</a>
+		<input type="submit" value="Log in" class="button-flat submit" />
 	</div>
 </form>

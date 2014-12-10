@@ -1,11 +1,11 @@
 form.login-form {
 	margin: 0 auto;
-	padding: 16px;
-	width: 500px;
+	max-width: 500px;
+	width: 100%;
 }
 
 	form.login-form .input-group {
-		margin-bottom: 16px;
+		margin: 16px;
 	}
 
 	form.login-form .form-controls {
@@ -18,12 +18,12 @@ form.login-form {
 		border: 0 solid #E0E0E0;
 		border-color: rgba(0, 0, 0, 0.1);
 		border-width: 0 0 1px;
-		font-family: inherit;
+		box-sizing: border-box;
 		font-size: inherit;
 		margin-bottom: 1px;
 		outline: none;
 		padding: 8px;
-		width: calc(500px - 16px);
+		width: 100%;
 	}
 
 	form.login-form input[type=text]:focus,
@@ -33,32 +33,34 @@ form.login-form {
 		margin-bottom: 0;
 	}
 
-	form.login-form [type=submit] {
+	form.login-form .submit {
 		background: #FAFAFA;
 		color: #4CAF50;
 		cursor: pointer;
+		outline: none;
 	}
 
-		form.login-form [type=submit]:hover {
+		form.login-form .submit:hover {
 			background: #43A047;
 			color: #FFF;
 		}
 
-		form.login-form [type=submit]:active {
+		form.login-form .submit:active {
 			background: #388E3C;
 		}
 
-	form.login-form [type=button] {
+	form.login-form .register {
 		background: #FAFAFA;
 		color: #F44336;
 		cursor: pointer;
+		outline: none;
 	}
 
-		form.login-form [type=button]:hover {
+		form.login-form .register:hover {
 			background: #E53935;
 			color: #FFF;
 		}
 
-		form.login-form [type=button]:active {
+		form.login-form .register:active {
 			background: #D32F2F;
 		}
