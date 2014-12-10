@@ -13,51 +13,52 @@ $emptyBook = new Book();
 if (isset($_POST['bookTitle'])) {
 	$errors = array();
 
-	if ($editingIsbn == 0) {
-		$isbn = $title = $language = NULL;
-		$edition = $salePrice = $pageCount = 0;
+	$isbn = $title = $language = NULL;
+	$edition = $salePrice = $pageCount = 0;
 
-		$isbn = str_replace('-', '', strval($_POST['isbn']));
-		if (!ctype_digit($isbn) || (strlen($isbn) != 13 && strlen($isbn) != 10)) {
-			$isbn = NULL;
-		}
+	$isbn = str_replace('-', '', strval($_POST['isbn']));
+	if (!ctype_digit($isbn) || (strlen($isbn) != 13 && strlen($isbn) != 10)) {
+		$isbn = NULL;
+	}
 
-		$existingBook = json_decode(apiCall(array(
-				'controller' => 'read',
-				'action' => 'viewBook',
-				'isbn' => $isbn,
-			)));
+	$existingBook = json_decode(apiCall(array(
+			'controller' => 'read',
+			'action' => 'viewBook',
+			'isbn' => $isbn,
+		)));
 
-		$title = $_POST['bookTitle'];
+	$title = $_POST['bookTitle'];
 
-		if (array_key_exists($_POST['language'], Locale::getLanguageList())) {
-			$language = $_POST['language'];
-		}
+	if (array_key_exists($_POST['language'], Locale::getLanguageList())) {
+		$language = $_POST['language'];
+	}
 
-		if (ctype_digit($_POST['edition'])) {
-			$edition = intval($_POST['edition']);
-		}
+	if (ctype_digit($_POST['edition'])) {
+		$edition = intval($_POST['edition']);
+	}
 
-		if (is_numeric($_POST['salePrice'])) {
-			$salePrice = floatval($_POST['salePrice']);
-		}
+	if (is_numeric($_POST['salePrice'])) {
+		$salePrice = floatval($_POST['salePrice']);
+	}
 
-		if (ctype_digit($_POST['pageCount'])) {
-			$pageCount = intval($_POST['pageCount']);
-		}
+	if (ctype_digit($_POST['pageCount'])) {
+		$pageCount = intval($_POST['pageCount']);
+	}
 
+	if (!$isbn) {
+		$errors[] = 'Invalid ISBN.';
+	}
+	if (!$title || !strlen($title)) {
+		$errors[] = 'Invalid book title.';
+	}
+
+	if (count($errors) == 0) {
 		if (count($existingBook->data) > 0) {
 			$errors[] = 'A <a href=' . _HOST . 'book/' . $isbn . '>book</a> with this ISBN already exists.';
 		}
-		if (!$isbn) {
-			$errors[] = 'Invalid ISBN.';
-		}
-		if (!$title || !strlen($title)) {
-			$errors[] = 'Invalid book title.';
-		}
 
-		if (count($errors) == 0) {
-			$addedBook = json_decode(apiCall(array(
+		if ($editingIsbn == 0) {
+			$newBook = json_decode(apiCall(array(
 					'controller' => 'inventory',
 					'action' => 'addNewBook',
 					'book' => array(
@@ -71,8 +72,24 @@ if (isset($_POST['bookTitle'])) {
 						),
 				)));
 
-			var_dump($addedBook);
-			//header('Location: ' . _HOST . 'book/' . $isbn);
+			header('Location: ' . _HOST . 'book/' . $isbn);
+			exit;
+		} else {
+			$newBook = json_decode(apiCall(array(
+					'controller' => 'inventory',
+					'action' => 'updateBook',
+					'book' => array(
+							'isbn' => $editingIsbn,
+							'title' => $title,
+							'salePrice' => $salePrice,
+							'pageCount' => $pageCount,
+							'edition' => $edition,
+							'language' => $language,
+							'publisher' => NULL,
+						),
+				)));
+
+			header('Location: ' . _HOST . 'book/' . $isbn);
 			exit;
 		}
 	}
@@ -95,6 +112,7 @@ if (isset($_POST['bookTitle'])) {
 if ($editingIsbn == 0) {
 	$content .= View::toString("bookEdit", array(
 		'book' => $emptyBook,
+		'target' => 'add',
 	));
 } else {
 	$books = json_decode(apiCall(array(
@@ -105,6 +123,7 @@ if ($editingIsbn == 0) {
 
 	$content .= View::toString("bookEdit", array(
 		'book' => $books->data[0],
+		'target' => "edit/{$editingIsbn}",
 	));
 }
 

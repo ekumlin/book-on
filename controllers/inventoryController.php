@@ -47,6 +47,42 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 	}
+
+	/**
+	 * Makes an API call to update a book's information in the database.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function updateBook($request, &$jsonResult) {
+		global $DB;
+
+		$book = $request['book'];
+
+		$query = "
+			UPDATE Book
+			SET
+				Title = :title,
+				SalePrice = :salePrice,
+				PageCount = :pageCount,
+				Edition = :edition,
+				Language = :language,
+				Publisher = :publisher
+			WHERE
+				ISBN = :isbn
+		";
+		$insertion = $DB->query($query, array(
+				'isbn' => $book['isbn'],
+				'title' => $book['title'],
+				'salePrice' => $book['salePrice'],
+				'pageCount' => $book['pageCount'],
+				'edition' => $book['edition'],
+				'language' => $book['language'],
+				'publisher' => $book['publisher'],
+			));
+
+		$jsonResult['success'] = true;
+	}
 }
 
 ?>
