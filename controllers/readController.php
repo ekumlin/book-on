@@ -122,8 +122,8 @@ class ReadController {
 					SUM(CASE WHEN bc.IsForSale = 1 THEN 1 ELSE 0 END) AS CopiesForSale
 				FROM
 					Collection AS c
-					LEFT JOIN BookFave AS bf ON bf.CollectionId = c.CollectionId
-					LEFT JOIN Book AS b ON b.ISBN = bf.ISBN
+					LEFT JOIN BookCollected AS bcol ON bcol.CollectionId = c.CollectionId
+					LEFT JOIN Book AS b ON b.ISBN = bcol.ISBN
 					LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
 					LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
 					LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
