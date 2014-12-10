@@ -6,8 +6,12 @@ if (!defined('VALID_REQUEST')) {
 }
 
 class User {
+	const USER_BASIC = 0;
+	const USER_STAFF = 1;
+	const USER_ADMIN = 2;
+
 	public $cardNumber;
-	public $isEmployee;
+	public $employeeLevel;
 	public $name;
 	public $email;
 	public $accountStatus;
@@ -19,7 +23,7 @@ class User {
 	 */
 	public function __construct($row) {
 		$this->cardNumber = $row['CardNumber'];
-		$this->isEmployee = $row['IsEmployee'];
+		$this->employeeLevel = $row['IsEmployee'];
 		$this->name = $row['Name'];
 		$this->email = $row['Email'];
 		$this->accountStatus = $row['AccountStatus'];
