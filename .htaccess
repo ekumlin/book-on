@@ -66,8 +66,9 @@ FileETag None
 
 	RewriteRule ^book/([0-9-]+)$ index.php?view=bookView&isbn=$1 [L,QSA]
 
-	RewriteRule ^login$ index.php?view=login [L,QSA]
-	RewriteRule ^logout$ index.php?view=logout [L,QSA]
+	RewriteRule ^collections$ index.php?view=collection [L,QSA]
+	RewriteRule ^collection/([0-9]+)$ index.php?view=collection&collectionId=$1 [L,QSA]
+	RewriteRule ^(login|logout)$ index.php?view=$1 [L,QSA]
 
 	RewriteRule .* - [L,QSA]
 </IfModule>
