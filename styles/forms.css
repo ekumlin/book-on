@@ -1,0 +1,78 @@
+form.material-form {
+	margin: 0 auto;
+	max-width: 500px;
+	width: 100%;
+}
+
+	form.material-form .input-group {
+		margin: 16px;
+	}
+
+	form.material-form .form-controls {
+		text-align: right;
+	}
+
+	form.material-form input[type=tel],
+	form.material-form input[type=text],
+	form.material-form input[type=email],
+	form.material-form input[type=number],
+	form.material-form input[type=password] {
+		background: none;
+		border: 0 solid #E0E0E0;
+		border-color: rgba(0, 0, 0, 0.1);
+		border-width: 0 0 1px;
+		box-sizing: border-box;
+		font-size: inherit;
+		margin-bottom: 1px;
+		outline: none;
+		padding: 8px;
+		width: 100%;
+	}
+
+	form.material-form select {
+		outline: none;
+		padding: 8px;
+		width: 100%;
+	}
+
+	form.material-form input[type=tel]:focus,
+	form.material-form input[type=text]:focus,
+	form.material-form input[type=email]:focus,
+	form.material-form input[type=number]:focus,
+	form.material-form input[type=password]:focus {
+		border-color: #4CAF50;
+		border-width: 0 0 2px;
+		margin-bottom: 0;
+	}
+
+	form.material-form input.action-primary {
+		background: #FAFAFA;
+		color: #4CAF50;
+		cursor: pointer;
+		outline: none;
+	}
+
+		form.material-form input.action-primary:hover {
+			background: #43A047;
+			color: #FFF;
+		}
+
+		form.material-form input.action-primary:active {
+			background: #388E3C;
+		}
+
+	form.material-form input.action-negative {
+		background: #FAFAFA;
+		color: #F44336;
+		cursor: pointer;
+		outline: none;
+	}
+
+		form.material-form input.action-negative:hover {
+			background: #E53935;
+			color: #FFF;
+		}
+
+		form.material-form input.action-negative:active {
+			background: #D32F2F;
+		}
