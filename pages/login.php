@@ -32,12 +32,7 @@ if (!$isLoggedIn) {
 }
 
 if ($isLoggedIn) {
-	$returnUrl = _HOST;
-	if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'login') === false) {
-		$returnUrl = $_SERVER['HTTP_REFERER'];
-	}
-	header("Location: $returnUrl");
-	exit;
+	Http::back('/login/');
 } else {
 	$content .= View::toString('login');
 }
