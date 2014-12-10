@@ -6,6 +6,7 @@ if (!defined('VALID_REQUEST')) {
 }
 
 $content = '';
+$title = 'Book-On';
 $desiredIsbn = $_GET['isbn'];
 
 $books = json_decode(apiCall(array(
@@ -15,11 +16,12 @@ $books = json_decode(apiCall(array(
 	)));
 
 if ($books->success) {
-
 	if (count($books->data) >= 1) {
 		$content .= View::toString("bookView", array(
 			'book' => $books->data[0],
 		));
+
+		$title = "{$books->data[0]->title} :: $title";
 	} else {
 		$content .= View::toString("error", array(
 			'error' => "No such book found.",
@@ -32,7 +34,7 @@ if ($books->success) {
 }
 
 print View::toString("page", array(
-		'title' => 'Book-On',
+		'title' => $title,
 		'styles' => array('bookView'),
 		'scripts' => array(),
 		'body' => $content,
