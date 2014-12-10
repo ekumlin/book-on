@@ -199,7 +199,7 @@ class Locale {
 				'zu' => 'Zulu',
 			);
 
-		return isset($langs[$abbr]) ? $langs[$abbr] : null;
+		return isset($langs[$abbr]) ? $langs[$abbr] : NULL;
 	}
 }
 
