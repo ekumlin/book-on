@@ -39,7 +39,7 @@ if ($isLoggedIn) {
 
 print View::toString('page', array(
 		'title' => 'Log in :: Book-On',
-		'styles' => array('login'),
+		'styles' => array('forms'),
 		'scripts' => array(),
 		'body' => $content,
 	));
