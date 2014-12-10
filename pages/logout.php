@@ -7,11 +7,6 @@ if (!defined('VALID_REQUEST')) {
 
 session_destroy();
 
-$returnUrl = _HOST;
-if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'login') === false) {
-	$returnUrl = $_SERVER['HTTP_REFERER'];
-}
-header("Location: $returnUrl");
-exit;
+Http::back('/log(in|out)/');
 
 ?>
