@@ -7,12 +7,10 @@ if (!defined('VALID_REQUEST')) {
 
 class Locale {
 	/**
-	 * Gets a language name from the two-letter ISO code.
-	 *
-	 * @param string $abbr The ISO 639-1 code for the language.
+	 * Gets a list of languages keyed by ISO 639-1 codes.
 	 */
-	public static function getLanguageName($abbr) {
-		$langs = array(
+	public static function getLanguageList() {
+		return array(
 				'ab' => 'Abkhaz',
 				'aa' => 'Afar',
 				'af' => 'Afrikaans',
@@ -198,6 +196,15 @@ class Locale {
 				'za' => 'Zhuang, Chuang',
 				'zu' => 'Zulu',
 			);
+	}
+
+	/**
+	 * Gets a language name from the two-letter ISO code.
+	 *
+	 * @param string $abbr The ISO 639-1 code for the language.
+	 */
+	public static function getLanguageName($abbr) {
+		$langs = self::getLanguageList();
 
 		return isset($langs[$abbr]) ? $langs[$abbr] : NULL;
 	}
