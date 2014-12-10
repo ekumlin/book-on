@@ -19,6 +19,7 @@ require(_ROOT . 'util/view.php');
 require(_ROOT . 'models/author.php');
 require(_ROOT . 'models/book.php');
 require(_ROOT . 'models/user.php');
+require(_ROOT . 'models/collection.php');
 
 $DB = new Connection($CONFIG['db-host'], $CONFIG['db-user'], $CONFIG['db-pass'], $CONFIG['db-name']);
 
