@@ -1,7 +1,5 @@
 <?php
 
-//password_hash("eric", PASSWORD_BCRYPT);
-
 if (!defined('VALID_REQUEST')) {
 	http_response_code(404);
 	exit;
