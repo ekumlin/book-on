@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2014 at 06:58 PM
+-- Generation Time: Dec 10, 2014 at 12:43 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -69,6 +69,19 @@ CREATE TABLE IF NOT EXISTS `BookAuthor` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `BookCollected`
+--
+
+CREATE TABLE IF NOT EXISTS `BookCollected` (
+  `CollectionId` int(11) NOT NULL,
+  `ISBN` bigint(13) NOT NULL,
+  KEY `CollectionId` (`CollectionId`),
+  KEY `ISBN` (`ISBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `BookCopy`
 --
 
@@ -83,16 +96,19 @@ CREATE TABLE IF NOT EXISTS `BookCopy` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `BookFave`
+-- Table structure for table `BookRated`
 --
 
-CREATE TABLE IF NOT EXISTS `BookFave` (
-  `CollectionId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `BookRated` (
+  `RatingId` int(11) NOT NULL AUTO_INCREMENT,
+  `CardNumber` int(11) NOT NULL,
   `ISBN` bigint(13) NOT NULL,
   `Rating` tinyint(1) NOT NULL,
-  KEY `CollectionId` (`CollectionId`),
+  `Review` text NOT NULL,
+  PRIMARY KEY (`RatingId`),
+  KEY `CardNumber` (`CardNumber`),
   KEY `ISBN` (`ISBN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -175,17 +191,17 @@ ALTER TABLE `BookAuthor`
   ADD CONSTRAINT `BookAuthor_ibfk_2` FOREIGN KEY (`AuthorId`) REFERENCES `Author` (`AuthorId`);
 
 --
+-- Constraints for table `BookCollected`
+--
+ALTER TABLE `BookCollected`
+  ADD CONSTRAINT `BookCollected_ibfk_1` FOREIGN KEY (`CollectionId`) REFERENCES `Collection` (`CollectionId`),
+  ADD CONSTRAINT `BookCollected_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
+
+--
 -- Constraints for table `BookCopy`
 --
 ALTER TABLE `BookCopy`
   ADD CONSTRAINT `BookCopy_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
-
---
--- Constraints for table `BookFave`
---
-ALTER TABLE `BookFave`
-  ADD CONSTRAINT `BookFave_ibfk_1` FOREIGN KEY (`CollectionId`) REFERENCES `Collection` (`CollectionId`),
-  ADD CONSTRAINT `BookFave_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
 
 --
 -- Constraints for table `BookTransaction`
