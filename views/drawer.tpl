@@ -5,6 +5,10 @@
 			<td><a href='<?php echo _HOST; ?>'>Book index</a></td>
 		</tr>
 		<tr class="item">
+			<td><img src="<?php echo _HOST; ?>assets/icon-book-held.png" title="View my held books"/></td>
+			<td><a href='<?php echo _HOST; ?>books/held'>Held books</a></td>
+		</tr>
+		<tr class="item">
 			<td><img src="<?php echo _HOST; ?>assets/icon-collect.png" title="Collections"/></td>
 			<td><a href='<?php echo _HOST; ?>collections'>Collections</a></td>
 		</tr>
