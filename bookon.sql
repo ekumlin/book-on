@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2014 at 05:45 PM
+-- Generation Time: Dec 11, 2014 at 02:32 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `BookCollected` (
 CREATE TABLE IF NOT EXISTS `BookCopy` (
   `BookCopyId` bigint(20) NOT NULL AUTO_INCREMENT,
   `IsForSale` tinyint(1) NOT NULL,
-  `IsStocked` tinyint(1) NOT NULL,
+  `HeldBy` int(11) DEFAULT NULL,
   `ISBN` bigint(13) NOT NULL,
   PRIMARY KEY (`BookCopyId`),
   KEY `ISBN` (`ISBN`)
