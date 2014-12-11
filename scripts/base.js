@@ -51,12 +51,8 @@ $(document).ready(function() {
 			}
 		});
 	});
-<<<<<<< HEAD
 
 	$("#drawer tr").click(function() {
 		window.location = $(this).find("a").attr("href");
 	});
 });
-=======
-});
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49

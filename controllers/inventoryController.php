@@ -47,7 +47,6 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Makes an API call to update a book's information in the database.
@@ -84,8 +83,6 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 	}
-=======
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 }
 
 ?>

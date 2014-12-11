@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>book/<?php echo $viewBag['target']; ?>" novalidate>
-=======
-<form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>book/add" novalidate>
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 	<div class="input-group">
 		<input type="tel" name="isbn" id="bookEdit-isbn" pattern="^[0-9-]+$" value="<?php echo $viewBag['book']->isbn; ?>" placeholder="ISBN" required />
 		<div class="input-status input-error"></div>
@@ -29,7 +25,6 @@
 		</select>
 	</div>
 	<div class="input-group">
-<<<<<<< HEAD
 		<input type="number" name="edition" id="bookEdit-edition" value="<?php echo $viewBag['book']->edition; ?>" pattern="^[0-9]+$" placeholder="Edition" />
 		<div class="input-status input-error"></div>
 	</div>
@@ -39,17 +34,6 @@
 	</div>
 	<div class="input-group">
 		<input type="number" name="pageCount" id="bookEdit-pageCount" value="<?php echo $viewBag['book']->pageCount; ?>" pattern="^[0-9]+$" placeholder="Pages" />
-=======
-		<input type="number" name="edition" id="bookEdit-edition" pattern="^[0-9]+$" placeholder="Edition" />
-		<div class="input-status input-error"></div>
-	</div>
-	<div class="input-group">
-		<input type="number" name="salePrice" id="bookEdit-salePrice" pattern="^[0-9.]+$" placeholder="Price" />
-		<div class="input-status input-error"></div>
-	</div>
-	<div class="input-group">
-		<input type="number" name="pageCount" id="bookEdit-pageCount" pattern="^[0-9]+$" placeholder="Pages" />
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="input-group">

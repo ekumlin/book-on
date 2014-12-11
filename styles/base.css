@@ -5,7 +5,6 @@ body {
 	padding: 0;
 }
 
-<<<<<<< HEAD
 	body > div.header {
 		background: #4CAF50;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
@@ -88,87 +87,6 @@ body {
 				body > div.header > .login a:active {
 					background: rgba(0, 0, 0, 0.15);
 				}
-=======
-body > div.header {
-	background: #4CAF50;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-	color: #FFF;
-	font-size: 20px;
-	left: 0;
-	padding: 12px;
-	position: fixed;
-	right: 0;
-	top: 0;
-	white-space: nowrap;
-	z-index: 9;
-}
-
-body > div.header > span#hamburger {
-	border-radius: 16px;
-	cursor: pointer;
-	margin: 0 4px;
-	opacity: 0.6;
-}
-
-body > div.header > span#hamburger:hover {
-	opacity: 1;
-}
-
-body > div.header > span#hamburger:active {
-	background: rgba(0, 0, 0, 0.2);
-}
-
-body > div.header > span#hamburger > img {
-	padding: 4px 0;
-	vertical-align: bottom;
-}
-
-body > div.header > input#header-search {
-	background: rgba(255, 255, 255, 0.3);
-	border: none;
-	border-radius: 2px;
-	color: #FFF;
-	font-family: inherit;
-	font-size: 85%;
-	outline: none;
-	padding: 4px 16px;
-	max-width: 700px;
-	margin: 0 48px;
-	width: 55%;
-}
-
-body > div.header > input#header-search:hover,
-body > div.header > input#header-search:focus {
-	background: rgba(255, 255, 255, 0.4);
-}
-
-/* Do not combine these */
-body > div.header > input#header-search::-webkit-input-placeholder { color: #FFF; }
-body > div.header > input#header-search:-moz-placeholder { color: #FFF; }
-body > div.header > input#header-search::-moz-placeholder { color: #FFF; }
-body > div.header > input#header-search:-ms-input-placeholder { color: #FFF; }
-
-body > div.header > .login {
-	float: right;
-	font-size: 14px;
-}
-
-body > div.header > .login .username {
-	margin-right: 16px;
-}
-
-body > div.header > .login a {
-	color: #FFF;
-}
-
-body > div.header > .login a:hover {
-	background: rgba(0, 0, 0, 0.1);
-}
-
-body > div.header > .login a:active {
-	background: rgba(0, 0, 0, 0.15);
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 body > .drawer {
 	background: #FAFAFA;
@@ -183,7 +101,6 @@ body > .drawer {
 	z-index: 5;
 }
 
-<<<<<<< HEAD
 	body > .drawer .section {
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
 		margin-top: 8px;
@@ -245,63 +162,12 @@ body > .drawer {
 		width: 100%;
 		z-index: 3;
 	}
-=======
-body > .drawer table {
-	border-collapse: separate;
-	border-spacing: 0 8px;
-	table-layout: fixed;
-	width: 100%;
-}
-
-body > .drawer table tr:hover {
-	background: #EEE;
-	cursor: pointer;
-}
-
-body > .drawer table tr:active {
-	background: #E0E0E0;
-}
-
-body > .drawer table tr:active img {
-	opacity: 0.8;
-}
-
-body > .drawer table td {
-	padding: 8px 4px;
-}
-
-body > .drawer table td:first-child {
-	width: 50px;
-}
-
-body > .drawer table td a {
-	color: #333;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-body > .drawer table img {
-	height: 24px;
-	margin: 0 8px 0 16px;
-	opacity: 0.5;
-	width: auto;
-}
-
-body > div#curtain {
-	background: #000;
-	height: 100%;
-	position: fixed;
-	width: 100%;
-	z-index: 3;
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 a {
 	color: #2196F3;
 	text-decoration: none;
 }
 
-<<<<<<< HEAD
 	a:hover {
 		text-decoration: underline;
 	}
@@ -321,43 +187,15 @@ a {
 	a#logo:active {
 		background: rgba(0, 0, 0, 0.15);
 	}
-=======
-a:hover {
-	text-decoration: underline;
-}
-
-a#logo {
-	border-radius: 2px;
-	color: inherit;
-	display: inline-block;
-	padding: 4px;
-	text-decoration: none;
-}
-
-a#logo:hover {
-	background: rgba(0, 0, 0, 0.1);
-}
-
-a#logo:active {
-	background: rgba(0, 0, 0, 0.15);
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 h1 {
 	font: 100 36px Roboto, Helvetica, 'Trebuchet MS', sans-serif;
 }
 
-<<<<<<< HEAD
 	h1 a {
 		color: inherit;
 		text-decoration: none;
 	}
-=======
-h1 a {
-	color: inherit;
-	text-decoration: none;
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 img {
 	border: 0;
@@ -373,11 +211,7 @@ input {
 	cursor: pointer;
 	display: inline-block;
 	font-size: 14px;
-<<<<<<< HEAD
 	font-weight: 700;
-=======
-	font-weight: bold;
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 	margin: 0;
 	outline: none;
 	padding: 8px 12px;
@@ -392,7 +226,6 @@ input {
 	min-width: 88px;
 }
 
-<<<<<<< HEAD
 	.button-raised:hover {
 		background: #E0E0E0;
 	}
@@ -400,21 +233,11 @@ input {
 	.button-raised:active {
 		background: #BDBDBD;
 	}
-=======
-.button-raised:hover {
-	background: #E0E0E0;
-}
-
-.button-raised:active {
-	background: #BDBDBD;
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 .button-flat {
 	color: #333;
 }
 
-<<<<<<< HEAD
 	.button-flat:hover {
 		background: rgba(153, 153, 153, 0.2); /* #999 */
 	}
@@ -422,15 +245,6 @@ input {
 	.button-flat:active {
 		background: rgba(153, 153, 153, 0.4); /* #999 */
 	}
-=======
-.button-flat:hover {
-	background: rgba(153, 153, 153, 0.2); /* #999 */
-}
-
-.button-flat:active {
-	background: rgba(153, 153, 153, 0.4); /* #999 */
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 form.material-form .button-flat {
 	min-width: 88px;
@@ -441,28 +255,18 @@ div.content {
 	padding: 16px;
 }
 
-<<<<<<< HEAD
 	@media (max-width: 720px) {
 		div.content {
 			margin: 56px 25px 0;
 			padding: 8px;
 		}
 	}
-=======
-@media (max-width: 720px) {
-	div.content {
-		margin: 56px 25px 0;
-		padding: 8px;
-	}
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 div.card-box.columnar {
 	display: inline-block;
 	min-width: 250px;
 }
 
-<<<<<<< HEAD
 	@media (max-width: 800px) {
 		div.card-box.columnar {
 			width: 100%;
@@ -486,31 +290,6 @@ div.card-box.columnar {
 			width: 25%;
 		}
 	}
-=======
-@media (max-width: 800px) {
-	div.card-box.columnar {
-		width: 100%;
-	}
-}
-
-@media (min-width: 801px) and (max-width: 1200px) {
-	div.card-box.columnar {
-		width: 50%;
-	}
-}
-
-@media (min-width: 1201px) and (max-width: 1600px) {
-	div.card-box.columnar {
-		width: 33%;
-	}
-}
-
-@media (min-width: 1601px) {
-	div.card-box.columnar {
-		width: 25%;
-	}
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 
 div.card {
 	background: #FFF;
@@ -519,7 +298,6 @@ div.card {
 	margin: 8px;
 }
 
-<<<<<<< HEAD
 	div.card h1 {
 		font: 300 22px 'Roboto Slab', Georgia, serif;
 		margin: 0;
@@ -568,75 +346,3 @@ div.card {
 		div.card .card-button.primary:active {
 			background: #388E3C;
 		}
-=======
-div.card.error-card {
-	padding: 0;
-	width: 100%;
-}
-
-div.card h1 {
-	font: 300 22px 'Roboto Slab', Georgia, serif;
-	margin: 0;
-	overflow: hidden;
-	padding: 16px 16px 0;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-div.card.error-card h1 {
-	background: #F44336;
-	border-radius: 2px 2px 0 0;
-	color: #FFF;
-	font-family: Roboto, Helvetica, 'Trebuchet MS', sans-serif;
-}
-
-div.card.error-card > * {
-	margin: 0;
-	padding: 16px;
-}
-
-div.card > div {
-	margin: 16px 16px 0;
-}
-
-div.card > div.buttons {
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-	margin: 16px 0 0;
-	padding: 8px 8px;
-}
-
-div.card.book-card > div.info > span {
-	display: inline-block;
-	margin-right: 16px;
-}
-
-div.card.book-card > div.info > span.pri1 {
-	font-weight: bold;
-}
-
-div.card.book-card > div.info > span.pri3 {
-	opacity: 0.5;
-}
-
-div.card.book-card > div.cover {
-	text-align: center;
-}
-
-div.card.book-card > div.cover img {
-	height: 128px;
-	width: auto;
-}
-
-div.card .card-button.primary {
-	color: #4CAF50;
-}
-
-div.card .card-button.primary:hover {
-	background: #43A047;
-	color: #FFF;
-}
-
-div.card .card-button.primary:active {
-	background: #388E3C;
-}
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49

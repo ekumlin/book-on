@@ -11,11 +11,7 @@ require('api.php');
 
 $view = isset($_GET['view']) ? $_GET['view'] : NULL;
 if (!$view || !preg_match(String::FILE_TITLE_REGEX, $view)) {
-<<<<<<< HEAD
 	$view = 'bookList';
-=======
-	$view = 'index';
->>>>>>> efa772733e2c682436646a9795ef9e831b055d49
 }
 
 require(_ROOT . "pages/{$view}.php");
