@@ -21,9 +21,9 @@ if ($collections->success) {
 				'collections' => $collections->data,
 			));
 	} else if (count($collections->data) > 0) {
-		$items = '';
+		$items = View::toString("bookListItemHeader");
 		foreach ($collections->data[0]->items as $item) {
-			$items .= View::toString("bookCard", array(
+			$items .= View::toString("bookListItem", array(
 					'book' => $item,
 				));
 		}
@@ -39,7 +39,7 @@ if ($collections->success) {
 
 print View::toString("page", array(
 		'title' => $title,
-		'styles' => array(),
+		'styles' => array('bookIndex'),
 		'scripts' => array(),
 		'body' => $content,
 	));
