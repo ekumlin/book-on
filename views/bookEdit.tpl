@@ -1,4 +1,4 @@
-<form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>book/<?php echo $viewBag['target']; ?>" novalidate>
+<form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>books/<?php echo $viewBag['target']; ?>" novalidate>
 	<div class="input-group">
 		<input type="tel" name="isbn" id="bookEdit-isbn" pattern="^[0-9-]+$" value="<?php echo $viewBag['book']->isbn; ?>" placeholder="ISBN" required />
 		<div class="input-status input-error"></div>

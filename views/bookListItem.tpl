@@ -1,5 +1,5 @@
 <?php
-	$bookUrl = _HOST . 'book/' . $viewBag['book']->isbn;
+	$bookUrl = _HOST . 'books/' . $viewBag['book']->isbn;
 ?><div class="book-list-item">
 	<div class="isbn"><a href="<?php echo $bookUrl; ?>"><?php echo String::formatIsbn($viewBag['book']->isbn); ?></a></div>
 	<div class="title"><a href="<?php echo $bookUrl; ?>"><?php echo $viewBag['book']->title; ?></a></div>

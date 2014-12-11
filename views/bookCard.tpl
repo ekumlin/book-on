@@ -1,5 +1,5 @@
 <?php
-	$bookUrl = _HOST . 'book/' . $viewBag['book']->isbn;
+	$bookUrl = _HOST . 'books/' . $viewBag['book']->isbn;
 ?><div class="card-box columnar">
 	<div class="card book-card">
 		<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><a href="<?php echo $bookUrl; ?>"><?php echo $viewBag['book']->title; ?></a></h1>

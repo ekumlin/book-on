@@ -54,7 +54,7 @@ if (isset($_POST['bookTitle'])) {
 
 	if (count($errors) == 0) {
 		if (count($existingBook->data) > 0) {
-			$errors[] = 'A <a href=' . _HOST . 'book/' . $isbn . '>book</a> with this ISBN already exists.';
+			$errors[] = 'A <a href=' . _HOST . 'books/' . $isbn . '>book</a> with this ISBN already exists.';
 		}
 
 		if ($editingIsbn == 0) {
@@ -72,7 +72,7 @@ if (isset($_POST['bookTitle'])) {
 						),
 				)));
 
-			header('Location: ' . _HOST . 'book/' . $isbn);
+			header('Location: ' . _HOST . 'books/' . $isbn);
 			exit;
 		} else {
 			$newBook = json_decode(apiCall(array(
@@ -89,7 +89,7 @@ if (isset($_POST['bookTitle'])) {
 						),
 				)));
 
-			header('Location: ' . _HOST . 'book/' . $isbn);
+			header('Location: ' . _HOST . 'books/' . $isbn);
 			exit;
 		}
 	}
