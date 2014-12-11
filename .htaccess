@@ -67,6 +67,7 @@ FileETag None
 	RewriteRule ^book/([0-9-]+)/?$ index.php?view=bookView&isbn=$1 [L,QSA]
 	RewriteRule ^book/add/?$ index.php?view=bookEdit&isbn=0 [L,QSA]
 	RewriteRule ^book/edit/([0-9-]+)$ index.php?view=bookEdit&isbn=$1 [L,QSA]
+	RewriteRule ^books/list/?$ index.php?view=bookList&format=list [L,QSA]
 
 	RewriteRule ^collections/?$ index.php?view=collection [L,QSA]
 	RewriteRule ^collection/([0-9]+)/?$ index.php?view=collection&collectionId=$1 [L,QSA]

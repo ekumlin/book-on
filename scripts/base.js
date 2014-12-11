@@ -51,4 +51,8 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$("#drawer tr").click(function() {
+		window.location = $(this).find("a").attr("href");
+	});
 });
