@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2014 at 02:32 PM
+-- Generation Time: Dec 11, 2014 at 02:35 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS `BookCopy` (
   `HeldBy` int(11) DEFAULT NULL,
   `ISBN` bigint(13) NOT NULL,
   PRIMARY KEY (`BookCopyId`),
-  KEY `ISBN` (`ISBN`)
+  KEY `ISBN` (`ISBN`),
+  KEY `HeldBy` (`HeldBy`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -202,6 +203,7 @@ ALTER TABLE `BookCollected`
 -- Constraints for table `BookCopy`
 --
 ALTER TABLE `BookCopy`
+  ADD CONSTRAINT `BookCopy_ibfk_2` FOREIGN KEY (`HeldBy`) REFERENCES `User` (`CardNumber`),
   ADD CONSTRAINT `BookCopy_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `Book` (`ISBN`);
 
 --

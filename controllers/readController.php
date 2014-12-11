@@ -47,8 +47,8 @@ class ReadController {
 				b.*,
 				a.*,
 				p.Name AS PublisherName,
-				SUM(CASE WHEN bc.IsForSale = 0 AND bc.IsStocked = 1 THEN 1 ELSE 0 END) AS CopiesForRent,
-				SUM(CASE WHEN bc.IsForSale = 1 AND bc.IsStocked = 1 THEN 1 ELSE 0 END) AS CopiesForSale
+				SUM(CASE WHEN bc.IsForSale = 0 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForRent,
+				SUM(CASE WHEN bc.IsForSale = 1 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForSale
 			FROM
 				Book AS b
 				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
@@ -118,8 +118,8 @@ class ReadController {
 					b.*,
 					a.*,
 					p.Name AS PublisherName,
-					SUM(CASE WHEN bc.IsForSale = 0 AND bc.IsStocked = 1 THEN 1 ELSE 0 END) AS CopiesForRent,
-					SUM(CASE WHEN bc.IsForSale = 1 AND bc.IsStocked = 1 THEN 1 ELSE 0 END) AS CopiesForSale
+					SUM(CASE WHEN bc.IsForSale = 0 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForRent,
+					SUM(CASE WHEN bc.IsForSale = 1 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForSale
 				FROM
 					Collection AS c
 					LEFT JOIN BookCollected AS bcol ON bcol.CollectionId = c.CollectionId
