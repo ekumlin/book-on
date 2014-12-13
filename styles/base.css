@@ -42,7 +42,12 @@ body {
 				vertical-align: bottom;
 			}
 
-		body > div.header > input#header-search {
+		body > div.header form {
+			display: inline-block;
+			width: 55%;
+		}
+
+		body > div.header input#header-search {
 			background: rgba(255, 255, 255, 0.3);
 			border: none;
 			border-radius: 2px;
@@ -53,19 +58,19 @@ body {
 			padding: 4px 16px;
 			max-width: 700px;
 			margin: 0 48px;
-			width: 55%;
+			width: 100%;
 		}
 
-			body > div.header > input#header-search:hover,
-			body > div.header > input#header-search:focus {
+			body > div.header input#header-search:hover,
+			body > div.header input#header-search:focus {
 				background: rgba(255, 255, 255, 0.4);
 			}
 
 			/* Do not combine these */
-			body > div.header > input#header-search::-webkit-input-placeholder { color: #FFF; }
-			body > div.header > input#header-search:-moz-placeholder { color: #FFF; }
-			body > div.header > input#header-search::-moz-placeholder { color: #FFF; }
-			body > div.header > input#header-search:-ms-input-placeholder { color: #FFF; }
+			body > div.header input#header-search::-webkit-input-placeholder { color: #FFF; }
+			body > div.header input#header-search:-moz-placeholder { color: #FFF; }
+			body > div.header input#header-search::-moz-placeholder { color: #FFF; }
+			body > div.header input#header-search:-ms-input-placeholder { color: #FFF; }
 
 		body > div.header > .login {
 			float: right;

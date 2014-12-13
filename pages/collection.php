@@ -37,10 +37,11 @@ if ($collections->success) {
 	Http::back('/collection/');
 }
 
-print View::toString("page", array(
+print View::toString('page', array(
 		'title' => $title,
 		'styles' => array('bookIndex'),
 		'scripts' => array(),
+		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
 

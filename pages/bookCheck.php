@@ -17,6 +17,7 @@ print View::toString('page', array(
 		'title' => $title,
 		'styles' => array('forms'),
 		'scripts' => array('forms', 'bookCheck'),
+		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
 

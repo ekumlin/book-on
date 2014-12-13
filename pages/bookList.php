@@ -44,10 +44,11 @@ if ($books->success) {
 	));
 }
 
-print View::toString("page", array(
+print View::toString('page', array(
 		'title' => 'Book-On',
 		'styles' => array('bookIndex'),
 		'scripts' => array(),
+		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
 

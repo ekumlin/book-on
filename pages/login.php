@@ -41,6 +41,7 @@ print View::toString('page', array(
 		'title' => 'Log in :: Book-On',
 		'styles' => array('forms'),
 		'scripts' => array(),
+		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
 

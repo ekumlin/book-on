@@ -11,7 +11,7 @@
 		?>
 	</head>
 	<body>
-		<?php View::render('header'); ?>
+		<?php View::render('header', array('searchTarget' => $viewBag['searchTarget'])); ?>
 		<div id="curtain" style="display: none"></div>
 		<?php View::render('drawer'); ?>
 		<div class="content">

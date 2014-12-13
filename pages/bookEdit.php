@@ -127,10 +127,11 @@ if ($editingIsbn == 0) {
 	));
 }
 
-print View::toString("page", array(
+print View::toString('page', array(
 		'title' => $title,
 		'styles' => array('bookView', 'forms'),
 		'scripts' => array('forms'),
+		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
 
