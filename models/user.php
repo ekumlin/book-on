@@ -10,6 +10,10 @@ class User {
 	const USER_STAFF = 1;
 	const USER_ADMIN = 2;
 
+	const STATUS_NONE = 0;
+	const STATUS_BANNED = 1;
+	const STATUS_SUSPENDED = 2;
+
 	public $cardNumber;
 	public $employeeLevel;
 	public $name;
@@ -27,6 +31,34 @@ class User {
 		$this->name = $row['Name'];
 		$this->email = $row['Email'];
 		$this->accountStatus = $row['AccountStatus'];
+	}
+
+	public function getAccountStatus() {
+		switch ($this->accountStatus) {
+			case USER_STAFF:
+				return "Staff";
+
+			case USER_ADMIN:
+				return "Administrator";
+
+			default:
+		}
+
+		return "User";
+	}
+
+	public function getUserType() {
+		switch ($this->employeeLevel) {
+			case STATUS_BANNED:
+				return "Banned";
+
+			case STATUS_SUSPENDED:
+				return "Temporarily suspended";
+
+			default:
+		}
+
+		return "Active";
 	}
 }
 
