@@ -1,4 +1,4 @@
-<div class="book-list-item book-list-item-header">
+<div class="list-item list-item-header book-list-item">
 	<div class="isbn">ISBN</div>
 	<div class="title">Title</div>
 	<div class="copies">Copies</div>

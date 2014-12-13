@@ -23,22 +23,30 @@ class User {
 	/**
 	 * Creates a new user instance from a database row. Does not retain password.
 	 *
-	 * @param string $row The database row containing user data.
+	 * @param object $row The database row containing user data, or a standard object with the identical fields already set.
 	 */
 	public function __construct($row) {
-		$this->cardNumber = $row['CardNumber'];
-		$this->employeeLevel = $row['IsEmployee'];
-		$this->name = $row['Name'];
-		$this->email = $row['Email'];
-		$this->accountStatus = $row['AccountStatus'];
+		if (is_array($row)) {
+			$this->cardNumber = $row['CardNumber'];
+			$this->employeeLevel = $row['IsEmployee'];
+			$this->name = $row['Name'];
+			$this->email = $row['Email'];
+			$this->accountStatus = $row['AccountStatus'];
+		} else if (is_object($row)) {
+			$this->cardNumber = $row->cardNumber;
+			$this->employeeLevel = $row->employeeLevel;
+			$this->name = $row->name;
+			$this->email = $row->email;
+			$this->accountStatus = $row->accountStatus;
+		}
 	}
 
 	public function getAccountStatus() {
 		switch ($this->accountStatus) {
-			case STATUS_BANNED:
+			case self::STATUS_BANNED:
 				return "Banned";
 
-			case STATUS_SUSPENDED:
+			case self::STATUS_SUSPENDED:
 				return "Temporarily suspended";
 
 			default:
@@ -49,10 +57,10 @@ class User {
 
 	public function getUserType() {
 		switch ($this->employeeLevel) {
-			case USER_STAFF:
+			case self::USER_STAFF:
 				return "Staff";
 
-			case USER_ADMIN:
+			case self::USER_ADMIN:
 				return "Administrator";
 
 			default:

@@ -17,6 +17,31 @@ class ReadController {
 	}
 
 	/**
+	 * Makes an API call to list all users.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function allUsers($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				u.*
+			FROM
+				User AS u
+			ORDER BY u.CardNumber
+		";
+
+		$users = $DB->query($query);
+
+		$jsonResult['success'] = true;
+		foreach ($users as $user) {
+			$jsonResult['data'][] = new User($user);
+		}
+	}
+
+	/**
 	 * Makes an API call to get all data for a specific book.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -55,6 +80,7 @@ class ReadController {
 				LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
 				LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
 				LEFT JOIN Author AS a ON a.AuthorId = ba.AuthorId
+			ORDER BY b.Title
 		";
 		if ($isbns) {
 			$query .= "WHERE b.ISBN IN ({$isbns})";
@@ -132,7 +158,7 @@ class ReadController {
 					{$conditionString}
 					c.CardNumber = :cardNumber
 				GROUP BY b.ISBN, p.Name
-				ORDER BY b.ISBN
+				ORDER BY b.Title
 			";
 			$collections = $DB->query($query, $params);
 
