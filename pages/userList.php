@@ -6,7 +6,6 @@ if (!defined('VALID_REQUEST')) {
 }
 
 if (!isset($_SESSION['User']) || $_SESSION['User']->employeeLevel < User::USER_STAFF) {
-	var_dump($_SESSION['User']->employeeLevel);
 	http_response_code(404);
 	exit;
 }
