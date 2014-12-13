@@ -35,20 +35,6 @@ class User {
 
 	public function getAccountStatus() {
 		switch ($this->accountStatus) {
-			case USER_STAFF:
-				return "Staff";
-
-			case USER_ADMIN:
-				return "Administrator";
-
-			default:
-		}
-
-		return "User";
-	}
-
-	public function getUserType() {
-		switch ($this->employeeLevel) {
 			case STATUS_BANNED:
 				return "Banned";
 
@@ -59,6 +45,20 @@ class User {
 		}
 
 		return "Active";
+	}
+
+	public function getUserType() {
+		switch ($this->employeeLevel) {
+			case USER_STAFF:
+				return "Staff";
+
+			case USER_ADMIN:
+				return "Administrator";
+
+			default:
+		}
+
+		return "User";
 	}
 }
 
