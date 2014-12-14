@@ -80,12 +80,14 @@ class ReadController {
 				LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
 				LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
 				LEFT JOIN Author AS a ON a.AuthorId = ba.AuthorId
-			ORDER BY b.Title
 		";
 		if ($isbns) {
 			$query .= "WHERE b.ISBN IN ({$isbns})";
 		}
-		$query .= " GROUP BY b.ISBN, a.AuthorId, p.Name";
+		$query .= "
+			GROUP BY b.ISBN, a.AuthorId, p.Name
+			ORDER BY b.Title
+		";
 
 		$books = $DB->query($query);
 		$bookMap = $this->constructBookMap($books);
