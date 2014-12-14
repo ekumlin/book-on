@@ -4,16 +4,22 @@
 			<td><img src="<?php echo _HOST; ?>assets/icon-book.png" title="Books"/></td>
 			<td><a href='<?php echo _HOST; ?>'>Book index</a></td>
 		</tr>
-		<tr class="item">
-			<td><img src="<?php echo _HOST; ?>assets/icon-book-held.png" title="View my held books"/></td>
-			<td><a href='<?php echo _HOST; ?>books/held'>Held books</a></td>
-		</tr>
-		<tr class="item">
-			<td><img src="<?php echo _HOST; ?>assets/icon-collect.png" title="Collections"/></td>
-			<td><a href='<?php echo _HOST; ?>collections'>Collections</a></td>
-		</tr>
 	</table>
-	<?php if (isset($_SESSION['User']) && $_SESSION['User']->employeeLevel >= User::USER_STAFF): ?>
+	<?php if (isset($_SESSION['User'])): ?>
+	<div class="section">
+		<div class="title">My account</div>
+		<table>
+			<tr class="item">
+				<td><img src="<?php echo _HOST; ?>assets/icon-book-held.png" title="View my held books"/></td>
+				<td><a href='<?php echo _HOST; ?>books/held'>Held books</a></td>
+			</tr>
+			<tr class="item">
+				<td><img src="<?php echo _HOST; ?>assets/icon-collect.png" title="Collections"/></td>
+				<td><a href='<?php echo _HOST; ?>collections'>Collections</a></td>
+			</tr>
+		</table>
+	</div>
+	<?php if ($_SESSION['User']->employeeLevel >= User::USER_STAFF): ?>
 	<div class="section">
 		<div class="title">Administration</div>
 		<table>
@@ -43,5 +49,6 @@
 			</tr>
 		</table>
 	</div>
+	<?php endif; ?>
 	<?php endif; ?>
 </div>

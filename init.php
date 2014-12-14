@@ -18,11 +18,22 @@ require(_ROOT . 'util/database.php');
 require(_ROOT . 'util/view.php');
 require(_ROOT . 'models/author.php');
 require(_ROOT . 'models/book.php');
+require(_ROOT . 'models/heldBook.php');
 require(_ROOT . 'models/user.php');
 require(_ROOT . 'models/collection.php');
 
 $DB = new Connection($CONFIG['db-host'], $CONFIG['db-user'], $CONFIG['db-pass'], $CONFIG['db-name']);
 
 session_start();
+
+function config($key, $default = NULL) {
+	global $CONFIG;
+
+	if (isset($CONFIG[$key])) {
+		return $CONFIG[$key];
+	}
+
+	return $default;
+}
 
 ?>

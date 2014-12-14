@@ -44,58 +44,88 @@ div.list-item {
 		white-space: nowrap;
 	}
 
-div.book-list-item > div.isbn {
-	width: 15%;
+div.book-list-item {
 }
 
-div.book-list-item > div.title {
-	font-weight: 700;
-	width: 55%;
-}
-
-div.book-list-item > div.copies {
-	width: 8%;
-}
-
-div.book-list-item > div.edition {
-	width: 11%;
-}
-
-div.book-list-item > div.language {
-	width: 11%;
-}
-
-div.user-list-item > div.cardNumber {
-	width: 15%;
-}
-
-div.user-list-item > div.name {
-	font-weight: 700;
-	width: 20%;
-}
-
-div.user-list-item > div.email {
-	width: 39%;
-}
-
-div.user-list-item > div.userType {
-	width: 13%;
-}
-
-div.user-list-item > div.accountStatus {
-	width: 13%;
-}
-
-	@media (max-width: 720px) {
-		div.user-list-item > div.cardNumber, div.user-list-item > div.email {
-			display: none;
-		}
-
-		div.user-list-item > div.name {
-			width: 40%;
-		}
-
-		div.user-list-item > div.userType, div.user-list-item  > div.accountStatus {
-			width: 30%;
-		}
+	div.book-list-item > div.isbn {
+		width: 15%;
 	}
+
+	div.book-list-item > div.title {
+		font-weight: 700;
+		width: 55%;
+	}
+
+	div.book-list-item > div.copies {
+		width: 8%;
+	}
+
+	div.book-list-item > div.edition {
+		width: 11%;
+	}
+
+	div.book-list-item > div.language {
+		width: 11%;
+	}
+
+div.book-held-list-item {
+}
+
+	div.book-held-list-item > div.isbn {
+		width: 13%;
+	}
+
+	div.book-held-list-item > div.title {
+		font-weight: 700;
+		width: 40%;
+	}
+
+	div.book-held-list-item > div.returnDate {
+		width: 19%;
+	}
+
+	div.book-held-list-item > div.rentalDate {
+		width: 19%;
+	}
+
+	div.book-held-list-item > div.copyNumber {
+		width: 10%;
+	}
+
+div.user-list-item {
+}
+
+	div.user-list-item > div.cardNumber {
+		width: 15%;
+	}
+
+	div.user-list-item > div.name {
+		font-weight: 700;
+		width: 20%;
+	}
+
+	div.user-list-item > div.email {
+		width: 39%;
+	}
+
+	div.user-list-item > div.userType {
+		width: 13%;
+	}
+
+	div.user-list-item > div.accountStatus {
+		width: 13%;
+	}
+
+		@media (max-width: 720px) {
+			div.user-list-item > div.cardNumber, div.user-list-item > div.email {
+				display: none;
+			}
+
+			div.user-list-item > div.name {
+				width: 40%;
+			}
+
+			div.user-list-item > div.userType, div.user-list-item  > div.accountStatus {
+				width: 30%;
+			}
+		}

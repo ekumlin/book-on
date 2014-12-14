@@ -14,5 +14,8 @@ $CONFIG['db-pass'] = '';
 $CONFIG['db-name'] = '';
 
 $CONFIG['language'] = 'en';
+$CONFIG['datetime-format'] = 'D M j, Y, g:i:sa';
+$CONFIG['date-format'] = 'j M Y';
+$CONFIG['time-format'] = 'H:i:s';
 
 ?>

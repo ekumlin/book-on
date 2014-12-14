@@ -42,6 +42,26 @@ class ReadController {
 	}
 
 	/**
+	 * Constructs an ISBN->book mapping of all books from a set of rows.
+	 * 
+	 * @param array $books An iterable list of database rows containing book data.
+	 */
+	private function constructBookMap($books) {
+		$bookMap = array();
+
+		foreach ($books as $book) {
+			$isbn = $book['ISBN'];
+			if (!isset($bookMap[$isbn])) {
+				$bookMap[$isbn] = new Book($book);
+			}
+
+			$bookMap[$isbn]->addAuthor(new Author($book));
+		}
+
+		return $bookMap;
+	}
+
+	/**
 	 * Makes an API call to get all data for a specific book.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -59,6 +79,16 @@ class ReadController {
 	 */
 	public function viewBooks($request, &$jsonResult) {
 		global $DB;
+
+		$owner = NULL;
+		if (isset($request['heldBy']) && ctype_digit($request['heldBy'])) {
+			$owner = $request['heldBy'];
+		}
+
+		if ($owner) {
+			$this->viewHeldBooks($request, $jsonResult);
+			return;
+		}
 
 		$isbns = NULL;
 		if (isset($request['isbns']) && preg_match('/^[0-9]([0-9,]*[0-9])?$/', $request['isbns'])) {
@@ -96,26 +126,6 @@ class ReadController {
 		foreach ($bookMap as $isbn => $book) {
 			$jsonResult['data'][] = $book;
 		}
-	}
-
-	/**
-	 * Constructs an ISBN->book mapping of all books from a set of rows.
-	 * 
-	 * @param array $books An iterable list of database rows containing book data.
-	 */
-	private function constructBookMap($books) {
-		$bookMap = array();
-
-		foreach ($books as $book) {
-			$isbn = $book['ISBN'];
-			if (!isset($bookMap[$isbn])) {
-				$bookMap[$isbn] = new Book($book);
-			}
-
-			$bookMap[$isbn]->addAuthor(new Author($book));
-		}
-
-		return $bookMap;
 	}
 
 	/**
@@ -180,6 +190,42 @@ class ReadController {
 					$collectionMap[$cId]->addItem(new Book($c));
 				}
 			}
+		}
+	}
+
+	/**
+	 * Makes an API call to get all held book data for a specific user.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function viewHeldBooks($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				b.*,
+				bt.*,
+					p.Name AS PublisherName
+			FROM
+				BookCopy AS bc
+				LEFT JOIN Book AS b ON bc.ISBN = b.ISBN
+				LEFT JOIN BookTransaction AS bt ON bt.BookCopyId = bc.BookCopyId
+				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
+			WHERE bt.ExpectedReturn > NOW() AND bt.ActualReturn IS NULL AND bt.CardNumber = :card
+			GROUP BY b.ISBN, p.Name
+			ORDER BY b.Title
+		";
+
+		$books = $DB->query($query, array(
+				'card' => $request['heldBy'],
+			));
+
+		$jsonResult['success'] = true;
+		foreach ($books as $book) {
+			$copy = new HeldBook($book);
+			$copy->book = new Book($book);
+			$jsonResult['data'][] = $copy;
 		}
 	}
 }
