@@ -5,7 +5,7 @@ body {
 	padding: 0;
 }
 
-	body > div.header {
+	body > .header {
 		background: #4CAF50;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 		box-sizing: border-box;
@@ -19,77 +19,95 @@ body {
 		right: 0;
 		top: 0;
 		white-space: nowrap;
+		width: 100%;
 		z-index: 9;
 	}
 
-		body > div.header > span#hamburger {
+		body > .header .left, body > .header .right {
+			white-space: nowrap;
+		}
+
+		body > .header .middle {
+			padding: 0 48px;
+			width: 100%;
+		}
+
+		body > .header span#hamburger {
 			border-radius: 16px;
 			cursor: pointer;
 			margin: 0 4px;
 			opacity: 0.6;
 		}
 
-			body > div.header > span#hamburger:hover {
+			body > .header span#hamburger:hover {
 				opacity: 1;
 			}
 
-			body > div.header > span#hamburger:active {
+			body > .header span#hamburger:active {
 				background: rgba(0, 0, 0, 0.2);
 			}
 
-			body > div.header > span#hamburger > img {
+			body > .header span#hamburger > img {
 				padding: 4px 0;
 				vertical-align: bottom;
 			}
 
-		body > div.header form {
-			display: inline-block;
-			width: 55%;
+		body > .header form {
+			width: 100%;
 		}
 
-		body > div.header input#header-search {
+			@media (max-width: 500px) {
+				body > .header .middle {
+					padding: 0;
+				}
+
+				body > .header form {
+					display: none;
+				}
+			}
+
+		body > .header input#header-search {
 			background: rgba(255, 255, 255, 0.3);
 			border: none;
 			border-radius: 2px;
+			box-sizing: border-box;
 			color: #FFF;
 			font-family: inherit;
 			font-size: 85%;
 			outline: none;
 			padding: 4px 16px;
-			max-width: 700px;
-			margin: 0 48px;
 			width: 100%;
 		}
 
-			body > div.header input#header-search:hover,
-			body > div.header input#header-search:focus {
+			body > .header input#header-search:hover,
+			body > .header input#header-search:focus {
 				background: rgba(255, 255, 255, 0.4);
 			}
 
 			/* Do not combine these */
-			body > div.header input#header-search::-webkit-input-placeholder { color: #FFF; }
-			body > div.header input#header-search:-moz-placeholder { color: #FFF; }
-			body > div.header input#header-search::-moz-placeholder { color: #FFF; }
-			body > div.header input#header-search:-ms-input-placeholder { color: #FFF; }
+			body > .header input#header-search::-webkit-input-placeholder { color: #FFF; }
+			body > .header input#header-search:-moz-placeholder { color: #FFF; }
+			body > .header input#header-search::-moz-placeholder { color: #FFF; }
+			body > .header input#header-search:-ms-input-placeholder { color: #FFF; }
 
-		body > div.header > .login {
+		body > .header .login {
 			float: right;
 			font-size: 14px;
 		}
 
-			body > div.header > .login .username {
+			body > .header .login .username {
 				margin-right: 16px;
 			}
 
-			body > div.header > .login a {
+			body > .header .login a {
 				color: #FFF;
 			}
 
-				body > div.header > .login a:hover {
+				body > .header .login a:hover {
 					background: rgba(0, 0, 0, 0.1);
 				}
 
-				body > div.header > .login a:active {
+				body > .header .login a:active {
 					background: rgba(0, 0, 0, 0.15);
 				}
 
@@ -260,10 +278,17 @@ div.content {
 	padding: 16px;
 }
 
-	@media (max-width: 720px) {
+	@media (min-width: 501px) and (max-width: 720px) {
 		div.content {
 			margin: 56px 25px 0;
 			padding: 8px;
+		}
+	}
+
+	@media (max-width: 500px) {
+		div.content {
+			margin: 56px 10px 0;
+			padding: 4px;
 		}
 	}
 

@@ -1,13 +1,21 @@
-<div class="header">
-	<span id="hamburger"><img src="<?php echo _HOST; ?>assets/hamburger.png"/></span>
-	<a href="<?php echo _HOST; ?>" id="logo">Book-On</a>
-	<form action="<?php echo _HOST . $viewBag['searchTarget']; ?>" method="GET">
-		<input type="search" id="header-search" placeholder="Search" />
-	</form>
-	<div class="login"><?php if (isset($_SESSION['User'])): ?>
-		<span class="username"><?php echo $_SESSION['User']->name; ?></span>
-		<a href="<?php echo _HOST; ?>logout" class="button-flat logout">Log out</a>
-	<?php else: ?>
-		<a href="<?php echo _HOST; ?>login" class="button-flat login">Log in or register</a>
-	<?php endif; ?></div>
-</div>
+<table class="header">
+	<tr>
+		<td class="left">
+			<span id="hamburger"><img src="<?php echo _HOST; ?>assets/hamburger.png"/></span>
+			<a href="<?php echo _HOST; ?>" id="logo">Book-On</a>
+		</td>
+		<td class="middle">
+			<form action="<?php echo _HOST . $viewBag['searchTarget']; ?>" method="GET">
+				<input type="search" id="header-search" name="q" placeholder="Search" />
+			</form>
+		</td>
+		<td class="right">
+			<div class="login"><?php if (isset($_SESSION['User'])): ?>
+				<span class="username"><?php echo $_SESSION['User']->name; ?></span>
+				<a href="<?php echo _HOST; ?>logout" class="button-flat logout">Log out</a>
+			<?php else: ?>
+				<a href="<?php echo _HOST; ?>login" class="button-flat login">Log in or register</a>
+			<?php endif; ?></div>
+		</td>
+	</tr>
+</table>

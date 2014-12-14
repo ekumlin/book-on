@@ -36,6 +36,7 @@ div.list-item {
 	}
 
 	div.list-item > div {
+		box-sizing: border-box;
 		display: inline-block;
 		overflow: hidden;
 		padding: 0 8px;
@@ -44,7 +45,6 @@ div.list-item {
 	}
 
 div.book-list-item > div.isbn {
-	min-width: 140px;
 	width: 15%;
 }
 
@@ -66,17 +66,16 @@ div.book-list-item > div.language {
 }
 
 div.user-list-item > div.cardNumber {
-	min-width: 140px;
 	width: 15%;
 }
 
 div.user-list-item > div.name {
 	font-weight: 700;
-	width: 30%;
+	width: 20%;
 }
 
 div.user-list-item > div.email {
-	width: 29%;
+	width: 39%;
 }
 
 div.user-list-item > div.userType {
@@ -86,3 +85,17 @@ div.user-list-item > div.userType {
 div.user-list-item > div.accountStatus {
 	width: 13%;
 }
+
+	@media (max-width: 720px) {
+		div.user-list-item > div.cardNumber, div.user-list-item > div.email {
+			display: none;
+		}
+
+		div.user-list-item > div.name {
+			width: 40%;
+		}
+
+		div.user-list-item > div.userType, div.user-list-item  > div.accountStatus {
+			width: 30%;
+		}
+	}

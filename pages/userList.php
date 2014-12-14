@@ -31,10 +31,10 @@ if ($books->success) {
 }
 
 print View::toString('page', array(
-		'title' => 'Book-On',
+		'title' => 'Users :: Book-On',
 		'styles' => array('listings'),
 		'scripts' => array(),
-		'searchTarget' => 'books/search',
+		'searchTarget' => 'users/search',
 		'body' => $content,
 	));
 
