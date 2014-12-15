@@ -103,13 +103,15 @@ class ReadController {
 				a.*,
 				p.Name AS PublisherName,
 				SUM(CASE WHEN bc.IsForSale = 0 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForRent,
-				SUM(CASE WHEN bc.IsForSale = 1 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForSale
+				SUM(CASE WHEN bc.IsForSale = 1 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForSale,
+				AVG(br.Rating) AS AverageRating
 			FROM
 				Book AS b
 				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
 				LEFT JOIN BookCopy AS bc ON bc.ISBN = b.ISBN
 				LEFT JOIN BookAuthor AS ba ON ba.ISBN = b.ISBN
 				LEFT JOIN Author AS a ON a.AuthorId = ba.AuthorId
+				LEFT JOIN BookRated AS br ON br.ISBN = b.ISBN
 		";
 		if ($isbns) {
 			$query .= "WHERE b.ISBN IN ({$isbns})";

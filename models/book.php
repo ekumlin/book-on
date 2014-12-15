@@ -16,6 +16,7 @@ class Book {
 	public $copiesForRent;
 	public $copiesForSale;
 	public $copies;
+	public $rating;
 	public $authors;
 
 	/**
@@ -24,39 +25,29 @@ class Book {
 	 * @param string $row The database row containing book data. (If not provided, will populate empty data.)
 	 */
 	public function __construct($row = NULL) {
-		if ($row) {
-			$row = array_merge(array(
-					'ISBN' => 0,
-					'Title' => '',
-					'SalePrice' => 0.0,
-					'PageCount' => 0,
-					'Edition' => 0,
-					'Language' => config('language'),
-					'PublisherName' => '',
-					'CopiesForSale' => 0,
-					'CopiesForRent' => 0,
-				), $row);
+		$row = array_merge(array(
+				'ISBN' => 0,
+				'Title' => '',
+				'SalePrice' => 0.0,
+				'PageCount' => 0,
+				'Edition' => 0,
+				'Language' => config('language'),
+				'PublisherName' => '',
+				'CopiesForSale' => 0,
+				'CopiesForRent' => 0,
+				'AverageRating' => NULL,
+			), $row ? $row : array());
 
-			$this->isbn = $row['ISBN'];
-			$this->title = $row['Title'];
-			$this->salePrice = floatval($row['SalePrice']);
-			$this->pageCount = intval($row['PageCount']);
-			$this->edition = intval($row['Edition']);
-			$this->language = $row['Language'];
-			$this->publisher = $row['PublisherName'];
-			$this->copiesForSale = intval($row['CopiesForSale']);
-			$this->copiesForRent = intval($row['CopiesForRent']);
-		} else {
-			$this->isbn = NULL;
-			$this->title = '';
-			$this->salePrice = 0.0;
-			$this->pageCount = 0;
-			$this->edition = 0;
-			$this->language = NULL;
-			$this->publisher = NULL;
-			$this->copiesForSale = 0;
-			$this->copiesForRent = 0;
-		}
+		$this->isbn = $row['ISBN'];
+		$this->title = $row['Title'];
+		$this->salePrice = floatval($row['SalePrice']);
+		$this->pageCount = intval($row['PageCount']);
+		$this->edition = intval($row['Edition']);
+		$this->language = $row['Language'];
+		$this->publisher = $row['PublisherName'];
+		$this->copiesForSale = intval($row['CopiesForSale']);
+		$this->copiesForRent = intval($row['CopiesForRent']);
+		$this->rating = $row['AverageRating'] ? floatval($row['AverageRating']) : 0.0;
 
 		$this->copies = $this->copiesForRent + $this->copiesForSale;
 		$this->authors = array();
