@@ -37,6 +37,7 @@ body {
 			cursor: pointer;
 			margin: 0 4px;
 			opacity: 0.6;
+			transition: 0.2s all;
 		}
 
 			body > .header span#hamburger:hover {
@@ -76,6 +77,7 @@ body {
 			font-size: 85%;
 			outline: none;
 			padding: 4px 16px;
+			transition: 0.2s all;
 			width: 100%;
 		}
 
@@ -201,6 +203,7 @@ a {
 		display: inline-block;
 		padding: 4px;
 		text-decoration: none;
+		transition: 0.2s all;
 	}
 
 	a#logo:hover {
@@ -339,19 +342,27 @@ div.card {
 		white-space: nowrap;
 	}
 
-	div.card.error-card {
+	div.card.notice-card {
 		padding: 0;
 		width: 100%;
 	}
 
-		div.card.error-card h1 {
-			background: #F44336;
+		div.card.notice-card h1 {
 			border-radius: 2px 2px 0 0;
-			color: #FFF;
 			font-family: Roboto, Helvetica, 'Trebuchet MS', sans-serif;
 		}
 
-		div.card.error-card > * {
+			div.card.notice-card.error-card h1 {
+				background: #F44336;
+				color: #FFF;
+			}
+
+			div.card.notice-card.warning-card h1 {
+				background: #FFEB3B;
+				color: #000;
+			}
+
+		div.card.notice-card > * {
 			margin: 0;
 			padding: 16px;
 		}

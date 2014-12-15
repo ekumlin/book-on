@@ -5,6 +5,11 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
+if (!isset($_SESSION['User'])) {
+	http_response_code(404);
+	exit;
+}
+
 $content = '';
 $title = 'Book-On';
 $desiredCId = isset($_GET['collectionId']) ? $_GET['collectionId'] : 0;
@@ -24,17 +29,21 @@ if ($collections->success) {
 			));
 		}
 	} else if (count($collections->data) > 0) {
-		$items = View::toString('bookListItemHeader');
-		foreach ($collections->data[0]->items as $item) {
-			$items .= View::toString('bookListItem', array(
-					'book' => $item,
+		if (count($collections->data[0]->items) == 0) {
+			$content .= View::toString('collectionListEmpty');
+		} else {
+			$items = View::toString('bookListItemHeader');
+			foreach ($collections->data[0]->items as $item) {
+				$items .= View::toString('bookListItem', array(
+						'book' => $item,
+					));
+			}
+
+			$content .= View::toString('collectionView', array(
+					'collection' => $collections->data[0],
+					'items' => $items,
 				));
 		}
-
-		$content .= View::toString('collectionView', array(
-				'collection' => $collections->data[0],
-				'items' => $items,
-			));
 	}
 } else {
 	Http::back('/collection/');
