@@ -39,5 +39,13 @@
 				<td><div><?php echo number_format($viewBag['book']->pageCount); ?> pages</div></td>
 			</tr>
 		</table>
+	</div><div class="reviews">
+		<?php
+			foreach ($viewBag['reviews'] as $r) {
+				View::render('bookReview', array(
+						'review' => $r,
+					));
+			}
+		?>
 	</div>
 </div>

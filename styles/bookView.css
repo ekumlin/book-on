@@ -44,6 +44,39 @@ div.book-info > .data {
 			width: auto;
 		}
 
+div.book-info > .reviews {
+	margin: 0 16px;
+	width: 100%;
+}
+
+	div.book-info > .reviews .review {
+		margin-bottom: 16px;
+	}
+
+		div.book-info > .reviews .review > .head > * {
+			box-sizing: border-box;
+			display: inline-block;
+			padding: 8px;
+			vertical-align: middle;
+		}
+
+		div.book-info > .reviews .review > .head > .name {
+			font-size: 24px;
+			font-style: italic;
+			font-weight: 700;
+			width: 75%;
+		}
+
+			div.book-info > .reviews .review > .head > .name .email {
+				font-size: 14px;
+				opacity: 0.5;
+			}
+
+		div.book-info > .reviews .review > .head > .rating {
+			font-size: 36px;
+			width: 25%;
+		}
+
 @media (min-width: 721px) {
 	div.book-info > .cover, div.book-info > .data {
 		display: inline-block;

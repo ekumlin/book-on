@@ -17,8 +17,15 @@ $books = json_decode(apiCall(array(
 
 if ($books->success) {
 	if (count($books->data) >= 1) {
+		$reviews = json_decode(apiCall(array(
+				'controller' => 'read',
+				'action' => 'viewRatings',
+				'isbn' => $desiredIsbn,
+			)));
+
 		$content .= View::toString("bookView", array(
 			'book' => $books->data[0],
+			'reviews' => $reviews->data,
 		));
 
 		$title = "{$books->data[0]->title} :: $title";

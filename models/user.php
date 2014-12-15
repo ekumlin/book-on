@@ -25,20 +25,30 @@ class User {
 	 *
 	 * @param object $row The database row containing user data, or a standard object with the identical fields already set.
 	 */
-	public function __construct($row) {
-		if (is_array($row)) {
-			$this->cardNumber = $row['CardNumber'];
-			$this->employeeLevel = $row['IsEmployee'];
-			$this->name = $row['Name'];
-			$this->email = $row['Email'];
-			$this->accountStatus = $row['AccountStatus'];
-		} else if (is_object($row)) {
-			$this->cardNumber = $row->cardNumber;
-			$this->employeeLevel = $row->employeeLevel;
-			$this->name = $row->name;
-			$this->email = $row->email;
-			$this->accountStatus = $row->accountStatus;
+	public function __construct($row = array()) {
+		if (is_object($row)) {
+			$row = array(
+					'CardNumber' => $row->cardNumber,
+					'IsEmployee' => $row->employeeLevel,
+					'Name' => $row->name,
+					'Email' => $row->email,
+					'AccountStatus' => $row->accountStatus,
+				);
 		}
+
+		$row = array_merge(array(
+				'CardNumber' => NULL,
+				'IsEmployee' => self::USER_BASIC,
+				'Name' => NULL,
+				'Email' => NULL,
+				'AccountStatus' => self::STATUS_NONE,
+			), $row ? $row : array());
+
+		$this->cardNumber = $row['CardNumber'];
+		$this->employeeLevel = $row['IsEmployee'];
+		$this->name = $row['Name'];
+		$this->email = $row['Email'];
+		$this->accountStatus = $row['AccountStatus'];
 	}
 
 	public function getAccountStatus() {

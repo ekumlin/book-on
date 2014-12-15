@@ -5,11 +5,12 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
-class HeldBook {
-	public $copyId;
-	public $rentalDate;
-	public $returnDate;
-	public $book;
+class Rating {
+	public $isbn;
+	public $rating;
+	public $review;
+	public $date;
+	public $user;
 
 	/**
 	 * Creates a new held book instance from a database row.
@@ -18,14 +19,16 @@ class HeldBook {
 	 */
 	public function __construct($row = NULL) {
 		$row = array_merge(array(
-				'BookCopyId' => NULL,
-				'Time' => NULL,
-				'ExpectedReturn' => NULL,
+				'ISBN' => NULL,
+				'Rating' => 0.0,
+				'Review' => NULL,
+				'Date' => NULL,
 			), $row ? $row : array());
 
-		$this->copyId = $row['BookCopyId'];
-		$this->rentalDate = strtotime($row['Time']);
-		$this->returnDate = strtotime($row['ExpectedReturn']);
+		$this->isbn = $row['ISBN'];
+		$this->rating = $row['Rating'];
+		$this->review = $row['Review'];
+		$this->date = $row['Date'];
 	}
 }
 

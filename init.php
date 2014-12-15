@@ -17,9 +17,10 @@ require(_ROOT . 'util/locale.php');
 require(_ROOT . 'util/database.php');
 require(_ROOT . 'util/view.php');
 require(_ROOT . 'models/author.php');
-require(_ROOT . 'models/book.php');
-require(_ROOT . 'models/heldBook.php');
 require(_ROOT . 'models/user.php');
+require(_ROOT . 'models/book.php');
+require(_ROOT . 'models/rating.php');
+require(_ROOT . 'models/heldBook.php');
 require(_ROOT . 'models/collection.php');
 
 $DB = new Connection(config('db-host'), config('db-user'), config('db-pass'), config('db-name'));
