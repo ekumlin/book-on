@@ -4,7 +4,6 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
 	body > .header {
 		background: #4CAF50;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
@@ -234,6 +233,7 @@ input {
 .button-raised, .button-flat {
 	border: none;
 	border-radius: 2px;
+	box-sizing: border-box;
 	cursor: pointer;
 	display: inline-block;
 	font-size: 14px;
@@ -241,6 +241,7 @@ input {
 	margin: 0;
 	outline: none;
 	padding: 8px 12px;
+	text-align: center;
 	text-decoration: none !important;
 	text-transform: uppercase;
 }
