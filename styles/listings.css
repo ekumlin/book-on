@@ -38,6 +38,7 @@ div.list-item {
 	div.list-item > div {
 		box-sizing: border-box;
 		display: inline-block;
+		margin-bottom: -4px; /* Horrible hack for weird margin error from overflow */
 		overflow: hidden;
 		padding: 0 8px;
 		text-overflow: ellipsis;

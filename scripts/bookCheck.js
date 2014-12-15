@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var $form = $("form").first(), $fieldBox = $form.find(".form-fields");
+	var $form = $("form.bookCheck-form").first(), $fieldBox = $form.find(".form-fields");
 	$fieldBox.on("blur", "input[name^=copyId]", function() {
 		var $lastIdField = $fieldBox.find("input[name^=copyId]").last(), $this = $(this);
 
