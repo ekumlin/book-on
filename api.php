@@ -33,7 +33,7 @@ function apiCall($request) {
 
 	$controllerFile = $request['controller'] . "Controller";
 	if (preg_match(String::FILE_TITLE_REGEX, $controllerFile)) {
-		require(_ROOT . "controllers/{$controllerFile}.php");
+		require_once(_ROOT . "controllers/{$controllerFile}.php");
 
 		$controllerName = ucfirst($controllerFile);
 		$controller = new $controllerName;
