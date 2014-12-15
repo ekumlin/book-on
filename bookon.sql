@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2014 at 02:35 PM
+-- Generation Time: Dec 15, 2014 at 03:41 PM
 -- Server version: 5.5.31
--- PHP Version: 5.3.10-1ubuntu3.11
+-- PHP Version: 5.5.19-1+deb.sury.org~precise+1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `Author` (
   `Birthdate` date DEFAULT NULL,
   `HomeCountry` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`AuthorId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `BookCopy` (
   PRIMARY KEY (`BookCopyId`),
   KEY `ISBN` (`ISBN`),
   KEY `HeldBy` (`HeldBy`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=162 ;
 
 -- --------------------------------------------------------
 
@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS `BookRated` (
   `ISBN` bigint(13) NOT NULL,
   `Rating` tinyint(1) NOT NULL,
   `Review` text NOT NULL,
+  `Date` datetime DEFAULT NULL,
   PRIMARY KEY (`RatingId`),
   KEY `CardNumber` (`CardNumber`),
   KEY `ISBN` (`ISBN`)
@@ -142,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `Collection` (
   `CardNumber` int(11) NOT NULL,
   PRIMARY KEY (`CollectionId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -156,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `Publisher` (
   `Address` varchar(511) NOT NULL,
   `Phone` bigint(11) NOT NULL,
   PRIMARY KEY (`PublisherId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
