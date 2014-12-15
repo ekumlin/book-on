@@ -12,8 +12,15 @@ $.extend($.easing, {
 	},
 });
 
+$.support.transition = (function(){
+	var thisBody = document.body || document.documentElement,
+		thisStyle = thisBody.style,
+		support = thisStyle.transition !== undefined || thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.MsTransition !== undefined || thisStyle.OTransition !== undefined;
+	return support;
+})();
+
 $(document).ready(function() {
-	var animInTime = 150, animOutTime = 300;
+	var animInTime = 200, animOutTime = 300;
 
 	$("#hamburger").each(function() {
 		var $this = $(this), $drawer = $("body > .drawer"), $curtain = $("#curtain");
@@ -31,22 +38,10 @@ $(document).ready(function() {
 			var currentLeft = $drawer.css("left");
 
 			if (initialLeft == currentLeft) {
-				$drawer.animate({
-					left: 0,
-				}, {
-					easing: 'easeInOutQuad',
-					duration: animInTime,
-				});
-
+				animateDrawer($drawer, 0, 'inOut', animInTime);
 				$curtain.show().fadeTo(0, 0.0).fadeTo(animInTime, 0.7);
 			} else {
-				$drawer.animate({
-					left: initialLeft,
-				}, {
-					easing: 'easeInQuad',
-					duration: animOutTime,
-				});
-
+				animateDrawer($drawer, initialLeft, 'in', animOutTime);
 				$curtain.fadeOut(animOutTime);
 			}
 		});
@@ -56,3 +51,17 @@ $(document).ready(function() {
 		window.location = $(this).find("a").attr("href");
 	});
 });
+
+function animateDrawer($drawer, leftPosition, easingType, durationMillis) {
+	if ($.support.transition) {
+		$drawer.css("transition", 'left ' + durationMillis + 'ms ' + (easingType == 'in' ? 'ease-in' : 'ease-in-out'))
+		       .css('left', leftPosition);
+	} else {
+		$drawer.animate({
+			left: leftPosition,
+		}, {
+			easing: easingType == 'in' ? 'easeInQuad' : 'easeInOutQuad',
+			duration: durationMillis,
+		});
+	}
+}
