@@ -22,7 +22,7 @@ require(_ROOT . 'models/heldBook.php');
 require(_ROOT . 'models/user.php');
 require(_ROOT . 'models/collection.php');
 
-$DB = new Connection($CONFIG['db-host'], $CONFIG['db-user'], $CONFIG['db-pass'], $CONFIG['db-name']);
+$DB = new Connection(config('db-host'), config('db-user'), config('db-pass'), config('db-name'));
 
 session_start();
 

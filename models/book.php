@@ -24,8 +24,6 @@ class Book {
 	 * @param string $row The database row containing book data. (If not provided, will populate empty data.)
 	 */
 	public function __construct($row = NULL) {
-		global $CONFIG;
-
 		if ($row) {
 			$row = array_merge(array(
 					'ISBN' => 0,
@@ -33,7 +31,7 @@ class Book {
 					'SalePrice' => 0.0,
 					'PageCount' => 0,
 					'Edition' => 0,
-					'Language' => $CONFIG['language'],
+					'Language' => config('language'),
 					'PublisherName' => '',
 					'CopiesForSale' => 0,
 					'CopiesForRent' => 0,

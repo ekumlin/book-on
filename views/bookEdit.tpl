@@ -11,11 +11,10 @@
 	<div class="input-group">
 		<select name="language">
 			<?php
-				global $CONFIG;
 				if (strlen($viewBag['book']->language) == 2) {
 					$defaultLang = $viewBag['book']->language;
 				} else {
-					$defaultLang = $CONFIG['language'];
+					$defaultLang = config('language');
 				}
 				foreach (Locale::getLanguageList() as $iso => $name) {
 					$isSelected = $iso == $defaultLang ? ' selected' : '';
