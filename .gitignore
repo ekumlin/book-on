@@ -1,5 +1,6 @@
 # Place anything you don't want to commit into the _dev folder (WIPs, sketches, etc.)
 _dev
 
-# Ignore config files
+# Don't commit logs or config
+logs/*
 config.*

@@ -7,6 +7,12 @@ if (!defined('VALID_REQUEST')) {
 require_once('init.php');
 
 function apiReject($errno, $errstr, $errfile, $errline, $errcontext) {
+	if (!is_dir('logs')) {
+		mkdir(_ROOT . 'logs', 0777);
+	}
+
+	file_put_contents(_ROOT . 'logs/' . date('Y_d_m') . '.txt', "Error {$errno} in {$errfile} on line {$errline}: $errstr" . PHP_EOL, FILE_APPEND);
+
 	die(json_encode(array(
 			'success' => false,
 			'errno' => $errno,

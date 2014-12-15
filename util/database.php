@@ -20,6 +20,7 @@ class Connection {
 		try {
 			$this->db = new PDO("mysql:host={$host};dbname={$db}", $user, $password, array(
 				PDO::ATTR_PERSISTENT => true,
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
 			));
 		} catch (PDOException $pdoe) {
 			// TODO Do something with exception
