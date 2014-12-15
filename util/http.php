@@ -19,7 +19,7 @@ class Http {
 			$returnUrl = $_SERVER['HTTP_REFERER'];
 		}
 
-		header("Location: $returnUrl");
+		header("Location: {$returnUrl}");
 		exit;
 	}
 }
