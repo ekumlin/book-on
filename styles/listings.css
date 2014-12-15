@@ -93,6 +93,18 @@ div.book-held-list-item {
 		width: 10%;
 	}
 
+div.collection-list-item {
+}
+
+	div.collection-list-item > div.name {
+		font-weight: 700;
+		width: 60%;
+	}
+
+	div.collection-list-item > div.bookCount {
+		width: 40%;
+	}
+
 div.user-list-item {
 }
 

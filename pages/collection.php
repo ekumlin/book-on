@@ -17,18 +17,21 @@ $collections = json_decode(apiCall(array(
 
 if ($collections->success) {
 	if ($desiredCId == 0) {
-		$content .= View::toString("collectionList", array(
-				'collections' => $collections->data,
+		$content .= View::toString('collectionListItemHeader');
+		foreach ($collections->data as $obj) {
+			$content .= View::toString('collectionListItem', array(
+				'collection' => $obj,
 			));
+		}
 	} else if (count($collections->data) > 0) {
-		$items = View::toString("bookListItemHeader");
+		$items = View::toString('bookListItemHeader');
 		foreach ($collections->data[0]->items as $item) {
-			$items .= View::toString("bookListItem", array(
+			$items .= View::toString('bookListItem', array(
 					'book' => $item,
 				));
 		}
 
-		$content .= View::toString("collectionView", array(
+		$content .= View::toString('collectionView', array(
 				'collection' => $collections->data[0],
 				'items' => $items,
 			));
@@ -39,7 +42,7 @@ if ($collections->success) {
 
 print View::toString('page', array(
 		'title' => $title,
-		'styles' => array('bookIndex'),
+		'styles' => array('listings'),
 		'scripts' => array(),
 		'searchTarget' => 'books/search',
 		'body' => $content,
