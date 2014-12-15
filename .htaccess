@@ -72,8 +72,9 @@ FileETag None
 	RewriteRule ^books?/held/?$ index.php?view=booksHeld&format=list [L,QSA]
 	RewriteRule ^books?/search/?$ index.php?view=bookSearch&format=list [L,QSA]
 
-	RewriteRule ^users?/add/?$ index.php?view=userEdit&isbn=0 [L,QSA]
-	RewriteRule ^users?/edit/([0-9-]+)$ index.php?view=userEdit&isbn=$1 [L,QSA]
+	RewriteRule ^users?/([0-9-]+)/?$ index.php?view=userView&userId=$1 [L,QSA]
+	RewriteRule ^users?/add/?$ index.php?view=userEdit&userId=0 [L,QSA]
+	RewriteRule ^users?/edit/([0-9-]+)$ index.php?view=userEdit&userId=$1 [L,QSA]
 	RewriteRule ^users?/list/?$ index.php?view=userList&format=list [L,QSA]
 	RewriteRule ^users?/search/?$ index.php?view=userSearch&format=list [L,QSA]
 
