@@ -6,7 +6,7 @@ if (!defined('VALID_REQUEST')) {
 }
 
 define('_ROOT', rtrim(realpath(dirname(__FILE__)), '/') . '/');
-define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' . rtrim(substr(realpath(dirname($_SERVER['SCRIPT_FILENAME'])), strlen($_SERVER['DOCUMENT_ROOT'])), '/') . '/');
+define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim('/' . substr(realpath(dirname($_SERVER['SCRIPT_FILENAME'])), strlen($_SERVER['DOCUMENT_ROOT'])), '/') . '/');
 
 global $CONFIG, $DB;
 

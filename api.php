@@ -44,7 +44,7 @@ function apiCall($request) {
 		}
 	}
 
-	set_error_handler(NULL);
+	restore_error_handler();
 	return json_encode($jsonResult);
 }
 
