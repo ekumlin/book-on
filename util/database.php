@@ -38,7 +38,7 @@ class Connection {
 		$stmt = $this->db->prepare($queryString);
 
 		if ($stmt->execute($args)) {
-			if ($stmt->rowCount() > 0) {
+			if ($stmt->columnCount() > 0) {
 				return $stmt->fetchAll();
 			}
 		}
