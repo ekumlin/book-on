@@ -69,7 +69,7 @@ class InventoryController {
 				Language = :language,
 				Publisher = :publisher
 			WHERE
-				ISBN = :isbn
+				ISBN = :isbn;
 		";
 		$insertion = $DB->query($query, array(
 				'isbn' => $book['isbn'],
@@ -102,7 +102,7 @@ class InventoryController {
 				HeldBy = :heldBy,
 				ISBN = :isbn
 			WHERE
-				BookCopyId = :bookCopyId
+				BookCopyId = :bookCopyId;
 		"; 
         $insertion = $DB->query($query, array(
             'isForSale' => $bookCopy['isForSale'],
@@ -149,8 +149,37 @@ class InventoryController {
             'cardNumber' => $bookTrans['cardNumber'],
         ));
 
+        
 		$jsonResult['success'] = true;
         $jsonResult['data'][] = $transKey;
+        
+    }
+    
+    /**
+     * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping
+     * 
+     * @param array $request A bundle of request data. Usually comes from URL parameter string.
+     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+     */
+    public function updateReturnTransaction($request, &$jsonResult) {
+		global $DB;
+
+        $bookReturn = $request['returnTrans'];
+        
+        //omit BookTransactionID since it's auto-increment
+        $query = "
+			UPDATE BookTransaction
+			SET
+				ActualReturn = :returnDate,
+			WHERE
+				BookTransactionId = :BookTransactionId;
+		"; 
+        $transKey = $DB->query($query, array(
+            'returnDate' => $bookReturn['returnDate'],
+            'BookTransactionId' => $bookReturn['BookTransactionId'],
+        ));
+
+		$jsonResult['success'] = true;
         
     }
 }

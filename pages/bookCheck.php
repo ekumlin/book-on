@@ -77,7 +77,7 @@ if (isset($_POST['cardNumber'])) {
 			        'isbn' => $copy->data[0]->isbn,
 		        )));
 		        $copy->data[0]->book = $existingBook; //required by heldBook, but not by bookCopy
-            
+                
                 //set heldBy to requester
                 $updatedBookCopy = json_decode(apiCall(array(
                     'controller' => 'inventory',
@@ -89,18 +89,19 @@ if (isset($_POST['cardNumber'])) {
                             'bookCopyId' => $copyID,
                         ),
                 )));
-                
+
                 $transactionID = json_decode(apiCall(array(
                     'controller' => 'inventory',
                     'action' => 'addBookTransaction',
                     'bookTrans' => array(
                             'bookCopyId' =>  $copyID,
-                            'transDate' => $copy->data[0]->rentalDate,
-                            'expectDate' => $copy->data[0]->returnDate,
+                            'transDate' => date_format($copy->data[0]->rentalDate,"Y/m/d H:i:s"),
+                            'expectDate' => date_format($copy->data[0]->returnDate,"Y/m/d H:i:s"),
                             'actualDate' => NULL,
                             'cardNumber' => $_POST['cardNumber'],
                         ),
                 )));
+                $content .= "TRANSACTION ID " . var_dump($transactionID) . "\n";
             }
         }
 
