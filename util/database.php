@@ -33,6 +33,7 @@ class Connection {
 	 *
 	 * @param string $queryString The executable query as a PDO-ready string.
 	 * @param array $args The set of arguments for the query. Should have numeric indices if using '?' parameters, or keys prefixed by ':' if using named parameters.
+	 * @return array The returned values from the query, or an empty array otherwise.
 	 */
 	public function query($queryString, $args = array()) {
 		$stmt = $this->db->prepare($queryString);
@@ -44,6 +45,15 @@ class Connection {
 		}
 
 		return array();
+	}
+
+	/**
+	 * Get the ID of the last inserted row.
+	 * 
+	 * @return integer The ID of the last inserted row.
+	 */
+	public function lastInsertedId() {
+		return $this->db->lastInsertId();
 	}
 }
 
