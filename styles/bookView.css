@@ -1,61 +1,69 @@
 div.book-info h1 {
 	font-weight: 300;
 	margin-bottom: 8px;
+	margin-top: 0;
 }
 
 div.book-info h2 {
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	font-size: 28px;
 	font-weight: 100;
-	padding-top: 16px;
+	margin-bottom: 4px;
+	padding: 16px 16px 0;
 }
 
-div.book-info > .info {
+div.book-info .title-block {
+	margin: 0;
+	padding: 24px 16px 0;
+}
+
+div.book-info .info {
 	margin-bottom: 8px;
 	opacity: 0.7;
 }
 
-div.book-info > .cover {
+div.book-info .cover {
 	text-align: center;
 }
 
-	div.book-info > .cover img {
+	div.book-info .cover img {
 		margin: 8px auto 24px;
 		display: block;
 	}
 
-	div.book-info > .cover .button, #collect-button > a {
+	div.book-info .cover .button, #collect-button > a {
 		background: #3F51B5;
 		color: #FFF;
 	}
 
-		div.book-info > .cover .button:hover, #collect-button > a:hover{
+		div.book-info .cover .button:hover, #collect-button > a:hover{
 			background: #3949AB;
 		}
 
-		div.book-info > .cover .button:active, #collect-button > a:active {
+		div.book-info .cover .button:active, #collect-button > a:active {
 			background: #303F9F;
 		}
 
-div.book-info > .data {
+div.book-info .data {
 	margin: 0 16px;
 }
 
-	div.book-info > .data table {
+	div.book-info .data table {
 		border-collapse: collapse;
 		width: 100%;
 	}
 
-		div.book-info > .data table td {
+		div.book-info .data table td {
 			padding: 16px;
 		}
 
-		div.book-info > .data table img {
+		div.book-info .data table img {
 			height: 36px;
 			opacity: 0.5;
 			width: auto;
 		}
 
-div.book-info > .reviews {
+div.book-info .reviews {
 	background: #FAFAFA;
 	box-sizing: border-box;
 	margin: 0;
@@ -63,40 +71,40 @@ div.book-info > .reviews {
 	width: 100%;
 }
 
-	div.book-info > .reviews .no-review {
+	div.book-info .reviews .no-review {
 		padding: 8px 16px;
 	}
 
-	div.book-info > .reviews .review {
+	div.book-info .reviews .review {
 		margin-top: 8px;
 	}
 
-		div.book-info > .reviews .review > .head {
+		div.book-info .reviews .review > .head {
 			box-sizing: border-box;
 			padding: 8px 8px 4px;
 		}
 
-			div.book-info > .reviews .review > .head > .name {
+			div.book-info .reviews .review > .head > .name {
 				font-size: 20px;
 				font-style: italic;
 				font-weight: 700;
 			}
 
-				div.book-info > .reviews .review > .head > .name .email {
+				div.book-info .reviews .review > .head > .name .email {
 					font-size: 14px;
 					margin-left: 16px;
 					opacity: 0.5;
 				}
 
-			div.book-info > .reviews .review > .head > .rating {
+			div.book-info .reviews .review > .head > .rating {
 				font-size: 18px;
 			}
 
-				div.book-info > .reviews .review > .head > .rating .ratingbox {
+				div.book-info .reviews .review > .head > .rating .ratingbox {
 					padding: 4px 0;
 				}
 
-		div.book-info > .reviews .review > .body {
+		div.book-info .reviews .review > .body {
 			padding: 0 16px 8px;
 		}
 
@@ -105,7 +113,7 @@ div.book-info > .reviews {
 		padding: 8px 32px 0;
 	}
 
-	div.book-info > .cover, div.book-info > .data {
+	div.book-info .cover, div.book-info .data {
 		display: inline-block;
 		vertical-align: top;
 	}
@@ -119,7 +127,7 @@ div.book-info > .reviews {
 	div.content {
 		background: #E5E5E5;
 		margin: 63px 0 8px;
-		padding: 8px 0 0;
+		padding: 0;
 	}
 
 	div.book-info > * {
@@ -135,15 +143,22 @@ div.book-info > .reviews {
 		display: none;
 	}
 
-	div.book-info > .info {
+	div.book-info .info {
 		font-size: 14px;
 	}
 
-	div.book-info > .cover .button {
+	div.book-info .cover .button {
 		display: none;
 	}
 
-	div.book-info > .data {
+	div.book-info .title-block {
+		background: #FAFAFA;
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+		margin: 0;
+		padding: 16px;
+	}
+
+	div.book-info .data {
 		background: #FAFAFA;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.1);
@@ -151,38 +166,38 @@ div.book-info > .reviews {
 		padding: 0 8px 8px;
 	}
 
-		div.book-info > .data table tr.section-end td {
+		div.book-info .data table tr.section-end td {
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
 
-		div.book-info > .data table td {
+		div.book-info .data table td {
 			padding: 8px 16px;
 		}
 
-		div.book-info > .data table td:first-child {
+		div.book-info .data table td:first-child {
 			text-align: right;
 		}
 
-		div.book-info > .data table img {
+		div.book-info .data table img {
 			height: 24px;
 			padding: 6px;
 		}
 
-	div.book-info > .reviews .review > .head > .name {
+	div.book-info .reviews .review > .head > .name {
 		font-size: 13px;
 		font-style: normal;
 	}
 
-		div.book-info > .reviews .review > .head > .name .email {
+		div.book-info .reviews .review > .head > .name .email {
 			font-size: 10px;
 			opacity: 0.5;
 		}
 
-	div.book-info > .reviews .review > .head > .rating {
+	div.book-info .reviews .review > .head > .rating {
 		font-size: 18px;
 	}
 
-	div.book-info > .reviews .review > .body {
+	div.book-info .reviews .review > .body {
 		font-size: 13px;
 	}
 

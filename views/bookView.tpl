@@ -1,13 +1,21 @@
 <div class="book-info">
-	<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1>
-	<div class="info">by <?php
-		$noComma = true;
-		foreach ($viewBag['book']->authors as $a) {
-			if (!$noComma) { echo ', '; } $noComma = false;
-			echo "{$a->firstName} {$a->lastName} (Author)";
-		}
-	?></div><div class="info">
-		<?php echo $viewBag['book']->publisher; ?>
+	<div class="title-block">
+		<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1>
+		<div class="info">
+			<?php echo View::toString('rating', array(
+					'rating' => $viewBag['book']->avgRating,
+					'color' => 'fafafa',
+				)); ?>
+			<?php echo number_format($viewBag['book']->ratings[0]); ?> ratings
+		</div><div class="info">by <?php
+			$noComma = true;
+			foreach ($viewBag['book']->authors as $a) {
+				if (!$noComma) { echo ', '; } $noComma = false;
+				echo "{$a->firstName} {$a->lastName} (Author)";
+			}
+		?></div><div class="info">
+			<?php echo $viewBag['book']->publisher; ?>
+		</div>
 	</div>
 	<h2>Details</h2>
 	<div class="cover">

@@ -398,7 +398,8 @@ div.card {
 
 div.ratingbox {
 	display: inline-block;
-	height: 20px;
+	height: 15px;
+	width: auto;
 }
 
 	div.ratingbox > div {

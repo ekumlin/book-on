@@ -104,7 +104,11 @@ class ReadController {
 				p.Name AS PublisherName,
 				SUM(CASE WHEN bc.IsForSale = 0 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForRent,
 				SUM(CASE WHEN bc.IsForSale = 1 AND bc.HeldBy IS NULL THEN 1 ELSE 0 END) AS CopiesForSale,
-				AVG(br.Rating) AS AverageRating
+				SUM(DISTINCT CASE WHEN br.Rating = 5 THEN 1 ELSE 0 END) AS Rated5Count,
+				SUM(DISTINCT CASE WHEN br.Rating = 4 THEN 1 ELSE 0 END) AS Rated4Count,
+				SUM(DISTINCT CASE WHEN br.Rating = 3 THEN 1 ELSE 0 END) AS Rated3Count,
+				SUM(DISTINCT CASE WHEN br.Rating = 2 THEN 1 ELSE 0 END) AS Rated2Count,
+				SUM(DISTINCT CASE WHEN br.Rating = 1 THEN 1 ELSE 0 END) AS Rated1Count
 			FROM
 				Book AS b
 				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher

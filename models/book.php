@@ -16,7 +16,8 @@ class Book {
 	public $copiesForRent;
 	public $copiesForSale;
 	public $copies;
-	public $rating;
+	public $avgRating;
+	public $ratings;
 	public $authors;
 
 	/**
@@ -35,7 +36,6 @@ class Book {
 				'PublisherName' => '',
 				'CopiesForSale' => 0,
 				'CopiesForRent' => 0,
-				'AverageRating' => NULL,
 			), $row ? $row : array());
 
 		$this->isbn = $row['ISBN'];
@@ -47,7 +47,21 @@ class Book {
 		$this->publisher = $row['PublisherName'];
 		$this->copiesForSale = intval($row['CopiesForSale']);
 		$this->copiesForRent = intval($row['CopiesForRent']);
-		$this->rating = $row['AverageRating'] ? floatval($row['AverageRating']) : 0.0;
+
+		$this->ratings = array(
+				0 => $row['Rated5Count'] + $row['Rated4Count'] + $row['Rated3Count'] + $row['Rated2Count'] + $row['Rated1Count'],
+				1 => $row['Rated1Count'],
+				2 => $row['Rated2Count'],
+				3 => $row['Rated3Count'],
+				4 => $row['Rated4Count'],
+				5 => $row['Rated5Count'],
+			);
+
+		$ratingTotal = 0;
+		for ($i = 1; $i <= 5; $i++) {
+			$ratingTotal += $this->ratings[$i] * $i;
+		}
+		$this->avgRating = ($this->ratings[0] > 0.0) ? floatval($ratingTotal) / floatval($this->ratings[0]) : 0.0;
 
 		$this->copies = $this->copiesForRent + $this->copiesForSale;
 		$this->authors = array();
