@@ -129,6 +129,42 @@ class ReadController {
 			$jsonResult['data'][] = $book;
 		}
 	}
+	
+	/**
+	 * Makes an API call to get all data for a specific held book.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function viewBookCopy($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				bc.*,
+			FROM
+				BookCopy AS bc
+			WHERE 
+				bc.BookCopyID = :copyID
+		";
+
+		$bookCopy = $DB->query($query, array(
+				'copyID' => $request['copyId'],
+			));
+
+		$existingBook = json_decode(apiCall(array(
+				'controller' => 'read',
+				'action' => 'viewBook',
+				'isbn' => $bookCopy->$row['ISBN'],
+			)));
+
+		$jsonResult['success'] = true;
+		$copy = new HeldBook($bookCopy);
+		$copy->copyId = $request['copyId'];
+		$copy->book = $existingBook;
+		$copy->heldBy = $bookCopy->$row['HeldBy'];
+		$jsonResult['data'][] = $copy;
+	}
 
 	/**
 	 * Makes an API call to get all of a user's collections.
@@ -196,39 +232,6 @@ class ReadController {
 	}
 
 	/**
-	 * Makes an API call to get all of a book's ratings and reviews.
-	 * 
-	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
-	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-	 */
-	public function viewRatings($request, &$jsonResult) {
-		global $DB;
-
-		$query = "
-			SELECT
-				br.*,
-				u.Name,
-				u.Email
-			FROM
-				BookRated AS br
-				JOIN User AS u ON u.CardNumber = br.CardNumber
-			WHERE
-				br.ISBN = :isbn
-		";
-		$ratings = $DB->query($query, array(
-				'isbn' => $request['isbn'],
-			));
-
-		$jsonResult['success'] = true;
-		foreach ($ratings as $r) {
-			$rating = new Rating($r);
-			$rating->user = new User($r);
-
-			$jsonResult['data'][] = $rating;
-		}
-	}
-
-	/**
 	 * Makes an API call to get all held book data for a specific user.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -263,39 +266,39 @@ class ReadController {
 			$jsonResult['data'][] = $copy;
 		}
 	}
-    
-    public function viewBookCopy($request, &$jsonResult) {
-        global $DB;
 
-        $query = "
+	/**
+	 * Makes an API call to get all of a book's ratings and reviews.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function viewRatings($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
 			SELECT
-				bc.*,
+				br.*,
+				u.Name,
+				u.Email
 			FROM
-				BookCopy AS bc
-			WHERE 
-                BookCopyID=:copyID
+				BookRated AS br
+				JOIN User AS u ON u.CardNumber = br.CardNumber
+			WHERE
+				br.ISBN = :isbn
 		";
-        
-        $bookCopy = $DB->query($query, array(
-                'copyID' => $request['copyId'],
-            ));
-        
-        
-        $existingBook = json_decode(apiCall(array(
-                'controller' => 'read',
-                'action' => 'viewBook',
-                'isbn' => $bookCopy->$row['ISBN'],
-            )));
-        
-        $jsonResult['success'] = true;
-        $copy = new HeldBook($bookCopy);
-        $copy->copyId = $request['copyId'];
-        $copy->book = $existingBook;
-        $copy->heldBy = $bookCopy->$row['HeldBy'];
-        $jsonResult['data'][] = $copy;
-    }
+		$ratings = $DB->query($query, array(
+				'isbn' => $request['isbn'],
+			));
+
+		$jsonResult['success'] = true;
+		foreach ($ratings as $r) {
+			$rating = new Rating($r);
+			$rating->user = new User($r);
+
+			$jsonResult['data'][] = $rating;
+		}
+	}
 }
-
-
 
 ?>

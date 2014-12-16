@@ -4,7 +4,7 @@
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="input-group">
-		<input type="number" pattern="^[0-9]+$" placeholder="Scan or enter card number" />
+		<input type="number" name="cardNumber" pattern="^[0-9]+$" placeholder="Scan or enter card number" />
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="form-fields"></div>
