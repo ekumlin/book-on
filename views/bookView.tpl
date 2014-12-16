@@ -8,7 +8,9 @@
 		}
 	?></div><div class="info">
 		<?php echo $viewBag['book']->publisher; ?>
-	</div><div class="cover">
+	</div>
+	<h2>Details</h2>
+	<div class="cover">
 		<img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/>
 		<a href="#" class="button button-raised">Collect</a>
 	</div><div class="data">
@@ -39,7 +41,9 @@
 				<td><div><?php echo number_format($viewBag['book']->pageCount); ?> pages</div></td>
 			</tr>
 		</table>
-	</div><div class="reviews">
+	</div>
+	<h2>Reviews</h2>
+	<div class="reviews">
 		<?php
 			foreach ($viewBag['reviews'] as $r) {
 				View::render('bookReview', array(

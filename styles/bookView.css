@@ -1,3 +1,14 @@
+div.book-info h1 {
+	font-weight: 300;
+	margin-bottom: 8px;
+}
+
+div.book-info h2 {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	font-weight: 100;
+	padding-top: 16px;
+}
+
 div.book-info > .info {
 	margin-bottom: 8px;
 	opacity: 0.7;
@@ -45,7 +56,10 @@ div.book-info > .data {
 		}
 
 div.book-info > .reviews {
-	margin: 0 16px;
+	background: #FAFAFA;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0 16px 16px;
 	width: 100%;
 }
 
@@ -53,31 +67,40 @@ div.book-info > .reviews {
 		margin-bottom: 16px;
 	}
 
-		div.book-info > .reviews .review > .head > * {
+		div.book-info > .reviews .review > .head {
 			box-sizing: border-box;
-			display: inline-block;
-			padding: 8px;
-			vertical-align: middle;
+			padding: 8px 8px 4px;
 		}
 
-		div.book-info > .reviews .review > .head > .name {
-			font-size: 24px;
-			font-style: italic;
-			font-weight: 700;
-			width: 75%;
-		}
-
-			div.book-info > .reviews .review > .head > .name .email {
-				font-size: 14px;
-				opacity: 0.5;
+			div.book-info > .reviews .review > .head > .name {
+				font-size: 20px;
+				font-style: italic;
+				font-weight: 700;
 			}
 
-		div.book-info > .reviews .review > .head > .rating {
-			font-size: 36px;
-			width: 25%;
+				div.book-info > .reviews .review > .head > .name .email {
+					font-size: 14px;
+					margin-left: 16px;
+					opacity: 0.5;
+				}
+
+			div.book-info > .reviews .review > .head > .rating {
+				font-size: 18px;
+			}
+
+				div.book-info > .reviews .review > .head > .rating .ratingbox {
+					padding: 4px 0;
+				}
+
+		div.book-info > .reviews .review > .body {
+			padding: 0 16px 8px;
 		}
 
 @media (min-width: 721px) {
+	div.content {
+		padding: 8px 32px 0;
+	}
+
 	div.book-info > .cover, div.book-info > .data {
 		display: inline-block;
 		vertical-align: top;
@@ -91,7 +114,7 @@ div.book-info > .reviews {
 @media (max-width: 720px) {
 	div.content {
 		background: #E5E5E5;
-		margin: 56px 0 8px;
+		margin: 63px 0 8px;
 		padding: 8px 0 0;
 	}
 
@@ -102,7 +125,10 @@ div.book-info > .reviews {
 
 	div.book-info h1 {
 		font-size: 24px;
-		font-weight: 300;
+	}
+
+	div.book-info h2 {
+		display: none;
 	}
 
 	div.book-info > .info {
@@ -115,9 +141,10 @@ div.book-info > .reviews {
 
 	div.book-info > .data {
 		background: #FAFAFA;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.1);
 		margin: 0;
-		padding: 0 8px;
+		padding: 0 8px 8px;
 	}
 
 		div.book-info > .data table tr.section-end td {
@@ -135,6 +162,28 @@ div.book-info > .reviews {
 		div.book-info > .data table img {
 			height: 24px;
 			padding: 6px;
+		}
+
+	div.book-info > .reviews {
+		padding: 16px 16px 0;
+	}
+
+		div.book-info > .reviews .review > .head > .name {
+			font-size: 13px;
+			font-style: normal;
+		}
+
+			div.book-info > .reviews .review > .head > .name .email {
+				font-size: 10px;
+				opacity: 0.5;
+			}
+
+		div.book-info > .reviews .review > .head > .rating {
+			font-size: 18px;
+		}
+
+		div.book-info > .reviews .review > .body {
+			font-size: 13px;
 		}
 
 	#collect-button {

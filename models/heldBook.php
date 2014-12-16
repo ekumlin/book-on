@@ -10,6 +10,7 @@ class HeldBook {
 	public $rentalDate;
 	public $returnDate;
 	public $book;
+	public $heldBy;
 
 	/**
 	 * Creates a new held book instance from a database row.

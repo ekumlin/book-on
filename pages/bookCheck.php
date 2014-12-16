@@ -9,9 +9,6 @@ $content = '';
 $title = 'Book-On';
 $mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
 
-if (count($_POST) > 0) {var_dump($_POST);
-exit;}
-
 $content .= View::toString('bookCheck', array(
 	'mode' => $mode,
 ));

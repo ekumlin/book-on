@@ -1,6 +1,6 @@
 <?php
 	$bookUrl = _HOST . 'books/' . $viewBag['book']->isbn;
-	$rating = round($viewBag['book']->rating * 2) / 2;
+	$rating = round($viewBag['book']->rating * 10) / 10;
 ?><div class="card-box columnar">
 	<div class="card book-card">
 		<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><a href="<?php echo $bookUrl; ?>"><?php echo $viewBag['book']->title; ?></a></h1>
@@ -19,28 +19,7 @@
 		<div class="info">
 			<span class="pri3"><?php echo Locale::getLanguageName($viewBag['book']->language); ?></span>
 			<span class="pri3"><?php echo String::ordinal($viewBag['book']->edition); ?> edition</span>
-			<span class="pri<?php echo $rating > 0.0 ? 2 : 3; ?>" title="<?php echo $rating > 0.0 ? "{$rating} / 5" : "No rating"; ?>"><?php
-				$stars = 5;
-				if ($rating > 0.0) {
-					while ($rating >= 0.75) {
-						$rating -= 1.0;
-						echo "&#9733;"; // Full star
-						$stars--;
-					}
-
-					if ($rating >= 0.25) {
-						echo "<span style='opacity:0.3'>&#9733;</span>"; // Half star (TODO)
-						$stars--;
-					}
-
-					while ($stars > 0) {
-						echo "&#9734;"; // Empty star
-						$stars--;
-					}
-				} else {
-					echo "No ratings";
-				}
-			?></span>
+			<span class="pri<?php echo $rating > 0.0 ? 2 : 3; ?>" title="<?php echo $rating > 0.0 ? "{$rating} / 5" : "No rating"; ?>"><?php View::render('rating', array('rating' => $viewBag['book']->rating, 'color' => 'white')); ?></span>
 		</div>
 		<div class="buttons">
 			<a href="<?php echo $bookUrl; ?>" class="button-flat card-button primary">View</a>
