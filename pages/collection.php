@@ -15,7 +15,7 @@ $title = 'Book-On';
 $desiredCId = isset($_GET['collectionId']) ? $_GET['collectionId'] : 0;
 
 $collections = json_decode(apiCall(array(
-		'controller' => 'read',
+		'controller' => 'collection',
 		'action' => 'viewCollection',
 		'collectionId' => $desiredCId,
 	)));
