@@ -263,6 +263,39 @@ class ReadController {
 			$jsonResult['data'][] = $copy;
 		}
 	}
+    
+    public function viewBookCopy($request, &$jsonResult) {
+        global $DB;
+
+        $query = "
+			SELECT
+				bc.*,
+			FROM
+				BookCopy AS bc
+			WHERE 
+                BookCopyID=:copyID
+		";
+        
+        $bookCopy = $DB->query($query, array(
+                'copyID' => $request['copyId'],
+            ));
+        
+        
+        $existingBook = json_decode(apiCall(array(
+                'controller' => 'read',
+                'action' => 'viewBook',
+                'isbn' => $bookCopy->$row['ISBN'],
+            )));
+        
+        $jsonResult['success'] = true;
+        $copy = new HeldBook($bookCopy);
+        $copy->copyId = $request['copyId'];
+        $copy->book = $existingBook;
+        $copy->heldBy = $bookCopy->$row['HeldBy'];
+        $jsonResult['data'][] = $copy;
+    }
 }
+
+
 
 ?>
