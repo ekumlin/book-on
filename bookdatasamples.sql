@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2014 at 06:10 AM
+-- Generation Time: Dec 16, 2014 at 10:39 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -165,14 +165,14 @@ INSERT INTO `bookcopy` (`BookCopyId`, `IsForSale`, `HeldBy`, `ISBN`) VALUES
 (3, 1, NULL, 9781285196145),
 (4, 1, NULL, 9780133591620),
 (5, 1, NULL, 9780133591620),
-(6, 0, NULL, 9780131485211),
+(6, 0, 412100002, 9780131485211),
 (7, 1, NULL, 9780131485211),
 (8, 1, NULL, 9780131485211),
 (9, 0, NULL, 9780201485677),
 (10, 0, NULL, 9780201485677),
 (11, 1, NULL, 9780201485677),
 (12, 1, NULL, 9781449615529),
-(13, 1, NULL, 9781449615529),
+(13, 0, 412100003, 9781449615529),
 (14, 0, NULL, 9781449615529),
 (15, 0, NULL, 9781932394184),
 (16, 1, NULL, 9781932394184),
@@ -180,8 +180,8 @@ INSERT INTO `bookcopy` (`BookCopyId`, `IsForSale`, `HeldBy`, `ISBN`) VALUES
 (18, 1, NULL, 9780201433050),
 (19, 1, NULL, 9780201433050),
 (20, 0, NULL, 9780201433050),
-(21, 0, NULL, 9780201433050),
-(22, 0, NULL, 9780132126953),
+(21, 0, 412100002, 9780201433050),
+(22, 0, 412100001, 9780132126953),
 (23, 0, NULL, 9780132126953);
 
 -- --------------------------------------------------------
@@ -217,7 +217,17 @@ CREATE TABLE IF NOT EXISTS `booktransaction` (
   PRIMARY KEY (`BookTransactionId`),
   KEY `BookCopyId` (`BookCopyId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `booktransaction`
+--
+
+INSERT INTO `booktransaction` (`BookTransactionId`, `BookCopyId`, `Time`, `ExpectedReturn`, `ActualReturn`, `CardNumber`) VALUES
+(1, 13, '2014-12-15 15:36:58', '2014-12-12 04:00:00', NULL, 412100003),
+(2, 21, '2014-12-15 05:30:00', '2014-12-07 05:30:00', NULL, 412100002),
+(3, 6, '2014-12-16 14:35:14', '2014-12-18 07:20:00', NULL, 412100002),
+(4, 22, '2014-12-16 09:20:00', '2014-12-18 16:20:00', NULL, 412100001);
 
 -- --------------------------------------------------------
 
