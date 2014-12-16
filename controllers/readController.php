@@ -142,7 +142,7 @@ class ReadController {
 	 */
 	public function viewBookCopy($request, &$jsonResult) {
 		global $DB;
-        error_log("Got here 1: ", 3, "C:\\wamp\\errorlog.txt");
+
 		$query = "
 			SELECT
 				bc.*
@@ -159,8 +159,6 @@ class ReadController {
 			));
         
         
-        
-
 		$jsonResult['success'] = true;
 	    $copy = new HeldBook($bookCopy);
 		$copy->copyId = $request['copyId'];

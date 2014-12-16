@@ -47,7 +47,7 @@ if (isset($_POST['cardNumber'])) {
                 )); 
             } else {
                 $content .= "Checking in\n";
-                                //set heldBy to requester
+                //set heldBy to requester
                 $updatedBookCopy = json_decode(apiCall(array(
                     'controller' => 'inventory',
                     'action' => 'updateBookCopy',
@@ -77,8 +77,6 @@ if (isset($_POST['cardNumber'])) {
 			        'isbn' => $copy->data[0]->isbn,
 		        )));
 		        $copy->data[0]->book = $existingBook; //required by heldBook, but not by bookCopy
-		        //$content .= var_dump($copy);
-		        $content .= "Held by: {$copy->data[0]->heldBy}\n";
             
                 //set heldBy to requester
                 $updatedBookCopy = json_decode(apiCall(array(
