@@ -1,0 +1,1 @@
+<div class="popup <?php echo isset($viewBag['class']) ? $viewBag['class'] : 'generic'; ?>" style="display: none"><a href="#" class="close">X</a><div class="title">Notice</div><div class="body"><?php echo $viewBag['content']; ?></div></div></div>

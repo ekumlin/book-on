@@ -27,5 +27,6 @@
 			}
 		?>
 		<input type="hidden" name="php-host" value="<?php echo _HOST; ?>" />
+		<?php View::render('popup', array('class' => 'collect', 'content' => '')); ?>
 	</body>
 </html>
