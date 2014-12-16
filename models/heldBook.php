@@ -10,7 +10,10 @@ class HeldBook {
 	public $rentalDate;
 	public $returnDate;
 	public $book;
-	public $heldBy;
+    public $heldBy; //TODO: consider splitting this into its own BookCopy Class
+    public $isbn; 
+    public $isForSale;
+    public $transKey; //required to check in book. Perhaps this should go in Transaction model
 
 	/**
 	 * Creates a new held book instance from a database row.

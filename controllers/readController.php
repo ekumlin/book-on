@@ -142,31 +142,32 @@ class ReadController {
 	 */
 	public function viewBookCopy($request, &$jsonResult) {
 		global $DB;
-
+        error_log("Got here 1: ", 3, "C:\\wamp\\errorlog.txt");
 		$query = "
 			SELECT
-				bc.*,
+				bc.*
 			FROM
 				BookCopy AS bc
 			WHERE 
-				bc.BookCopyID = :copyID
+				bc.BookCopyId = :copyId
+            LIMIT
+                1
 		";
 
 		$bookCopy = $DB->query($query, array(
-				'copyID' => $request['copyId'],
+				'copyId' => $request['copyId'],
 			));
-
-		$existingBook = json_decode(apiCall(array(
-				'controller' => 'read',
-				'action' => 'viewBook',
-				'isbn' => $bookCopy->$row['ISBN'],
-			)));
+        
+        
+        
 
 		$jsonResult['success'] = true;
-		$copy = new HeldBook($bookCopy);
+	    $copy = new HeldBook($bookCopy);
 		$copy->copyId = $request['copyId'];
-		$copy->book = $existingBook;
-		$copy->heldBy = $bookCopy->$row['HeldBy'];
+        $copy->isbn = $bookCopy[0]['ISBN'];
+        $copy->isForSale = $bookCopy[0]['IsForSale'];
+        $copy->heldBy = $bookCopy[0]['HeldBy'];
+        
 		$jsonResult['data'][] = $copy;
 	}
 
@@ -243,7 +244,7 @@ class ReadController {
 	 */
 	public function viewHeldBooks($request, &$jsonResult) {
 		global $DB;
-
+        
 		$query = "
 			SELECT
 				b.*,

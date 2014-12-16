@@ -9,33 +9,27 @@ $content = '';
 $title = 'Book-On';
 $mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
 
+
 $content .= View::toString('bookCheck', array(
 	'mode' => $mode,
 ));
 
 if (isset($_POST['cardNumber'])) {
-//REQUIRED DATA: bookCopy.ISBN, copyID, rental date, return date, bookCopy.HeldBy
+    //REQUIRED DATA: bookCopy.ISBN, copyID, rental date, return date, bookCopy.HeldBy
 	//               cardNumber,
 
 	//Book checkout requires two fields: card number and bookcopyID
 	//one card number is entered, and multiple books. 
-	//card number is stored as....
 	//bookid is stored in copyId1 to copyIdn based on number of copies.
-	$givenCardNo = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : '1111111111111'; //dummy value
-		//for now since I can't figure out how to grab it from form (no id or name)
-		//might be $_SESSION['User']->cardNumber ??? but doesn't currently require log in
-
-	if ($givenCardNo == NULL) {
-		$content .= View::toString('error', array(
-			'error' => 'Error: Blank card number.',
-		));
-	}
 	//TODO: permissions check goes here? i.e are they allowed to checkout a book? or do we expect the caller
 	//to check prereqs before calling this function?
 
+    $holdResult = ($mode == 'in') ? NULL : $_POST['cardNumber'];
+    
 	$cInd = 1; //TODO: use as index in loop for multiple copies at once
 	$copyID = isset($_POST["copyId{$cInd}"]) ? $_POST["copyId{$cInd}"] : NULL;
-
+    
+    
 	$copy = json_decode(apiCall(array(
 			'controller' => 'read',
 			'action' => 'viewBookCopy',
@@ -43,24 +37,84 @@ if (isset($_POST['cardNumber'])) {
 		)));
 
 	if ($copy->success) {
-		if ($copy->$heldBy != NULL) {
-			//already checked out, return error   
-			$content .= View::toString('error', array(
-				'error' => 'Error: Book already checked out by someone.',
-			)); 
-		} else {
-			//need to set return date to some value, 
+        	//need to set return date to some value
 			$nowDate = new DateTime();
-			$copy->$rentalDate = $nowDate;
-			$copy->$returnDate = $nowDate->add(new DateInterval("P7D"));
-			
-			$content .= var_dump($copy);
-		}
-	} else {
-		$content .= View::toString('error', array(
-			'error' => 'Unknown error.',
-		));
-	}
+
+        if ($mode == 'in') {
+            if ($copy->data[0]->heldBy == NULL && $mode == 'in') {
+                $content .= View::toString('error', array(
+                    'error' => 'This book has already been checked in.',
+                )); 
+            } else {
+                $content .= "Checking in\n";
+                                //set heldBy to requester
+                $updatedBookCopy = json_decode(apiCall(array(
+                    'controller' => 'inventory',
+                    'action' => 'updateBookCopy',
+                    'bookCopy' => array(
+                            'isForSale' => $copy->data[0]->isForSale,
+                            'heldBy' => NULL,
+                            'isbn' => $copy->data[0]->isbn,
+                            'bookCopyId' => $copyID,
+                        ),
+                )));
+                
+            }
+        } else { //check out
+            if ($copy->data[0]->heldBy != NULL) {
+                $content .= View::toString('error', array(
+                    'error' => 'This book has already been checked out by someone else.',
+                )); 
+            
+            } else {
+                $content .= "Checking out\n";
+                
+             	$copy->data[0]->rentalDate = $nowDate;
+			    $copy->data[0]->returnDate = $nowDate->add(new DateInterval("P7D"));   
+                $existingBook = json_decode(apiCall(array(
+			        'controller' => 'read',
+			        'action' => 'viewBook',
+			        'isbn' => $copy->data[0]->isbn,
+		        )));
+		        $copy->data[0]->book = $existingBook; //required by heldBook, but not by bookCopy
+		        //$content .= var_dump($copy);
+		        $content .= "Held by: {$copy->data[0]->heldBy}\n";
+            
+                //set heldBy to requester
+                $updatedBookCopy = json_decode(apiCall(array(
+                    'controller' => 'inventory',
+                    'action' => 'updateBookCopy',
+                    'bookCopy' => array(
+                            'isForSale' => $copy->data[0]->isForSale,
+                            'heldBy' => $_POST['cardNumber'],
+                            'isbn' => $copy->data[0]->isbn,
+                            'bookCopyId' => $copyID,
+                        ),
+                )));
+                
+                $transactionID = json_decode(apiCall(array(
+                    'controller' => 'inventory',
+                    'action' => 'addBookTransaction',
+                    'bookTrans' => array(
+                            'bookCopyId' =>  $copyID,
+                            'transDate' => $copy->data[0]->rentalDate,
+                            'expectDate' => $copy->data[0]->returnDate,
+                            'actualDate' => NULL,
+                            'cardNumber' => $_POST['cardNumber'],
+                        ),
+                )));
+            }
+        }
+
+		} else { //viewBookCopy failed
+		    $content .= View::toString('error', array(
+			    'error' => 'Unknown error.',
+		    ));
+	    }
+} else { //$_POST['cardNumber'] unset
+	$content .= View::toString('error', array(
+		'error' => 'Did you forget to enter your card number?',
+	));
 }
 
 print View::toString('page', array(

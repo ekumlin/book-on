@@ -83,6 +83,76 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 	}
+    
+    /**
+     * Makes an API call to update a book copy as part of checking in/out a book by the user.
+     * 
+     * @param array $request A bundle of request data. Usually comes from URL parameter string.
+     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+     */
+    public function updateBookCopy($request, &$jsonResult) {
+		global $DB;
+
+        $bookCopy = $request['bookCopy'];
+        
+        $query = "
+			UPDATE BookCopy
+			SET
+				IsForSale = :isForSale,
+				HeldBy = :heldBy,
+				ISBN = :isbn
+			WHERE
+				BookCopyId = :bookCopyId
+		"; 
+        $insertion = $DB->query($query, array(
+            'isForSale' => $bookCopy['isForSale'],
+            'heldBy' => $bookCopy['heldBy'],
+            'isbn' => $bookCopy['isbn'],
+            'bookCopyId' => $bookCopy['bookCopyId'],
+        ));
+
+		$jsonResult['success'] = true;
+    }
+    
+    /**
+     * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping
+     * 
+     * @param array $request A bundle of request data. Usually comes from URL parameter string.
+     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+     */
+    public function addBookTransaction($request, &$jsonResult) {
+		global $DB;
+
+        $bookTrans = $request['bookTrans'];
+        
+        //omit BookTransactionID since it's auto-increment
+        $query = "
+	        INSERT INTO BookTransaction 
+				(`BookCopyId`,
+					`Time`,
+					`ExpectedReturn`,
+					`ActualReturn`,
+					`CardNumber`)
+			VALUES
+				(:bookCopyId,
+					:transDate,
+					:expectDate,
+					:actualDate,
+					:cardNumber);
+            SELECT LAST_INSERT_ID();
+		";
+        $transKey = $DB->query($query, array(
+            'bookCopyId' => $bookTrans['bookCopyId'],
+            'transDate' => $bookTrans['transDate'],
+            'expectDate' => $bookTrans['expectDate'],
+            'actualDate' => $bookTrans['actualDate'],
+            'cardNumber' => $bookTrans['cardNumber'],
+        ));
+
+		$jsonResult['success'] = true;
+        $jsonResult['data'][] = $transKey;
+        
+    }
 }
 
 ?>
