@@ -21,9 +21,10 @@ $.support.transition = (function(){
 
 $(document).ready(function() {
 	var animInTime = 200, animOutTime = 300;
+	var $curtain = $('#curtain'), $drawer = $('body > .drawer');
 
 	$('#hamburger').each(function() {
-		var $this = $(this), $drawer = $('body > .drawer'), $curtain = $('#curtain');
+		var $this = $(this);
 		var initialLeft = $drawer.css('left');
 
 		$curtain.click(function() {
@@ -39,14 +40,26 @@ $(document).ready(function() {
 
 			if (initialLeft == currentLeft) {
 				animateDrawer($drawer, 0, 'inOut', animInTime);
-				$curtain.show().fadeTo(0, 0.0).fadeTo(animInTime, 0.7);
+				setCurtain($curtain, true, animInTime);
 				$('html, body').addClass('noscroll');
 			} else {
 				animateDrawer($drawer, initialLeft, 'in', animOutTime);
-				$curtain.fadeOut(animOutTime);
+				setCurtain($curtain, false, animOutTime);
 				$('html, body').removeClass('noscroll');
 			}
 		});
+	});
+
+	$curtain.click(function() {
+		$('.popup:visible .close').click();
+	});
+
+	$(this).keyup(function(e) {
+		if (e.keyCode == 27) {
+			if ($curtain.is(':visible')) {
+				$curtain.click();
+			}
+		}
 	});
 
 	$('#drawer tr').click(function() {
@@ -65,5 +78,13 @@ function animateDrawer($drawer, leftPosition, easingType, durationMillis) {
 			easing: easingType == 'in' ? 'easeInQuad' : 'easeInOutQuad',
 			duration: durationMillis,
 		});
+	}
+}
+
+function setCurtain($curtain, show, duration) {
+	if (show) {
+		$curtain.show().fadeTo(0, 0.0).fadeTo(duration, 0.7);
+	} else {
+		$curtain.fadeOut(duration);
 	}
 }
