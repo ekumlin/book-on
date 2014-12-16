@@ -45,10 +45,14 @@
 	<h2>Reviews</h2>
 	<div class="reviews">
 		<?php
-			foreach ($viewBag['reviews'] as $r) {
-				View::render('bookReview', array(
-						'review' => $r,
-					));
+			if (count($viewBag['reviews']) > 0) {
+				foreach ($viewBag['reviews'] as $r) {
+					View::render('bookReview', array(
+							'review' => $r,
+						));
+				}
+			} else {
+				echo '<div class="no-review">No reviews yet. Be the first!</div>';
 			}
 		?>
 	</div>

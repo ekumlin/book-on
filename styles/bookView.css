@@ -59,12 +59,16 @@ div.book-info > .reviews {
 	background: #FAFAFA;
 	box-sizing: border-box;
 	margin: 0;
-	padding: 0 16px 16px;
+	padding: 8px 16px 16px;
 	width: 100%;
 }
 
+	div.book-info > .reviews .no-review {
+		padding: 8px 16px;
+	}
+
 	div.book-info > .reviews .review {
-		margin-bottom: 16px;
+		margin-top: 8px;
 	}
 
 		div.book-info > .reviews .review > .head {
@@ -164,27 +168,23 @@ div.book-info > .reviews {
 			padding: 6px;
 		}
 
-	div.book-info > .reviews {
-		padding: 16px 16px 0;
+	div.book-info > .reviews .review > .head > .name {
+		font-size: 13px;
+		font-style: normal;
 	}
 
-		div.book-info > .reviews .review > .head > .name {
-			font-size: 13px;
-			font-style: normal;
+		div.book-info > .reviews .review > .head > .name .email {
+			font-size: 10px;
+			opacity: 0.5;
 		}
 
-			div.book-info > .reviews .review > .head > .name .email {
-				font-size: 10px;
-				opacity: 0.5;
-			}
+	div.book-info > .reviews .review > .head > .rating {
+		font-size: 18px;
+	}
 
-		div.book-info > .reviews .review > .head > .rating {
-			font-size: 18px;
-		}
-
-		div.book-info > .reviews .review > .body {
-			font-size: 13px;
-		}
+	div.book-info > .reviews .review > .body {
+		font-size: 13px;
+	}
 
 	#collect-button {
 		height: 0;
