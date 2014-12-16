@@ -36,8 +36,14 @@ class Connection {
 	 */
 	public function query($queryString, $args = array()) {
 		$stmt = $this->db->prepare($queryString);
-		$stmt->execute($args);
-		return $stmt->fetchAll();
+
+		if ($stmt->execute($args)) {
+			if ($stmt->rowCount() > 0) {
+				return $stmt->fetchAll();
+			}
+		}
+
+		return array();
 	}
 }
 
