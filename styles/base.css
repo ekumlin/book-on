@@ -94,11 +94,19 @@ body {
 
 		body > .header .login {
 			float: right;
-			font-size: 14px;
+			font-size: 15px;
 		}
 
+			body > .header .login span {
+				margin-right: 8px;
+			}
+
 			body > .header .login .username {
-				margin-right: 16px;
+				font-weight: 100;
+			}
+
+			body > .header .login .cardNumber {
+				font-weight: 500;
 			}
 
 			body > .header .login a {
