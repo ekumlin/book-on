@@ -65,7 +65,7 @@ if (isset($_POST['cardNumber'])) {
 
 		if ($mode == 'in') {
 			if ($copyBook->heldBy == NULL) {
-				$errors[] = 'This book is not checked out to anyone.';
+				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is not currently checked out";
 			}
 		} else {
 			if ($copyBook->heldBy != NULL) {
@@ -124,7 +124,7 @@ if (isset($_POST['cardNumber'])) {
 						),
 				)));
 
-				$tasks[] = "'{$existingBook->data[0]->title}' has been checked in from {$_POST['cardNumber']}";
+				$tasks[] = "Book copy {$copyId} has been checked in from {$_POST['cardNumber']}";
 			} else { //check out
 				$copyBook->rentalDate = $nowDate;
 				$copyBook->returnDate = $returnDate;
