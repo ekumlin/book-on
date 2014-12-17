@@ -38,7 +38,7 @@ class RatingController {
 				));
 
 			if (count($existingRatings) > 0) {
-			$query = "
+				$query = "
 					UPDATE BookRated
 					SET
 						Rating = :rating,

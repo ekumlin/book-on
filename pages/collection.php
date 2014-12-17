@@ -30,7 +30,11 @@ if ($collections->success) {
 		}
 	} else if (count($collections->data) > 0) {
 		if (count($collections->data[0]->items) == 0) {
-			$content .= View::toString('collectionListEmpty');
+			$content .= View::render('notice', array(
+					'class' => 'warning',
+					'title' => 'Uh-oh!',
+					'message' => 'Looks like there aren\'t any books in this collection. You can search for books above or look in the <a href="' . _HOST . '">book index</a>.',
+				));
 		} else {
 			$items = View::toString('bookCollectedListItemHeader');
 			foreach ($collections->data[0]->items as $item) {

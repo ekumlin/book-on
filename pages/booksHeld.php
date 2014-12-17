@@ -29,20 +29,28 @@ $books = json_decode(apiCall(array(
 	)));
 
 if ($books->success) {
-	$format = isset($_GET['format']) ? $_GET['format'] : NULL;
-	if (array_key_exists($format, $listFormats)) {
-		$fmtTemplate = $listFormats[$format];
+	if (count($books->data) == 0) {
+		$content .= View::toString('notice', array(
+				'class' => 'success',
+				'title' => 'We didn\'t find anything!',
+				'message' => 'Looks like you don\'t have any outstanding loans! You can browse books in the <a href="' . _HOST . '">book index</a>.',
+			));
 	} else {
-		$fmtTemplate = $listFormats['cards'];
-	}
+		$format = isset($_GET['format']) ? $_GET['format'] : NULL;
+		if (array_key_exists($format, $listFormats)) {
+			$fmtTemplate = $listFormats[$format];
+		} else {
+			$fmtTemplate = $listFormats['cards'];
+		}
 
-	if (array_key_exists($format, $headerFormats)) {
-		$content .= View::toString($headerFormats[$format]);
-	}
-	foreach ($books->data as $obj) {
-		$content .= View::toString($fmtTemplate, array(
-			'bookCopy' => $obj,
-		));
+		if (array_key_exists($format, $headerFormats)) {
+			$content .= View::toString($headerFormats[$format]);
+		}
+		foreach ($books->data as $obj) {
+			$content .= View::toString($fmtTemplate, array(
+				'bookCopy' => $obj,
+			));
+		}
 	}
 } else {
 	$content .= View::toString('error', array(
