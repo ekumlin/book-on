@@ -90,7 +90,7 @@ if ($books->success) {
 
 print View::toString('page', array(
 		'styles' => array('listings'),
-		'scripts' => array(),
+		'scripts' => array('collection'),
 		'searchTarget' => 'books/search',
 		'body' => $content,
 	));

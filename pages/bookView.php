@@ -43,7 +43,7 @@ if ($books->success) {
 print View::toString('page', array(
 		'title' => $pgTitle,
 		'styles' => array('bookView'),
-		'scripts' => array(),
+		'scripts' => array('collection'),
 		'searchTarget' => 'books/search',
 		'body' => $content,
 	));

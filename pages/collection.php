@@ -60,7 +60,7 @@ if ($collections->success) {
 print View::toString('page', array(
 		'title' => $pgTitle,
 		'styles' => array('listings'),
-		'scripts' => array(),
+		'scripts' => array('collection'),
 		'searchTarget' => 'books/search',
 		'body' => $content,
 	));
