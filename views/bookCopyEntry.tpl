@@ -1,2 +1,2 @@
-<input type="tel" pattern="^[0-9-]+$" <?php echo isset($viewBag['name']) ? "name={$viewBag['name']} " : ''; ?>value="<?php echo isset($viewBag['value']) ? $viewBag['value'] : ''; ?>" placeholder="Scan or enter book copy ID" />
+<input type="tel" pattern="^[0-9-]+$" <?php echo isset($viewBag['name']) ? "name={$viewBag['name']} " : ''; ?>value="<?php echo isset($viewBag['value']) ? $viewBag['value'] : ''; ?>" placeholder="Book ID number" />
 <div class="input-status input-error"></div>

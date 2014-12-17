@@ -1,4 +1,4 @@
-<form class="login-form material-form" method="POST" action="<?php echo _HOST; ?>register" novalidate>
+<form class="login-form material-form" method="POST" action="<?php echo _HOST; ?>register">
 	<div class="input-group">
 		<input type="text" name="name" id="login-name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>" pattern=".+ .+" placeholder="First and last name" required />
 		<div class="input-status input-error"></div>

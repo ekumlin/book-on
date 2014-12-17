@@ -10,7 +10,7 @@
 		<div class="input-status input-dependent" data-dependence="login-password" data-attribute="length"></div>
 	</div>
 	<div class="form-controls">
-		<a href="<?php echo _HOST; ?>register" class="button-flat action-negative">Register</a>
+		<a href="<?php echo _HOST; ?>register" class="button-flat action-creative">Register</a>
 		<input type="submit" value="Log in" class="button-flat action-primary" />
 	</div>
 </form>
