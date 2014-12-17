@@ -67,6 +67,87 @@ div.book-info .data {
 			width: auto;
 		}
 
+div.book-info .rating-summary {
+	background: #FFF;
+	border-radius: 2px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	display: inline-block;
+	margin-right: 32px;
+	margin-top: 24px;
+	padding: 16px;
+	vertical-align: middle;
+}
+
+	div.book-info .rating-summary > * {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	div.book-info .rating-summary .stats {
+		font-weight: 300;
+		padding: 8px;
+		text-align: center;
+	}
+
+	div.book-info .rating-summary .average {
+		font-size: 40px;
+	}
+
+	div.book-info .rating-summary .label {
+		font-size: 14px;
+		margin-right: 8px;
+		opacity: 0.5;
+		padding: 0 8px 0 24px;
+	}
+
+	div.book-info .rating-summary img {
+		height: 12px;
+		width: auto;
+	}
+
+	div.book-info .rating-summary .graph {
+		font-size: 14px;
+	}
+
+		div.book-info .rating-summary .graph .rank {
+			height: 17px;
+			width: 80px;
+		}
+
+			div.book-info .rating-summary .graph .rank > div {
+				position: relative;
+				height: 100%;
+			}
+
+				div.book-info .rating-summary .graph .rank > div.rating {
+					font-size: 80%;
+					font-weight: 500;
+					padding: 0 4px;
+					text-align: left;
+					top: -90%;
+				}
+
+				div.book-info .rating-summary .graph .rank > div.bar5 {
+					background: #689F38;
+				}
+
+				div.book-info .rating-summary .graph .rank > div.bar4 {
+					background: #AFB42B;
+				}
+
+				div.book-info .rating-summary .graph .rank > div.bar3 {
+					background: #FBC02D;
+				}
+
+				div.book-info .rating-summary .graph .rank > div.bar2 {
+					background: #F57C00;
+				}
+
+				div.book-info .rating-summary .graph .rank > div.bar1 {
+					background: #E64A19;
+				}
+
 div.book-info .reviews {
 	background: #FAFAFA;
 	box-sizing: border-box;
@@ -77,86 +158,6 @@ div.book-info .reviews {
 	white-space: nowrap;
 	width: 100%;
 }
-
-	div.book-info .rating-summary {
-		background: #FFF;
-		border-radius: 2px;
-		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-		display: inline-block;
-		margin-right: 32px;
-		margin-top: 24px;
-		padding: 16px;
-		vertical-align: middle;
-	}
-
-		div.book-info .rating-summary > * {
-			display: inline-block;
-			vertical-align: top;
-		}
-
-		div.book-info .rating-summary .stats {
-			font-weight: 300;
-			padding: 8px;
-			text-align: center;
-		}
-
-		div.book-info .rating-summary .average {
-			font-size: 40px;
-		}
-
-		div.book-info .rating-summary .label {
-			font-size: 14px;
-			margin-right: 8px;
-			opacity: 0.5;
-			padding: 0 8px 0 24px;
-		}
-
-		div.book-info .rating-summary img {
-			height: 12px;
-			width: auto;
-		}
-
-		div.book-info .rating-summary .graph {
-			font-size: 14px;
-		}
-
-			div.book-info .rating-summary .graph .rank {
-				height: 17px;
-				width: 80px;
-			}
-
-				div.book-info .rating-summary .graph .rank > div {
-					position: relative;
-					height: 100%;
-				}
-
-					div.book-info .rating-summary .graph .rank > div.rating {
-						font-size: 80%;
-						font-weight: 500;
-						padding: 0 4px;
-						text-align: left;
-						top: -90%;
-					}
-
-					div.book-info .rating-summary .graph .rank > div.bar5 {
-						background: #689F38;
-					}
-
-					div.book-info .rating-summary .graph .rank > div.bar4 {
-						background: #AFB42B;
-					}
-
-					div.book-info .rating-summary .graph .rank > div.bar3 {
-						background: #FBC02D;
-					}
-
-					div.book-info .rating-summary .graph .rank > div.bar2 {
-						background: #F57C00;
-					}
-
-					div.book-info .rating-summary .graph .rank > div.bar1 {
-						background: #E64A19;
-					}
 
 	div.book-info .multicol {
 		display: inline-block;
@@ -311,6 +312,19 @@ div.book-info .reviews {
 			div.book-info .reviews .review > .body {
 				font-size: 13px;
 			}
+
+	div.book-info .rating-summary {
+		margin-right: 16px;
+		padding: 8px;
+	}
+
+		div.book-info .rating-summary .label {
+			padding: 0 4px 0 8px;
+		}
+
+		div.book-info .rating-summary .graph .rank {
+			width: 50px;
+		}
 
 	#collect-button {
 		height: 0;

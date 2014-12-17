@@ -457,7 +457,7 @@ div.ratingbox {
 		}
 
 		div.ratingbox > div.clickbar {
-			background: #F9A825;
+			background: #4CAF50;
 			top: -200%;
 			z-index: 2;
 		}
