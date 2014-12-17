@@ -7,8 +7,48 @@ if (!defined('VALID_REQUEST')) {
 
 class InventoryController {
 	/**
+	 * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function addBookTransaction($request, &$jsonResult) {
+		global $DB;
+
+		$bookTrans = $request['bookTrans'];
+
+		//omit BookTransactionID since it's auto-increment
+		$query = "
+			INSERT INTO BookTransaction
+				(`BookCopyId`,
+					`Time`,
+					`ExpectedReturn`,
+					`ActualReturn`,
+					`CardNumber`)
+			VALUES
+				(:bookCopyId,
+					:transDate,
+					:expectDate,
+					:actualDate,
+					:cardNumber);
+		";
+		$transKey = $DB->query($query, array(
+			'bookCopyId' => $bookTrans['bookCopyId'],
+			'transDate' => $bookTrans['transDate'],
+			'expectDate' => $bookTrans['expectDate'],
+			'actualDate' => $bookTrans['actualDate'],
+			'cardNumber' => $bookTrans['cardNumber'],
+		));
+
+
+		$jsonResult['success'] = true;
+		$jsonResult['data'][] = $DB->lastInsertedId();
+
+	}
+
+	/**
 	 * Makes an API call to add a book to the database.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -50,7 +90,7 @@ class InventoryController {
 
 	/**
 	 * Makes an API call to update a book's information in the database.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -83,19 +123,19 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 	}
-    
-    /**
-     * Makes an API call to update a book copy as part of checking in/out a book by the user.
-     * 
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
-    public function updateBookCopy($request, &$jsonResult) {
+
+	/**
+	 * Makes an API call to update a book copy as part of checking in/out a book by the user.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function updateBookCopy($request, &$jsonResult) {
 		global $DB;
 
-        $bookCopy = $request['bookCopy'];
-        
-        $query = "
+		$bookCopy = $request['bookCopy'];
+
+		$query = "
 			UPDATE BookCopy
 			SET
 				IsForSale = :isForSale,
@@ -103,84 +143,44 @@ class InventoryController {
 				ISBN = :isbn
 			WHERE
 				BookCopyId = :bookCopyId;
-		"; 
-        $insertion = $DB->query($query, array(
-            'isForSale' => $bookCopy['isForSale'],
-            'heldBy' => $bookCopy['heldBy'],
-            'isbn' => $bookCopy['isbn'],
-            'bookCopyId' => $bookCopy['bookCopyId'],
-        ));
-
-		$jsonResult['success'] = true;
-    }
-    
-    /**
-     * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping
-     * 
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
-    public function addBookTransaction($request, &$jsonResult) {
-		global $DB;
-
-        $bookTrans = $request['bookTrans'];
-        
-        //omit BookTransactionID since it's auto-increment
-        $query = "
-	        INSERT INTO BookTransaction 
-				(`BookCopyId`,
-					`Time`,
-					`ExpectedReturn`,
-					`ActualReturn`,
-					`CardNumber`)
-			VALUES
-				(:bookCopyId,
-					:transDate,
-					:expectDate,
-					:actualDate,
-					:cardNumber);
 		";
-        $transKey = $DB->query($query, array(
-            'bookCopyId' => $bookTrans['bookCopyId'],
-            'transDate' => $bookTrans['transDate'],
-            'expectDate' => $bookTrans['expectDate'],
-            'actualDate' => $bookTrans['actualDate'],
-            'cardNumber' => $bookTrans['cardNumber'],
-        ));
+		$insertion = $DB->query($query, array(
+			'isForSale' => $bookCopy['isForSale'],
+			'heldBy' => $bookCopy['heldBy'],
+			'isbn' => $bookCopy['isbn'],
+			'bookCopyId' => $bookCopy['bookCopyId'],
+		));
 
-        
 		$jsonResult['success'] = true;
-        $jsonResult['data'][] = $DB->lastInsertedId();
-        
-    }
-    
-    /**
-     * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping
-     * 
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
-    public function updateReturnTransaction($request, &$jsonResult) {
+	}
+
+	/**
+	 * Makes an API call to update a book transaction in the bookTransaction table as part of record keeping.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function updateReturnTransaction($request, &$jsonResult) {
 		global $DB;
 
-        $bookReturn = $request['returnTrans'];
-        
-        //omit BookTransactionID since it's auto-increment
-        $query = "
+		$bookReturn = $request['returnTrans'];
+
+		//omit BookTransactionID since it's auto-increment
+		$query = "
 			UPDATE BookTransaction
 			SET
 				ActualReturn = :returnDate
 			WHERE
-				BookTransactionId = :bookTransactionId;
-		"; 
-        $transKey = $DB->query($query, array(
-            'returnDate' => $bookReturn['returnDate'],
-            'bookTransactionId' => $bookReturn['bookTransactionId'],
-        ));
+				ActualReturn IS NULL
+				AND BookCopyId = :bookCopyId
+		";
+		$transKey = $DB->query($query, array(
+			'returnDate' => $bookReturn['returnDate'],
+			'bookCopyId' => $bookReturn['bookCopyId'],
+		));
 
 		$jsonResult['success'] = true;
-        
-    }
+	}
 }
 
 ?>

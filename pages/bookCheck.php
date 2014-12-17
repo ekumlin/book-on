@@ -91,27 +91,14 @@ if (isset($_POST['cardNumber'])) {
 			$copyBook = $copies[$copyID];
 
 			if ($mode == 'in') {
-				//find matching transaction
-				$transactionID = json_decode(apiCall(array(
-					'controller' => 'read',
-					'action' => 'viewMostRecentRentalForUser',
-					'transaction' => array(
-							'cardNumber' => $copyBook->heldBy,
+				apiCall(array(
+					'controller' => 'inventory',
+					'action' => 'updateReturnTransaction',
+					'returnTrans' => array(
+							'returnDate' => date_format(new DateTime(), "Y/m/d H:i:s"),
 							'bookCopyId' => $copyID,
 						),
-				)));
-
-				if (count($transactionID->data[0]) > 0) {
-					//update actualDate to return date
-					$updatedBookCopy = json_decode(apiCall(array(
-						'controller' => 'inventory',
-						'action' => 'updateReturnTransaction',
-						'returnTrans' => array(
-								'returnDate' => date_format(new DateTime(),"Y/m/d H:i:s"),
-								'bookTransactionId' => $transactionID->data[0][0]->BookTransactionId,
-							),
-					)));
-				}
+				));
 
 				$updatedBookCopy = json_decode(apiCall(array(
 					'controller' => 'inventory',
