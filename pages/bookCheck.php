@@ -96,7 +96,7 @@ if (isset($_POST['cardNumber'])) {
 					'controller' => 'read',
 					'action' => 'viewMostRecentRentalForUser',
 					'transaction' => array(
-							'cardNumber' => $_POST['cardNumber'],
+							'cardNumber' => $copyBook->heldBy,
 							'bookCopyId' => $copyID,
 						),
 				)));
@@ -124,7 +124,7 @@ if (isset($_POST['cardNumber'])) {
 						),
 				)));
 
-				$tasks[] = "Book copy {$copyId} has been checked in from {$_POST['cardNumber']}";
+				$tasks[] = "Book copy {$copyID} has been checked in from {$copyBook->heldBy}";
 			} else { //check out
 				$copyBook->rentalDate = $nowDate;
 				$copyBook->returnDate = $returnDate;
