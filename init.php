@@ -11,6 +11,7 @@ define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVE
 global $CONFIG, $DB;
 
 require(_ROOT . 'config.php');
+require(_ROOT . 'util/log.php');
 require(_ROOT . 'util/http.php');
 require(_ROOT . 'util/string.php');
 require(_ROOT . 'util/locale.php');

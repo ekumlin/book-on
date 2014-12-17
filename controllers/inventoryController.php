@@ -32,14 +32,13 @@ class InventoryController {
 					:actualDate,
 					:cardNumber);
 		";
-		$transKey = $DB->query($query, array(
+		$DB->query($query, array(
 			'bookCopyId' => $bookTrans['bookCopyId'],
 			'transDate' => $bookTrans['transDate'],
 			'expectDate' => $bookTrans['expectDate'],
 			'actualDate' => $bookTrans['actualDate'],
 			'cardNumber' => $bookTrans['cardNumber'],
 		));
-
 
 		$jsonResult['success'] = true;
 		$jsonResult['data'][] = $DB->lastInsertedId();
@@ -174,7 +173,7 @@ class InventoryController {
 				ActualReturn IS NULL
 				AND BookCopyId = :bookCopyId
 		";
-		$transKey = $DB->query($query, array(
+		$DB->query($query, array(
 			'returnDate' => $bookReturn['returnDate'],
 			'bookCopyId' => $bookReturn['bookCopyId'],
 		));

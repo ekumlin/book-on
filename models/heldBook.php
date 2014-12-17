@@ -8,11 +8,10 @@ if (!defined('VALID_REQUEST')) {
 class HeldBook {
 	public $copyId;
 	public $isForSale;
-	public $heldBy; //TODO: consider splitting this into its own BookCopy Class
+	public $heldBy;
 	public $isbn;
 	public $rentalDate;
 	public $returnDate;
-	public $transKey; //required to check in book. Perhaps this should go in Transaction model
 	public $book;
 
 	/**

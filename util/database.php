@@ -24,8 +24,12 @@ class Connection {
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
 			));
 		} catch (PDOException $pdoe) {
-			// TODO Do something with exception
-			var_dump($pdoe);
+			$code = $pdoe->getCode();
+			$msg = $pdoe->getMessage();
+			$line = $pdoe->getFile();
+			$file = $pdoe->getLine();
+
+			Log::writeLine("PDO Exception {$code} on line {$line} of {$file}: {$msg}");
 		}
 	}
 
