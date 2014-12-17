@@ -436,7 +436,7 @@ div.ratingbox {
 }
 
 	div.ratingbox.clickable {
-		cursor: pointer
+		cursor: pointer;
 	}
 
 	div.ratingbox > div {

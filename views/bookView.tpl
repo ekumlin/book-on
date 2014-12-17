@@ -69,7 +69,7 @@
 				<?php endfor; ?>
 			</div><div class="graph">
 				<?php for ($i = 5; $i >= 1; $i--): ?>
-				<div class="rank"><div class="bar bar<?php echo $i; ?>" style="width: <?php echo max($viewBag['book']->ratings[$i] * 100.0 / $viewBag['book']->ratings[0], 2.0); ?>%"></div><div class="rating"><?php echo number_format($viewBag['book']->ratings[$i]); ?></div></div>
+				<div class="rank"><div class="bar bar<?php echo $i; ?>" style="width: <?php echo max($viewBag['book']->ratings[0] > 0.0 ? ($viewBag['book']->ratings[$i] * 100.0 / $viewBag['book']->ratings[0]) : 0.0, 2.0); ?>%"></div><div class="rating"><?php echo number_format($viewBag['book']->ratings[$i]); ?></div></div>
 				<?php endfor; ?>
 			</div>
 		</div><div class="multicol">
