@@ -17,7 +17,7 @@
 			$noComma = true;
 			foreach ($viewBag['book']->authors as $a) {
 				if (!$noComma) { echo ', '; } $noComma = false;
-				echo "{$a->firstName} {$a->lastName} (Author)";
+				echo "{$a->firstName} {$a->lastName}";
 			}
 		?></div><div class="info">
 			<?php echo $viewBag['book']->publisher; ?>
