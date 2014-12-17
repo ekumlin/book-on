@@ -95,7 +95,7 @@ if (isset($_POST['cardNumber'])) {
 					'controller' => 'inventory',
 					'action' => 'updateReturnTransaction',
 					'returnTrans' => array(
-							'returnDate' => date_format(new DateTime(), "Y/m/d H:i:s"),
+							'returnDate' => new DateTime(),
 							'bookCopyId' => $copyID,
 						),
 				));
@@ -138,8 +138,8 @@ if (isset($_POST['cardNumber'])) {
 					'action' => 'addBookTransaction',
 					'bookTrans' => array(
 							'bookCopyId' =>  $copyID,
-							'transDate' => date_format($copyBook->rentalDate, "Y/m/d H:i:s"),
-							'expectDate' => date_format($copyBook->returnDate, "Y/m/d H:i:s"),
+							'transDate' => $copyBook->rentalDate,
+							'expectDate' => $copyBook->returnDate,
 							'actualDate' => NULL,
 							'cardNumber' => $_POST['cardNumber'],
 						),

@@ -58,6 +58,10 @@ class Connection {
 		$stmt = $this->db->prepare($queryString);
 		$result = array();
 
+		foreach ($args as $k => $v) {
+			$args[$k] = $this->parameterize($v);
+		}
+
 		if ($stmt->execute($args)) {
 			if ($stmt->columnCount() > 0) {
 				$result = $stmt->fetchAll();
@@ -67,6 +71,23 @@ class Connection {
 		$this->queryAffectedRows = $stmt->rowCount();
 
 		return $result;
+	}
+
+	/**
+	 * Prepares an object for insertion into the database.
+	 *
+	 * @param object $obj Any object, scalar, or array that needs to be prepared for use as a parameter.
+	 * @return array The returned values from the query, or an empty array otherwise.
+	 */
+	public function parameterize($obj) {
+		if (is_object($obj)) {
+			$class = get_class($obj);
+			if ($class == 'DateTime') {
+				return date_format($obj, 'Y/m/d H:i:s');
+			}
+		}
+
+		return $obj;
 	}
 }
 
