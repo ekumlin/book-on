@@ -1,4 +1,5 @@
-<div class="card notice-card error-card">
-	<h1>We're so sorry!</h1>
-	<div class="text"><?php echo $viewBag['error']; ?></div>
-</div>
+<?php View::render('notice', array(
+		'class' => 'error',
+		'title' => 'We\'re so sorry!',
+		'message' => $viewBag['error'],
+	)); ?>

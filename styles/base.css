@@ -396,6 +396,11 @@ div.card {
 				color: #000;
 			}
 
+			div.card.notice-card.success-card h1 {
+				background: #388E3C;
+				color: #FFF;
+			}
+
 		div.card.notice-card > * {
 			margin: 0;
 			padding: 16px;
