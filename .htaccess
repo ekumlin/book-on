@@ -80,7 +80,7 @@ FileETag None
 
 	RewriteRule ^collections?/?$ index.php?view=collection [L,QSA]
 	RewriteRule ^collections?/([0-9]+)/?$ index.php?view=collection&collectionId=$1 [L,QSA]
-	RewriteRule ^(login|logout)/?$ index.php?view=$1 [L,QSA]
+	RewriteRule ^(login|logout|register)/?$ index.php?view=$1 [L,QSA]
 
 	RewriteRule .* - [L,QSA]
 </IfModule>

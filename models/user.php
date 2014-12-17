@@ -6,6 +6,8 @@ if (!defined('VALID_REQUEST')) {
 }
 
 class User {
+	const MIN_PASSWORD_LENGTH = 8;
+
 	const USER_BASIC = 0;
 	const USER_STAFF = 1;
 	const USER_ADMIN = 2;

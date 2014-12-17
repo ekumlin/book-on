@@ -7,6 +7,6 @@ if (!defined('VALID_REQUEST')) {
 
 session_destroy();
 
-Http::back('/log(in|out)/');
+Http::back('/./');
 
 ?>

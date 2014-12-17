@@ -7,6 +7,55 @@ if (!defined('VALID_REQUEST')) {
 
 class UserController {
 	/**
+	 * Checks if a user exists by email address.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function createAccount($request, &$jsonResult) {
+		global $DB;
+
+		$cardNumber = $DB->query('SELECT CardNumber+1 FROM User ORDER BY CardNumber DESC LIMIT 1');
+		$query = "
+			INSERT INTO User
+				(`CardNumber`,
+					`IsEmployee`,
+					`Name`,
+					`Password`,
+					`Email`,
+					`AccountStatus`)
+			VALUES
+				(:cardNo,
+					0,
+					:name,
+					:password,
+					:email,
+					0)
+		";
+		$DB->query($query, array(
+				'cardNo' => $cardNumber[0][0],
+				'name' => $request['name'],
+				'password' => $request['password'],
+				'email' => $request['email'],
+			));
+
+		$query = "
+			INSERT INTO Collection
+				(`Name`,
+					`CardNumber`)
+			VALUES
+				('Favorites',
+					:cardNo)
+		";
+		$DB->query($query, array(
+				'cardNo' => $cardNumber[0][0],
+			));
+
+		$jsonResult['success'] = true;
+		$jsonResult['cardNo'] = $cardNumber[0][0];
+	}
+
+	/**
 	 * Attempts to log in a user.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -37,6 +86,31 @@ class UserController {
 		if (!$jsonResult['success']) {
 			$jsonResult['errno'] = 0;
 			$jsonResult['errstr'] = "No such card number and password combination.";
+		}
+	}
+
+	/**
+	 * Checks if a user exists by email address.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function userEmailExists($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT u.*
+			FROM User AS u
+			WHERE u.Email = :email
+		";
+		$users = $DB->query($query, array(
+				'email' => $request['email'],
+			));
+
+		$jsonResult['success'] = true;
+		$jsonResult['data'] = false;
+		foreach ($users as $user) {
+			$jsonResult['data'] = true;
 		}
 	}
 }

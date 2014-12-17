@@ -153,24 +153,24 @@ if (isset($_POST['cardNumber'])) {
 
 if (count($errors) > 0) {
 	$content .= View::toString('error', array(
-		'error' => '<ul><li>' . join('</li><li>', $errors) . '</li></ul>',
-	));
+			'error' => '<ul><li>' . join('</li><li>', $errors) . '</li></ul>',
+		));
 } else {
 	$fields = '';
 }
 
 if (count($tasks) > 0) {
 	$content .= View::toString('notice', array(
-		'class' => 'success',
-		'title' => 'Success!',
-		'message' => '<ul><li>' . join('</li><li>', $tasks) . '</li></ul>',
-	));
+			'class' => 'success',
+			'title' => 'Success!',
+			'message' => '<ul><li>' . join('</li><li>', $tasks) . '</li></ul>',
+		));
 }
 
 $content .= View::toString('bookCheck', array(
-	'mode' => $mode,
-	'fields' => $fields,
-));
+		'mode' => $mode,
+		'fields' => $fields,
+	));
 
 print View::toString('page', array(
 		'title' => $title,

@@ -158,9 +158,8 @@ class CollectionController {
 
 			$collectionMap = array();
 
+			$jsonResult['success'] = true;
 			foreach ($collections as $c) {
-				$jsonResult['success'] |= true;
-
 				$cId = intval($c['CollectionId']);
 
 				if (!isset($collectionMap[$cId])) {
