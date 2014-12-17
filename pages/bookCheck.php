@@ -115,15 +115,14 @@ if (isset($_POST['cardNumber'])) {
 			} else { //check out
 				$copyBook->rentalDate = $nowDate;
 				$copyBook->returnDate = $returnDate;
-				$existingBook = json_decode(apiCall(array(
+				$copyBook->book = json_decode(apiCall(array(
 					'controller' => 'read',
 					'action' => 'viewBook',
 					'isbn' => $copyBook->isbn,
-				)));
-				$copyBook->book = $existingBook; //required by heldBook, but not by bookCopy
+				))); //required by heldBook, but not by bookCopy
 
 				//set heldBy to requester
-				$updatedBookCopy = json_decode(apiCall(array(
+				apiCall(array(
 					'controller' => 'inventory',
 					'action' => 'updateBookCopy',
 					'bookCopy' => array(
@@ -132,9 +131,9 @@ if (isset($_POST['cardNumber'])) {
 							'isbn' => $copyBook->isbn,
 							'bookCopyId' => $copyID,
 						),
-				)));
+				));
 
-				$transactionID = json_decode(apiCall(array(
+				apiCall(array(
 					'controller' => 'inventory',
 					'action' => 'addBookTransaction',
 					'bookTrans' => array(
@@ -144,10 +143,9 @@ if (isset($_POST['cardNumber'])) {
 							'actualDate' => NULL,
 							'cardNumber' => $_POST['cardNumber'],
 						),
-				)));
+				));
 
-				$copyBook = $transactionID->data[0];
-				$tasks[] = "'{$existingBook->data[0]->title}' has been checked out to {$_POST['cardNumber']}";
+				$tasks[] = "'{$copyBook->book->data[0]->title}' has been checked out to {$_POST['cardNumber']}";
 			}
 		}
 	}
