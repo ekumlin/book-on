@@ -184,9 +184,28 @@ $(document).ready(function() {
 	/* Ratings */
 	$('body').on('mousemove', '.ratingbox.clickable', function(e) {
 		var width = $(this).width(), ratio = Math.min(Math.floor(e.offsetX / width * 5 + 1) / 5, 1.0);
-		$(this).find('.clickbar').css('width', (ratio * 100) + '%')
+		$(this).find('.clickbar').css('width', (ratio * 100) + '%');
 	}).on('mouseout', '.ratingbox.clickable', function(e) {
 		$(this).find('.clickbar').css('width', 0);
+	}).on('click', '.ratingbox.clickable', function(e) {
+		var width = $(this).width(), stars = Math.min(Math.floor(e.offsetX / width * 5 + 1), 5.0);
+
+		$.ajax({
+			url: BookOnData.host + 'api.php',
+			data: {
+				controller: 'rating',
+				action: 'updateRating',
+				isbn: $(this).data('isbn'),
+				rating: stars,
+			},
+			dataType: 'json',
+		}).done(function(msg) {
+			if (!msg.success) {
+				alert('Failed to save book rating');
+			}
+		}).fail(function(jqXHR, textStatus) {
+			alert('Failed to save book rating');
+		});
 	});
 });
 

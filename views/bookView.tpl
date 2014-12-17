@@ -7,6 +7,7 @@
 						'rating' => $viewBag['book']->avgRating,
 						'color' => 'fafafa',
 						'clickable' => true,
+						'isbn' => $viewBag['book']->isbn,
 					));
 				if ($viewBag['book']->ratings[0] > 0) {
 					echo number_format($viewBag['book']->ratings[0]) . ' ratings';
