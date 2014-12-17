@@ -36,7 +36,7 @@ if ($books->success) {
 }
 
 print View::toString('page', array(
-		'title' => 'Users :: Book-On',
+		'title' => 'Users',
 		'styles' => array('listings'),
 		'scripts' => array(),
 		'searchTarget' => 'users/search',

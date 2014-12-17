@@ -56,12 +56,12 @@ class UserController {
 	}
 
 	/**
-	 * Attempts to log in a user.
+	 * Gets a user by card number.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
-	public function login($request, &$jsonResult) {
+	public function getUserByCard($request, &$jsonResult) {
 		global $DB;
 
 		$query = "
@@ -72,6 +72,27 @@ class UserController {
 		$users = $DB->query($query, array(
 				'id' => $request['cardNumber'],
 			));
+
+		foreach ($users as $user) {
+			$jsonResult['success'] = true;
+			$jsonResult['data'][0] = $user;
+		}
+	}
+
+	/**
+	 * Attempts to log in a user.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function login($request, &$jsonResult) {
+		global $DB;
+
+		$this->getUserByCard($request, $jsonResult);
+		$users = $jsonResult['data'][0];
+
+		$jsonResult['success'] = false;
+		$jsonResult['data'] = array();
 
 		foreach ($users as $user) {
 			$pwdHash = $user['Password'];

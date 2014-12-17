@@ -6,7 +6,6 @@ if (!defined('VALID_REQUEST')) {
 }
 
 $content = '';
-$title = 'Book-On';
 $editingIsbn = $_GET['isbn'];
 
 $emptyBook = new Book();
@@ -128,7 +127,7 @@ if ($editingIsbn == 0) {
 }
 
 print View::toString('page', array(
-		'title' => $title,
+		'title' => 'Editing book',
 		'styles' => array('bookView', 'forms'),
 		'scripts' => array('forms'),
 		'searchTarget' => 'books/search',

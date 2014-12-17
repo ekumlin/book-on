@@ -59,7 +59,7 @@ if ($books->success) {
 }
 
 print View::toString('page', array(
-		'title' => 'Book-On',
+		'title' => 'Held books',
 		'styles' => array('listings'),
 		'scripts' => array(),
 		'searchTarget' => 'books/search',

@@ -7,12 +7,13 @@ if (!defined('VALID_REQUEST')) {
 
 $content = '';
 $fields = '';
-$title = 'Book-On';
 $tasks = array();
 $errors = array();
-$mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
 
+$mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
 $userLevel = isset($_SESSION['User']) ? $_SESSION['User']->employeeLevel : User::USER_BASIC;
+
+$title = "Check {$mode} books";
 
 if (isset($_POST['cardNumber'])) {
 	//REQUIRED DATA: bookCopy.ISBN, copyID, rental date, return date, bookCopy.HeldBy
@@ -26,9 +27,24 @@ if (isset($_POST['cardNumber'])) {
 
 	$nowDate = new DateTime();
 	$returnDate = (new DateTime())->add(new DateInterval("P7D"));
+	$cardNo = $_POST['cardNumber'];
 
 	$copies = array();
 	$maxCInd = intval($_POST['maxCopyIndex']);
+
+	if (!ctype_digit($cardNo)) {
+		$errors[] = "Invalid card number '{$cardNo}' provided";
+	} else {
+		$users = json_decode(apiCall(array(
+				'controller' => 'user',
+				'action' => 'getUserByCard',
+				'cardNumber' => $cardNo,
+			)));
+
+		if (!$users->success) {
+			$errors[] = "No account exists with card number '{$cardNo}'";
+		}
+	}
 
 	// Check for errors first
 	for ($cInd = 1; $cInd <= $maxCInd; $cInd++) {
@@ -127,7 +143,7 @@ if (isset($_POST['cardNumber'])) {
 					'action' => 'updateBookCopy',
 					'bookCopy' => array(
 							'isForSale' => $copyBook->isForSale,
-							'heldBy' => $_POST['cardNumber'],
+							'heldBy' => $cardNo,
 							'isbn' => $copyBook->isbn,
 							'bookCopyId' => $copyID,
 						),
@@ -141,11 +157,11 @@ if (isset($_POST['cardNumber'])) {
 							'transDate' => $copyBook->rentalDate,
 							'expectDate' => $copyBook->returnDate,
 							'actualDate' => NULL,
-							'cardNumber' => $_POST['cardNumber'],
+							'cardNumber' => $cardNo,
 						),
 				));
 
-				$tasks[] = "'{$copyBook->book->data[0]->title}' has been checked out to {$_POST['cardNumber']}";
+				$tasks[] = "'{$copyBook->book->data[0]->title}' has been checked out to {$cardNo}";
 			}
 		}
 	}

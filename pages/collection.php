@@ -11,7 +11,7 @@ if (!isset($_SESSION['User'])) {
 }
 
 $content = '';
-$title = 'Book-On';
+$pgTitle = '';
 $desiredCId = isset($_GET['collectionId']) ? $_GET['collectionId'] : 0;
 
 $collections = json_decode(apiCall(array(
@@ -28,9 +28,11 @@ if ($collections->success) {
 				'collection' => $obj,
 			));
 		}
+
+		$pgTitle = 'Collections';
 	} else if (count($collections->data) > 0) {
 		if (count($collections->data[0]->items) == 0) {
-			$content .= View::render('notice', array(
+			$content .= View::toString('notice', array(
 					'class' => 'warning',
 					'title' => 'Uh-oh!',
 					'message' => 'Looks like there aren\'t any books in this collection. You can search for books above or look in the <a href="' . _HOST . '">book index</a>.',
@@ -48,13 +50,15 @@ if ($collections->success) {
 					'items' => $items,
 				));
 		}
+
+		$pgTitle = $collections->data[0]->name;
 	}
 } else {
 	Http::back('/collection/');
 }
 
 print View::toString('page', array(
-		'title' => $title,
+		'title' => $pgTitle,
 		'styles' => array('listings'),
 		'scripts' => array(),
 		'searchTarget' => 'books/search',

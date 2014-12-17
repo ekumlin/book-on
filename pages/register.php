@@ -81,7 +81,7 @@ if ($isLoggedIn) {
 }
 
 print View::toString('page', array(
-		'title' => 'Log in :: Book-On',
+		'title' => 'Register account',
 		'styles' => array('forms'),
 		'scripts' => array(),
 		'searchTarget' => 'books/search',
