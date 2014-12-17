@@ -7,6 +7,103 @@ if (!defined('VALID_REQUEST')) {
 
 class CollectionController {
 	/**
+	 * Makes an API call to add a book to a user's collection.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function addCollectedBook($request, &$jsonResult) {
+		global $DB;
+
+		if (isset($_SESSION['User'])) {
+			$user = $_SESSION['User'];
+
+			$query = "
+				SELECT *
+				FROM
+					Collection AS c
+					LEFT JOIN BookCollected AS bc ON bc.CollectionId = c.CollectionId
+				WHERE
+					c.CollectionId = :collectionId
+					AND c.CardNumber = :cardNumber
+			";
+			$collectedBooks = $DB->query($query, array(
+					'cardNumber' => $user->cardNumber,
+					'collectionId' => $request['collectionId'],
+				));
+
+			foreach ($collectedBooks as $b) {
+				if ($b['ISBN'] == $request['isbn']) {
+					$jsonResult['success'] = true;
+				}
+			}
+
+			if (!$jsonResult['success'] && count($collectedBooks) > 0) {
+				$query = "
+					INSERT INTO BookCollected
+						(CollectionId,
+						 ISBN)
+					VALUES
+						(:collectionId,
+						 :isbn)
+				";
+				$DB->query($query, array(
+						'collectionId' => $request['collectionId'],
+						'isbn' => $request['isbn'],
+					));
+
+				$jsonResult['success'] = true;
+			}
+		}
+	}
+	/**
+	 * Makes an API call to remove a book from a user's collection.
+	 * 
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function removeCollectedBook($request, &$jsonResult) {
+		global $DB;
+
+		if (isset($_SESSION['User'])) {
+			$user = $_SESSION['User'];
+
+			$query = "
+				SELECT *
+				FROM
+					Collection AS c
+					LEFT JOIN BookCollected AS bc ON bc.CollectionId = c.CollectionId
+				WHERE
+					c.CollectionId = :collectionId
+					AND c.CardNumber = :cardNumber
+			";
+			$collectedBooks = $DB->query($query, array(
+					'cardNumber' => $user->cardNumber,
+					'collectionId' => $request['collectionId'],
+				));
+
+			foreach ($collectedBooks as $b) {
+				if ($b['ISBN'] == $request['isbn']) {
+					$jsonResult['success'] = true;
+				}
+			}
+
+			if ($jsonResult['success']) {
+				$query = "
+					DELETE FROM BookCollected
+					WHERE
+						CollectionId = :collectionId
+						AND ISBN = :isbn
+				";
+				$DB->query($query, array(
+						'collectionId' => $request['collectionId'],
+						'isbn' => $request['isbn'],
+					));
+			}
+		}
+	}
+
+	/**
 	 * Makes an API call to get all of a user's collections.
 	 * 
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -53,8 +150,8 @@ class CollectionController {
 				WHERE
 					{$conditionString}
 					c.CardNumber = :cardNumber
-				GROUP BY b.ISBN, p.Name
-				ORDER BY b.Title
+				GROUP BY c.CollectionId, b.ISBN, p.Name
+				ORDER BY c.Name
 			";
 			$collections = $DB->query($query, $params);
 

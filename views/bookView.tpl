@@ -2,11 +2,15 @@
 	<div class="title-block">
 		<h1 title="<?php echo htmlentities($viewBag['book']->title); ?>"><?php echo $viewBag['book']->title; ?></h1>
 		<div class="info">
-			<?php echo View::toString('rating', array(
-					'rating' => $viewBag['book']->avgRating,
-					'color' => 'fafafa',
-				)); ?>
-			<?php echo number_format($viewBag['book']->ratings[0]); ?> ratings
+			<?php
+				View::render('rating', array(
+						'rating' => $viewBag['book']->avgRating,
+						'color' => 'fafafa',
+					));
+				if ($viewBag['book']->ratings[0] > 0) {
+					echo number_format($viewBag['book']->ratings[0]) . ' ratings';
+				}
+			?>
 		</div><div class="info">by <?php
 			$noComma = true;
 			foreach ($viewBag['book']->authors as $a) {
@@ -20,9 +24,9 @@
 	<h2>Details</h2>
 	<div class="cover">
 		<img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/>
-		<a href="#" class="button button-raised">Collect</a>
+		<a href="#" class="button button-raised collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a>
 	</div><div class="data">
-		<div id="collect-button"><a href="#" class="button button-floating"><img src="<?php echo _HOST; ?>assets/icon-collect.white.png" title="Collect"/></a></div>
+		<div id="collect-button"><a href="#" class="button button-floating collect" data-collect="<?php echo $viewBag['book']->isbn; ?>"><img src="<?php echo _HOST; ?>assets/icon-collect.white.png" title="Collect"/></a></div>
 		<table>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-buy.png" title="Price"/></td>

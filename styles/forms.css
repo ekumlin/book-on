@@ -4,6 +4,10 @@ form.material-form {
 	width: 100%;
 }
 
+	form.material-form .button-flat {
+		min-width: 88px;
+	}
+
 	form.material-form .input-group {
 		margin: 16px;
 	}
@@ -44,35 +48,3 @@ form.material-form {
 		border-width: 0 0 2px;
 		margin-bottom: 0;
 	}
-
-	form.material-form .action-primary {
-		background: #FAFAFA;
-		color: #4CAF50;
-		cursor: pointer;
-		outline: none;
-	}
-
-		form.material-form .action-primary:hover {
-			background: #43A047;
-			color: #FFF;
-		}
-
-		form.material-form .action-primary:active {
-			background: #388E3C;
-		}
-
-	form.material-form .action-negative {
-		background: #FAFAFA;
-		color: #F44336;
-		cursor: pointer;
-		outline: none;
-	}
-
-		form.material-form .action-negative:hover {
-			background: #E53935;
-			color: #FFF;
-		}
-
-		form.material-form .action-negative:active {
-			background: #D32F2F;
-		}

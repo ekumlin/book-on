@@ -23,7 +23,7 @@
 		</div>
 		<div class="buttons">
 			<a href="<?php echo $bookUrl; ?>" class="button-flat card-button primary">View</a>
-			<a href="#" class="button-flat card-button">Collect</a>
+			<a href="#" class="button-flat card-button collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a>
 		</div>
 	</div>
 </div>
