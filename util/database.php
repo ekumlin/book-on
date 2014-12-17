@@ -7,6 +7,7 @@ if (!defined('VALID_REQUEST')) {
 
 class Connection {
 	private $db;
+	private $queryAffectedRows;
 
 	/**
 	 * Creates a new database connection instance.
@@ -29,22 +30,12 @@ class Connection {
 	}
 
 	/**
-	 * Performs a query on the PDO object.
-	 *
-	 * @param string $queryString The executable query as a PDO-ready string.
-	 * @param array $args The set of arguments for the query. Should have numeric indices if using '?' parameters, or keys prefixed by ':' if using named parameters.
-	 * @return array The returned values from the query, or an empty array otherwise.
+	 * Get the number of affected rows in the previous query.
+	 * 
+	 * @return integer The number of affected rows.
 	 */
-	public function query($queryString, $args = array()) {
-		$stmt = $this->db->prepare($queryString);
-
-		if ($stmt->execute($args)) {
-			if ($stmt->columnCount() > 0) {
-				return $stmt->fetchAll();
-			}
-		}
-
-		return array();
+	public function affectedRows() {
+		return $this->queryAffectedRows;
 	}
 
 	/**
@@ -54,6 +45,28 @@ class Connection {
 	 */
 	public function lastInsertedId() {
 		return $this->db->lastInsertId();
+	}
+
+	/**
+	 * Performs a query on the PDO object.
+	 *
+	 * @param string $queryString The executable query as a PDO-ready string.
+	 * @param array $args The set of arguments for the query. Should have numeric indices if using '?' parameters, or keys prefixed by ':' if using named parameters.
+	 * @return array The returned values from the query, or an empty array otherwise.
+	 */
+	public function query($queryString, $args = array()) {
+		$stmt = $this->db->prepare($queryString);
+		$result = array();
+
+		if ($stmt->execute($args)) {
+			if ($stmt->columnCount() > 0) {
+				$result = $stmt->fetchAll();
+			}
+		}
+
+		$this->queryAffectedRows = $stmt->rowCount();
+
+		return $result;
 	}
 }
 
