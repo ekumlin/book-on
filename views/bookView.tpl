@@ -6,7 +6,7 @@
 				View::render('rating', array(
 						'rating' => $viewBag['book']->avgRating,
 						'color' => 'fafafa',
-						'clickable' => true,
+						'clickable' => isset($_SESSION['User']),
 						'isbn' => $viewBag['book']->isbn,
 					));
 				if ($viewBag['book']->ratings[0] > 0) {
@@ -26,7 +26,11 @@
 	<h2>Details</h2>
 	<div class="cover">
 		<img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/>
-		<a href="#" class="button button-raised collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a>
+		<?php if (isset($_SESSION['User'])): ?>
+		<a href="#" class="button button-raised collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a><br/>
+		<?php if ($_SESSION['User']->employeeLevel >= User::USER_STAFF): ?>
+		<a href="<?php echo _HOST; ?>books/edit/<?php echo $viewBag['book']->isbn; ?>" class="button button-raised edit">Edit</a>
+		<?php endif; endif; ?>
 	</div><div class="data">
 		<div id="collect-button"><a href="#" class="button button-floating collect" data-collect="<?php echo $viewBag['book']->isbn; ?>"><img src="<?php echo _HOST; ?>assets/icon-collect.white.png" title="Collect"/></a></div>
 		<table>

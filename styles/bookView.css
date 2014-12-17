@@ -35,17 +35,35 @@ div.book-info .cover {
 		display: block;
 	}
 
-	div.book-info .cover .button, #collect-button > a {
-		background: #3F51B5;
-		color: #FFF;
+	div.book-info .cover .button {
+		margin: 4px;
 	}
 
-		div.book-info .cover .button:hover, #collect-button > a:hover{
+	div.book-info .cover .button.collect, #collect-button > a {
+		background: #3F51B5;
+		color: #FFF;
+		margin: 4px;
+	}
+
+		div.book-info .cover .button.collect:hover, #collect-button > a:hover {
 			background: #3949AB;
 		}
 
-		div.book-info .cover .button:active, #collect-button > a:active {
+		div.book-info .cover .button.collect:active, #collect-button > a:active {
 			background: #303F9F;
+		}
+
+	div.book-info .cover .button.edit {
+		background: #4CAF50;
+		color: #FFF;
+	}
+
+		div.book-info .cover .button.edit:hover {
+			background: #43A047;
+		}
+
+		div.book-info .cover .button.edit:active {
+			background: #388E3C;
 		}
 
 div.book-info .data {
