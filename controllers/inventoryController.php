@@ -139,7 +139,6 @@ class InventoryController {
 					:expectDate,
 					:actualDate,
 					:cardNumber);
-            SELECT LAST_INSERT_ID();
 		";
         $transKey = $DB->query($query, array(
             'bookCopyId' => $bookTrans['bookCopyId'],
@@ -151,7 +150,7 @@ class InventoryController {
 
         
 		$jsonResult['success'] = true;
-        $jsonResult['data'][] = $transKey;
+        $jsonResult['data'][] = $DB->lastInsertedId();
         
     }
     
@@ -170,13 +169,13 @@ class InventoryController {
         $query = "
 			UPDATE BookTransaction
 			SET
-				ActualReturn = :returnDate,
+				ActualReturn = :returnDate
 			WHERE
-				BookTransactionId = :BookTransactionId;
+				BookTransactionId = :bookTransactionId;
 		"; 
         $transKey = $DB->query($query, array(
             'returnDate' => $bookReturn['returnDate'],
-            'BookTransactionId' => $bookReturn['BookTransactionId'],
+            'bookTransactionId' => $bookReturn['bookTransactionId'],
         ));
 
 		$jsonResult['success'] = true;

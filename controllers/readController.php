@@ -237,6 +237,46 @@ class ReadController {
 			$jsonResult['data'][] = $rating;
 		}
 	}
+    
+    /**
+     * Makes an API call to get all of a book's ratings and reviews.
+     * 
+     * @param array $request A bundle of request data. Usually comes from URL parameter string.
+     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+     */
+	public function viewMostRecentRentalForUser($request, &$jsonResult) {
+		global $DB;
+
+        $transaction = $request['transaction'];
+        
+		$query = "
+            SELECT 
+                bt.BookTransactionId 
+            FROM 
+                BookTransaction AS bt 
+            LEFT JOIN 
+                BookCopy AS bc 
+            ON 
+                bt.CardNumber = bc.HeldBy AND 
+                bt.BookCopyId = bc.BookCopyId 
+            WHERE 
+                bt.CardNumber = :cardNumber AND
+                bt.BookCopyId = :bookCopyId AND
+                bt.ActualReturn IS NULL AND  
+                bc.IsForSale = 0 
+            ORDER BY bt.Time DESC 
+            LIMIT 1;
+		";
+		$transactionID = $DB->query($query, array(
+				'cardNumber' => $transaction['cardNumber'],
+                'bookCopyId' => $transaction['bookCopyId'],
+			));
+
+        
+		$jsonResult['success'] = true;
+		$jsonResult['data'][] = $transactionID;
+	}
+    
 }
 
 ?>

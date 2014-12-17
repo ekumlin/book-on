@@ -46,19 +46,43 @@ if (isset($_POST['cardNumber'])) {
                     'error' => 'This book has already been checked in.',
                 )); 
             } else {
-                $content .= "Checking in\n";
-                //set heldBy to requester
-                $updatedBookCopy = json_decode(apiCall(array(
-                    'controller' => 'inventory',
-                    'action' => 'updateBookCopy',
-                    'bookCopy' => array(
-                            'isForSale' => $copy->data[0]->isForSale,
-                            'heldBy' => NULL,
-                            'isbn' => $copy->data[0]->isbn,
+                //find matching transaction
+                $transactionID = json_decode(apiCall(array(
+                    'controller' => 'read',
+                    'action' => 'viewMostRecentRentalForUser',
+                    'transaction' => array(
+                            'cardNumber' => $_POST['cardNumber'],
                             'bookCopyId' => $copyID,
                         ),
                 )));
-                
+                if(sizeof($transactionID->data[0]) == 0) {
+                	$content .= View::toString('error', array(
+		                'error' => 'Unable to find matching BookCopy in Transaction records.',
+	                ));
+                } else {
+
+                    $updatedBookCopy = json_decode(apiCall(array(
+                        'controller' => 'inventory',
+                        'action' => 'updateBookCopy',
+                        'bookCopy' => array(
+                                'isForSale' => $copy->data[0]->isForSale,
+                                'heldBy' => NULL,
+                                'isbn' => $copy->data[0]->isbn,
+                                'bookCopyId' => $copyID,
+                            ),
+                    )));
+                    
+                    //update actualDate to return date
+                    $updatedBookCopy = json_decode(apiCall(array(
+                          'controller' => 'inventory',
+                          'action' => 'updateReturnTransaction',
+                          'returnTrans' => array(
+                                'returnDate' => date_format(new DateTime(),"Y/m/d H:i:s"),
+                                'bookTransactionId' => $transactionID->data[0][0]->BookTransactionId,
+                            ),
+                    )));
+                    $content .= "Book Copy {$copyID} has been checked in by Card Number {$_POST['cardNumber']}\n";
+                }
             }
         } else { //check out
             if ($copy->data[0]->heldBy != NULL) {
@@ -67,7 +91,6 @@ if (isset($_POST['cardNumber'])) {
                 )); 
             
             } else {
-                $content .= "Checking out\n";
                 
              	$copy->data[0]->rentalDate = $nowDate;
 			    $copy->data[0]->returnDate = $nowDate->add(new DateInterval("P7D"));   
@@ -101,7 +124,8 @@ if (isset($_POST['cardNumber'])) {
                             'cardNumber' => $_POST['cardNumber'],
                         ),
                 )));
-                $content .= "TRANSACTION ID " . var_dump($transactionID) . "\n";
+                $copy->data[0]->transKey = $transactionID->data[0];
+                $content .= "'{$existingBook->data[0]->title}' has checked out to Card Number {$_POST['cardNumber']}\n";
             }
         }
 
