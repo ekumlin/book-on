@@ -32,9 +32,9 @@ if ($collections->success) {
 		if (count($collections->data[0]->items) == 0) {
 			$content .= View::toString('collectionListEmpty');
 		} else {
-			$items = View::toString('bookListItemHeader');
+			$items = View::toString('bookCollectedListItemHeader');
 			foreach ($collections->data[0]->items as $item) {
-				$items .= View::toString('bookListItem', array(
+				$items .= View::toString('bookCollectedListItem', array(
 						'book' => $item,
 					));
 			}

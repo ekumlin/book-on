@@ -278,9 +278,35 @@ input {
 		background: rgba(153, 153, 153, 0.4); /* #999 */
 	}
 
-form.material-form .button-flat {
-	min-width: 88px;
+.action-primary {
+	color: #4CAF50;
+	cursor: pointer;
+	outline: none;
 }
+
+	.action-primary:hover {
+		background: #43A047;
+		color: #FFF;
+	}
+
+	.action-primary:active {
+		background: #388E3C;
+	}
+
+.action-negative {
+	color: #F44336;
+	cursor: pointer;
+	outline: none;
+}
+
+	.action-negative:hover {
+		background: #E53935;
+		color: #FFF;
+	}
+
+	.action-negative:active {
+		background: #D32F2F;
+	}
 
 div.content {
 	margin: 63px 50px 0;

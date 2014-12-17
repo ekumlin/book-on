@@ -144,12 +144,40 @@ $(document).ready(function() {
 				},
 				dataType: 'json',
 			}).done(function(msg) {
-				console.log(msg);
 				$this.find('.status').html('&#10003;');
 			}).fail(function(jqXHR, textStatus) {
 				alert('Failed to add book to collection');
 			});
 		});
+
+		e.preventDefault();
+	});
+
+	$('a.uncollect').click(function(e) {
+		var $this = $(this);
+		var isbn = $this.data('collect'), collection = $this.closest('.collection-item-list').data('collectionid');
+
+		if (confirm('Are you sure you want to delete this item from this collection?')) {
+			$.ajax({
+				url: BookOnData.host + 'api.php',
+				data: {
+					controller: 'collection',
+					action: 'removeCollectedBook',
+					collectionId: collection,
+					isbn: isbn,
+				},
+				dataType: 'json',
+			}).done(function(msg) {
+				console.log(msg);
+				if (msg.success) {
+					$this.closest('.list-item').remove();
+				} else {
+					alert('Failed to remove book from collection');
+				}
+			}).fail(function(jqXHR, textStatus) {
+				alert('Failed to remove book from collection');
+			});
+		}
 
 		e.preventDefault();
 	});
