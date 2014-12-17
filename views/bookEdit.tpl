@@ -1,4 +1,5 @@
-<form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>books/<?php echo $viewBag['target']; ?>" novalidate>
+<form class="bookEdit-form material-form" method="POST" action="<?php echo _HOST; ?>books/<?php echo $viewBag['target']; ?>">
+	<h1><?php echo $viewBag['target'] == 'add' ? 'Adding new book' : "Editing \"{$viewBag['book']->title}\""; ?></h1>
 	<div class="input-group">
 		<input type="tel" name="isbn" id="bookEdit-isbn" pattern="^[0-9-]+$" value="<?php echo $viewBag['book']->isbn; ?>" placeholder="ISBN" required />
 		<div class="input-status input-error"></div>
@@ -9,6 +10,7 @@
 		<div class="input-status input-dependent" data-dependence="bookEdit-bookTitle" data-attribute="length"></div>
 	</div>
 	<div class="input-group">
+		<label>Language</label>
 		<select name="language">
 			<?php
 				if (strlen($viewBag['book']->language) == 2) {
@@ -36,10 +38,24 @@
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="input-group">
-		TODO: Publisher
+		<label>Publisher</label>
+		<div class="selector">
+			<a href="#" class="button-flat action-primary select">Select</a>
+			<a href="#" class="button-flat action-creative create">Create</a>
+			<div class="selector-content"><?php echo $viewBag['book']->publisher; ?></div>
+		</div>
 	</div>
 	<div class="input-group">
-		TODO: Author
+		<label>Author</label>
+		<div class="selector">
+			<a href="#" class="button-flat action-primary select">Select</a>
+			<a href="#" class="button-flat action-creative create">Create</a>
+			<div class="selector-content">
+				<?php foreach ($viewBag['book']->authors as $a): ?>
+				<div><?php echo "{$a->firstName} {$a->lastName}"; ?></div>
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</div>
 	<div class="form-controls">
 		<input type="button" value="Discard" class="button-flat action-negative" />

@@ -300,6 +300,7 @@ input {
 
 	.action-primary:active {
 		background: #388E3C;
+		color: #FFF;
 	}
 
 .action-negative {
@@ -316,6 +317,24 @@ input {
 
 	.action-negative:active {
 		background: #D32F2F;
+		color: #FFF;
+	}
+
+.action-creative {
+	background: none;
+	color: #03A9F4;
+	cursor: pointer;
+	outline: none;
+}
+
+	.action-creative:hover {
+		background: #039BE5;
+		color: #FFF;
+	}
+
+	.action-creative:active {
+		background: #0288D1;
+		color: #FFF;
 	}
 
 div.content {

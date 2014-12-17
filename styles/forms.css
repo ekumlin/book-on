@@ -1,18 +1,43 @@
 form.material-form {
-	margin: 0 auto;
+	margin: 0 auto 16px;
 	max-width: 500px;
 	width: 100%;
 }
+
+	form.material-form h1 {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		padding-bottom: 8px;
+	}
+
+	form.material-form label {
+		font-size: 14px;
+		font-weight: 500;
+		opacity: 0.4;
+	}
 
 	form.material-form .button-flat {
 		min-width: 88px;
 	}
 
 	form.material-form .input-group {
-		margin: 16px;
+		clear: both;
+		margin: 16px 16px 32px;
 	}
 
+		form.material-form .input-group > div, form.material-form .input-group > select {
+			margin-top: 8px;
+		}
+
+			form.material-form .input-group > div.selector a {
+				float: right;
+				margin-top: -4px;
+				margin-left: 4px;
+			}
+
 	form.material-form .form-controls {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		clear: both;
+		padding-top: 16px;
 		text-align: right;
 	}
 
