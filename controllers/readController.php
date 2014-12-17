@@ -203,8 +203,7 @@ class ReadController {
 				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
 			WHERE
 				bc.HeldBy = :card
-				AND bt.BookTransactionId IS NULL
-					OR (bt.ExpectedReturn > NOW() AND bt.ActualReturn IS NULL)
+				AND bt.ActualReturn IS NULL
 			ORDER BY b.Title
 		";
 
