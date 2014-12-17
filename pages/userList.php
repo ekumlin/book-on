@@ -39,7 +39,7 @@ print View::toString('page', array(
 		'title' => 'Users',
 		'styles' => array('listings'),
 		'scripts' => array(),
-		'searchTarget' => 'users/search',
+		'searchTarget' => 'books/search', // 'users/search',
 		'body' => $content,
 	));
 

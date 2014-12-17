@@ -6,7 +6,7 @@
 		</td>
 		<td class="middle">
 			<form action="<?php echo _HOST . $viewBag['searchTarget']; ?>" method="GET">
-				<input type="search" id="header-search" name="q" placeholder="Search" />
+				<input type="search" id="header-search" name="q" placeholder="Search all books" />
 			</form>
 		</td>
 		<td class="right">
