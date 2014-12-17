@@ -7,13 +7,13 @@ if (!defined('VALID_REQUEST')) {
 
 class HeldBook {
 	public $copyId;
+	public $isForSale;
+	public $heldBy; //TODO: consider splitting this into its own BookCopy Class
+	public $isbn;
 	public $rentalDate;
 	public $returnDate;
+	public $transKey; //required to check in book. Perhaps this should go in Transaction model
 	public $book;
-    public $heldBy; //TODO: consider splitting this into its own BookCopy Class
-    public $isbn; 
-    public $isForSale;
-    public $transKey; //required to check in book. Perhaps this should go in Transaction model
 
 	/**
 	 * Creates a new held book instance from a database row.
@@ -23,11 +23,17 @@ class HeldBook {
 	public function __construct($row = NULL) {
 		$row = array_merge(array(
 				'BookCopyId' => NULL,
+				'IsForSale' => false,
+				'HeldBy' => NULL,
+				'ISBN' => NULL,
 				'Time' => NULL,
 				'ExpectedReturn' => NULL,
 			), $row ? $row : array());
 
 		$this->copyId = $row['BookCopyId'];
+		$this->isForSale = $row['IsForSale'];
+		$this->heldBy = $row['HeldBy'];
+		$this->isbn = $row['ISBN'];
 		$this->rentalDate = strtotime($row['Time']);
 		$this->returnDate = strtotime($row['ExpectedReturn']);
 	}

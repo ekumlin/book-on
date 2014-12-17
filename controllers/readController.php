@@ -8,7 +8,7 @@ if (!defined('VALID_REQUEST')) {
 class ReadController {
 	/**
 	 * Makes an API call to list all books.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -18,7 +18,7 @@ class ReadController {
 
 	/**
 	 * Makes an API call to list all users.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -43,7 +43,7 @@ class ReadController {
 
 	/**
 	 * Constructs an ISBN->book mapping of all books from a set of rows.
-	 * 
+	 *
 	 * @param array $books An iterable list of database rows containing book data.
 	 */
 	private function constructBookMap($books) {
@@ -63,7 +63,7 @@ class ReadController {
 
 	/**
 	 * Makes an API call to get all data for a specific book.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -73,7 +73,7 @@ class ReadController {
 
 	/**
 	 * Makes an API call to get all data for a specific set of books. Returned as an array of database rows.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -133,10 +133,10 @@ class ReadController {
 			$jsonResult['data'][] = $book;
 		}
 	}
-	
+
 	/**
 	 * Makes an API call to get all data for a specific held book.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -145,33 +145,33 @@ class ReadController {
 
 		$query = "
 			SELECT
-				bc.*
+				bc.*,
+				b.*
 			FROM
 				BookCopy AS bc
-			WHERE 
+				JOIN Book AS b ON b.ISBN = bc.ISBN
+			WHERE
 				bc.BookCopyId = :copyId
-            LIMIT
-                1
+			LIMIT
+				1
 		";
 
 		$bookCopy = $DB->query($query, array(
 				'copyId' => $request['copyId'],
 			));
-        
-        
-		$jsonResult['success'] = true;
-	    $copy = new HeldBook($bookCopy);
-		$copy->copyId = $request['copyId'];
-        $copy->isbn = $bookCopy[0]['ISBN'];
-        $copy->isForSale = $bookCopy[0]['IsForSale'];
-        $copy->heldBy = $bookCopy[0]['HeldBy'];
-        
-		$jsonResult['data'][] = $copy;
+
+		foreach ($bookCopy as $copy) {
+			$jsonResult['success'] = true;
+
+			$held = new HeldBook($copy);
+			$held->book = new Book($copy);
+			$jsonResult['data'][] = $held;
+		}
 	}
 
 	/**
 	 * Makes an API call to get all held book data for a specific user.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -212,7 +212,7 @@ class ReadController {
 
 	/**
 	 * Makes an API call to get all of a book's ratings and reviews.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -242,46 +242,46 @@ class ReadController {
 			$jsonResult['data'][] = $rating;
 		}
 	}
-    
-    /**
-     * Makes an API call to get all of a book's ratings and reviews.
-     * 
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
+
+	/**
+	 * Makes an API call to get all of a book's ratings and reviews.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
 	public function viewMostRecentRentalForUser($request, &$jsonResult) {
 		global $DB;
 
-        $transaction = $request['transaction'];
-        
+		$transaction = $request['transaction'];
+
 		$query = "
-            SELECT 
-                bt.BookTransactionId 
-            FROM 
-                BookTransaction AS bt 
-            LEFT JOIN 
-                BookCopy AS bc 
-            ON 
-                bt.CardNumber = bc.HeldBy AND 
-                bt.BookCopyId = bc.BookCopyId 
-            WHERE 
-                bt.CardNumber = :cardNumber AND
-                bt.BookCopyId = :bookCopyId AND
-                bt.ActualReturn IS NULL AND  
-                bc.IsForSale = 0 
-            ORDER BY bt.Time DESC 
-            LIMIT 1;
+			SELECT
+				bt.BookTransactionId
+			FROM
+				BookTransaction AS bt
+			LEFT JOIN
+				BookCopy AS bc
+			ON
+				bt.CardNumber = bc.HeldBy AND
+				bt.BookCopyId = bc.BookCopyId
+			WHERE
+				bt.CardNumber = :cardNumber AND
+				bt.BookCopyId = :bookCopyId AND
+				bt.ActualReturn IS NULL AND
+				bc.IsForSale = 0
+			ORDER BY bt.Time DESC
+			LIMIT 1;
 		";
 		$transactionID = $DB->query($query, array(
 				'cardNumber' => $transaction['cardNumber'],
-                'bookCopyId' => $transaction['bookCopyId'],
+				'bookCopyId' => $transaction['bookCopyId'],
 			));
 
-        
+
 		$jsonResult['success'] = true;
 		$jsonResult['data'][] = $transactionID;
 	}
-    
+
 }
 
 ?>

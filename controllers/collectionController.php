@@ -56,6 +56,7 @@ class CollectionController {
 			}
 		}
 	}
+
 	/**
 	 * Makes an API call to remove a book from a user's collection.
 	 * 

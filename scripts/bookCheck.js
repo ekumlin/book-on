@@ -18,12 +18,13 @@ $(document).ready(function() {
 });
 
 function newCopyField($parent) {
-	var name = "copyId" + ($parent.find(".input-group").length + 1);
-	var $box = $("<div class=\"input-group\">" + $("#blank-copy-field").html() + "</div>");
+	var $box = $("<div class=\"input-group\">" + $("#blank-copy-field").html() + "</div>"), $lastInput = $parent.find(".input-group:last input");
+	var index = $lastInput.length ? (parseInt($parent.find(".input-group:last input").attr('name').match(/[0-9]+$/g)) + 1) : 1, name = "copyId" + index;
 	$box.find("input").attr({
 		id: name,
 		name: name,
 	});
 
 	$parent.append($box);
+	$parent.closest('form').find('input[name=maxCopyIndex]').val(index);
 }
