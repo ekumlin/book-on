@@ -11,7 +11,7 @@ if (!isset($_SESSION['User'])) {
 }
 
 if ($_SESSION['User']->employeeLevel < User::USER_STAFF) {
-	header('Location: ' . _HOST . 'users/' . $_SESSION['User']->cardNumber);
+	header('Location: ' . _HOST);
 	exit;
 }
 

@@ -8,6 +8,11 @@ if (!defined('VALID_REQUEST')) {
 $content = '';
 $editingIsbn = $_GET['isbn'];
 
+if (!isset($_SESSION['User']) || $_SESSION['User']->employeeLevel < User::USER_STAFF) {
+	header('Location: ' . _HOST . ($editingIsbn ? 'books/' . $editingIsbn : ''));
+	exit;
+}
+
 $emptyBook = new Book();
 if (isset($_POST['bookTitle'])) {
 	$errors = array();
