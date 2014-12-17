@@ -168,7 +168,6 @@ $(document).ready(function() {
 				},
 				dataType: 'json',
 			}).done(function(msg) {
-				console.log(msg);
 				if (msg.success) {
 					$this.closest('.list-item').remove();
 				} else {
@@ -180,6 +179,14 @@ $(document).ready(function() {
 		}
 
 		e.preventDefault();
+	});
+
+	/* Ratings */
+	$('body').on('mousemove', '.ratingbox.clickable', function(e) {
+		var width = $(this).width(), ratio = Math.min(Math.floor(e.offsetX / width * 5 + 1) / 5, 1.0);
+		$(this).find('.clickbar').css('width', (ratio * 100) + '%')
+	}).on('mouseout', '.ratingbox.clickable', function(e) {
+		$(this).find('.clickbar').css('width', 0);
 	});
 });
 

@@ -435,11 +435,15 @@ div.ratingbox {
 	width: auto;
 }
 
+	div.ratingbox.clickable {
+		cursor: pointer
+	}
+
 	div.ratingbox > div {
 		position: relative;
 		height: 100%;
 		width: auto;
-		z-index: 2;
+		z-index: 3;
 	}
 
 		div.ratingbox > div > img {
@@ -450,6 +454,12 @@ div.ratingbox {
 			background: #333;
 			top: -100%;
 			z-index: 1;
+		}
+
+		div.ratingbox > div.clickbar {
+			background: #F9A825;
+			top: -200%;
+			z-index: 2;
 		}
 
 div.popup {

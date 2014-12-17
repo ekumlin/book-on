@@ -100,7 +100,7 @@ if (isset($_POST['cardNumber'])) {
 						),
 				));
 
-				$updatedBookCopy = json_decode(apiCall(array(
+				apiCall(array(
 					'controller' => 'inventory',
 					'action' => 'updateBookCopy',
 					'bookCopy' => array(
@@ -109,7 +109,7 @@ if (isset($_POST['cardNumber'])) {
 							'isbn' => $copyBook->isbn,
 							'bookCopyId' => $copyID,
 						),
-				)));
+				));
 
 				$tasks[] = "Book copy {$copyID} has been checked in from {$copyBook->heldBy}";
 			} else { //check out

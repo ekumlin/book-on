@@ -6,6 +6,7 @@
 				View::render('rating', array(
 						'rating' => $viewBag['book']->avgRating,
 						'color' => 'fafafa',
+						'clickable' => true,
 					));
 				if ($viewBag['book']->ratings[0] > 0) {
 					echo number_format($viewBag['book']->ratings[0]) . ' ratings';
@@ -56,16 +57,40 @@
 	</div>
 	<h2>Reviews</h2>
 	<div class="reviews">
-		<?php
-			if (count($viewBag['reviews']) > 0) {
-				foreach ($viewBag['reviews'] as $r) {
-					View::render('bookReview', array(
-							'review' => $r,
-						));
+		<div class="rating-summary">
+			<div class="stats">
+				<div class="average">
+					<?php echo round($viewBag['book']->avgRating * 10) / 10; ?>
+				</div>
+				<?php echo number_format($viewBag['book']->ratings[0]); ?> ratings
+			</div><div class="labels">
+				<?php for ($i = 5; $i >= 1; $i--): ?>
+				<div class="label"><img src="<?php echo _HOST; ?>assets/icon-collect.png" ?> <?php echo $i; ?></div>
+				<?php endfor; ?>
+			</div><div class="graph">
+				<?php for ($i = 5; $i >= 1; $i--): ?>
+				<div class="rank"><div class="bar bar<?php echo $i; ?>" style="width: <?php echo max($viewBag['book']->ratings[$i] * 100.0 / $viewBag['book']->ratings[0], 2.0); ?>%"></div><div class="rating"><?php echo number_format($viewBag['book']->ratings[$i]); ?></div></div>
+				<?php endfor; ?>
+			</div>
+		</div><div class="multicol">
+			<?php
+				if (count($viewBag['reviews']) > 0) {
+					$i = 0;
+					foreach ($viewBag['reviews'] as $r) {
+						if ($i > 0 && $i % 2 == 0) {
+							echo '</div><div class="multicol">';
+						}
+
+						View::render('bookReview', array(
+								'review' => $r,
+							));
+
+						$i++;
+					}
+				} else {
+					echo '<div class="no-review">No reviews yet. Be the first!</div>';
 				}
-			} else {
-				echo '<div class="no-review">No reviews yet. Be the first!</div>';
-			}
-		?>
+			?>
+		</div>
 	</div>
 </div>
