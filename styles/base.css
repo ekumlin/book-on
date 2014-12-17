@@ -279,6 +279,7 @@ input {
 	}
 
 .action-primary {
+	background: none;
 	color: #4CAF50;
 	cursor: pointer;
 	outline: none;
@@ -294,6 +295,7 @@ input {
 	}
 
 .action-negative {
+	background: none;
 	color: #F44336;
 	cursor: pointer;
 	outline: none;
