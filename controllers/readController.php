@@ -177,19 +177,24 @@ class ReadController {
 	 */
 	public function viewHeldBooks($request, &$jsonResult) {
 		global $DB;
-        
+
 		$query = "
 			SELECT
 				b.*,
-				bt.*,
-					p.Name AS PublisherName
+				bc.*,
+				bt.Time,
+				bt.ExpectedReturn,
+				bt.ActualReturn,
+				p.Name AS PublisherName
 			FROM
 				BookCopy AS bc
 				LEFT JOIN Book AS b ON bc.ISBN = b.ISBN
-				LEFT JOIN BookTransaction AS bt ON bt.BookCopyId = bc.BookCopyId
+				LEFT JOIN BookTransaction AS bt ON bt.BookCopyId = bc.BookCopyId AND bt.CardNumber = bc.HeldBy
 				LEFT JOIN Publisher AS p ON p.PublisherId = b.Publisher
-			WHERE bt.ExpectedReturn > NOW() AND bt.ActualReturn IS NULL AND bt.CardNumber = :card
-			GROUP BY b.ISBN, p.Name
+			WHERE
+				bc.HeldBy = :card
+				AND bt.BookTransactionId IS NULL
+					OR (bt.ExpectedReturn > NOW() AND bt.ActualReturn IS NULL)
 			ORDER BY b.Title
 		";
 
