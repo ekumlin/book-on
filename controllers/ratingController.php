@@ -26,22 +26,34 @@ class RatingController {
 			}
 
 			$query = "
-				UPDATE BookRated
-				SET
-					Rating = :rating,
-					Date = :date
+				SELECT *
+				FROM BookRated
 				WHERE
 					ISBN = :isbn
 					AND CardNumber = :cardNumber
 			";
-			$DB->query($query, array(
+			$existingRatings = $DB->query($query, array(
 					'isbn' => $isbn,
-					'rating' => $newRating,
-					'date' => new DateTime(),
 					'cardNumber' => $_SESSION['User']->cardNumber,
 				));
 
-			if ($DB->affectedRows() == 0) {
+			if (count($existingRatings) > 0) {
+			$query = "
+					UPDATE BookRated
+					SET
+						Rating = :rating,
+						Date = :date
+					WHERE
+						ISBN = :isbn
+						AND CardNumber = :cardNumber
+				";
+				$DB->query($query, array(
+						'isbn' => $isbn,
+						'rating' => $newRating,
+						'date' => new DateTime(),
+						'cardNumber' => $_SESSION['User']->cardNumber,
+					));
+			} else {
 				// The user hasn't rated this book yet, so insert a row
 				$query = "
 					INSERT INTO BookRated
