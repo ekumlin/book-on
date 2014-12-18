@@ -29,6 +29,8 @@ class UserController {
 		$DB->query($query, array(
 				'cardNumber' => $request['cardNumber'],
 			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
 	}
 
 	/**
@@ -54,6 +56,8 @@ class UserController {
 		$DB->query($query, array(
 				'cardNumber' => $request['cardNumber'],
 			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
 	}
 
 	/**
@@ -80,6 +84,8 @@ class UserController {
 				'password' => password_hash($request['password'], PASSWORD_BCRYPT),
 				'cardNumber' => $request['cardNumber'],
 			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
 	}
 
 	/**

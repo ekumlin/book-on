@@ -4,4 +4,5 @@
 	<div class="email">Email address</div>
 	<div class="userType">Privilege</div>
 	<div class="accountStatus">Status</div>
+	<div class="actions">Actions</div>
 </div>

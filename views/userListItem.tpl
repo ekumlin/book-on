@@ -4,4 +4,5 @@
 	<div class="email"><?php echo $viewBag['user']->email; ?></div>
 	<div class="userType"><?php echo $viewBag['user']->getUserType(); ?></div>
 	<div class="accountStatus"><?php echo $viewBag['user']->getAccountStatus(); ?></div>
+	<div class="actions"><a href="#" class="button-flat action-negative resetpassword" data-user="<?php echo $viewBag['user']->cardNumber; ?>">Reset Password</a></div>
 </div>

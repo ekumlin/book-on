@@ -101,6 +101,20 @@ div.book-held-list-item {
 		width: 10%;
 	}
 
+		@media (max-width: 720px) {
+			div.book-held-list-item > div.isbn, div.book-held-list-item > div.rentalDate, div.book-held-list-item > div.copyNumber {
+				display: none;
+			}
+
+			div.book-held-list-item > div.title {
+				width: 60%;
+			}
+
+			div.book-held-list-item > div.returnDate {
+				width: 40%;
+			}
+		}
+
 div.collection-list-item {
 }
 
@@ -122,23 +136,27 @@ div.user-list-item {
 
 	div.user-list-item > div.name {
 		font-weight: 700;
-		width: 20%;
+		width: 17%;
 	}
 
 	div.user-list-item > div.email {
-		width: 39%;
+		width: 36%;
 	}
 
 	div.user-list-item > div.userType {
-		width: 13%;
+		width: 12%;
 	}
 
 	div.user-list-item > div.accountStatus {
-		width: 13%;
+		width: 9%;
+	}
+
+	div.user-list-item > div.actions {
+		width: 11%;
 	}
 
 		@media (max-width: 720px) {
-			div.user-list-item > div.cardNumber, div.user-list-item > div.email {
+			div.user-list-item > div.cardNumber, div.user-list-item > div.email, div.user-list-item > div.actions {
 				display: none;
 			}
 

@@ -116,6 +116,31 @@ $(document).ready(function() {
 			alert('Failed to save book rating');
 		});
 	});
+
+	/* Reset password */
+	$('body').on('click', '.resetpassword', function(e) {
+		var user = $(this).data('user');
+
+		$.ajax({
+			url: BookOnData.host + 'api.php',
+			data: {
+				controller: 'user',
+				action: 'adminPasswordReset',
+				password: prompt('Please enter new password:'),
+				cardNumber: user,
+			},
+			dataType: 'json',
+		}).done(function(msg) {
+			console.log(msg);
+			if (msg.success) {
+				alert('Password updated!');
+			} else {
+				alert('Failed to save password');
+			}
+		}).fail(function(jqXHR, textStatus) {
+			alert('Failed to save password');
+		});
+	});
 });
 
 /* Functions */
