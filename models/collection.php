@@ -31,6 +31,21 @@ class Collection {
 
 		$this->items[] = $item;
 	}
+    
+    public function removeItem($isbn) {
+        if (get_class($item) != 'Book') {
+			throw new Exception('Provided item argument is ' . get_class($item) . ', expected Book');
+		}
+        
+        for ($i = 0; $i < sizeof($this->items); $i++)
+        {
+        	if ($this->$items[$i]->isbn == $isbn) {
+                unset($this->$items[$i]);
+                return;
+            }
+        }
+        
+    }
 }
 
 ?>
