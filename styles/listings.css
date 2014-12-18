@@ -77,6 +77,20 @@ div.book-list-item {
 		width: 11%;
 	}
 
+		@media (max-width: 720px) {
+			div.book-list-item > div.isbn, div.book-list-item > div.language, div.book-list-item > div.edition {
+				display: none;
+			}
+
+			div.book-list-item > div.title {
+				width: 60%;
+			}
+
+			div.book-list-item > div.actions, div.book-list-item > div.copies {
+				width: 40%;
+			}
+		}
+
 div.book-held-list-item {
 }
 
