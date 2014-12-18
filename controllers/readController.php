@@ -321,35 +321,35 @@ class ReadController {
 		return $bookMap;
 	}
 
-     /**
+	 /**
 	 * Makes an API call to view the AuthorID of an author for use with BookAuthor pairing.
-     * Assumption: Two Authors do not have the same first+last name pairing.
+	 * Assumption: Two Authors do not have the same first+last name pairing.
 	 *
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
 	public function viewAuthorId($request, &$jsonResult) {
 		global $DB;
 
-        if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
-            return;
-        }
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
 
 		$query = "
-    			SELECT
-                a.AuthorId
-            FROM
-                Author as a
-            WHERE
-                a.FirstName = :firstName AND
-                a.LastName = :lastName
-            LIMIT 1;
+				SELECT
+				a.AuthorId
+			FROM
+				Author as a
+			WHERE
+				a.FirstName = :firstName AND
+				a.LastName = :lastName
+			LIMIT 1;
 		";
 		$authorId = $DB->query($query, array(
 				'firstName' => $request['firstName'],
 				'lastName' => $request['lastName'],
 			));
-        $resultId = (sizeof($authorId) == 0) ? -1 : $authorId[0]['AuthorId'];
+		$resultId = (sizeof($authorId) == 0) ? -1 : $authorId[0]['AuthorId'];
 
 
 		$jsonResult['success'] = true;

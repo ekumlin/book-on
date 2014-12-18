@@ -46,7 +46,7 @@
 		</div>
 		<input type="hidden" name="publisher" value="" />
 	</div>
-	<div class="input-group">
+	<div class="input-group disabled">
 		<label>Author</label>
 		<div class="selector">
 			<a href="#" class="button-flat action-primary select">Select</a>

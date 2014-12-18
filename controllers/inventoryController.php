@@ -7,6 +7,59 @@ if (!defined('VALID_REQUEST')) {
 
 class InventoryController {
 	/**
+	 * Checks if Author exists in Author Table. If so, gathers AuthorId and creates new entry in
+	 * BookAuthor. If not, adds new entry to Author to Author table, stores Author ID, and creates entry in BookAuthor with ID.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function addAuthorToBook($request, &$jsonResult) {
+		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
+		$authorId = json_decode(apiCall(array(
+				'controller' => 'read',
+				'action' => 'viewAuthorId',
+				'firstName' => $request['author-firstName'],
+				'lastName' => $request['author-lastName'],
+			)));
+
+		//test for $authorId present or not. if not, insert
+		if ($authorId->data[0] == -1) { //Should really use a constant error value here
+			$authorId = json_decode(apiCall(array(
+					'controller' => 'inventory',
+					'action' => 'addNewAuthor',
+					'author-firstName' => $request['author-firstName'],
+					'author-lastName' => $request['author-lastName'],
+					'author-birthDate' => $request['author-birthDate'],
+					'author-homeCountry' => $request['author-homeCountry'],
+				)));
+		}
+
+		if (!$authorId->success) {
+			return;
+		}
+
+		$query = "
+			INSERT IGNORE INTO BookAuthor
+				(`ISBN`,
+					`AuthorId`)
+			VALUES
+				(:isbn,
+					:authorId);
+		";
+		$DB->query($query, array(
+				'isbn' => $request['author-isbn'],
+				'authorId' => $authorId->data[0],
+			));
+
+		$jsonResult['success'] = true;
+	}
+
+	/**
 	 * Makes an API call to add a book transaction to the bookTransaction table as part of record keeping.
 	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -46,7 +99,44 @@ class InventoryController {
 
 		$jsonResult['success'] = true;
 		$jsonResult['data'][] = $DB->lastInsertedId();
+	}
 
+	/**
+	 * Adds new author to table. Caller is expected to call read/viewAuthorID first to make sure
+	 * the entry does not already exist. IGNORE flag is not used, as it might mask other errors.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function addNewAuthor($request, &$jsonResult) {
+		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
+		//omit BookTransactionID since it's auto-increment
+		$query = "
+			INSERT INTO Author
+				(`FirstName`,
+					`LastName`,
+					`BirthDate`,
+					`HomeCountry`)
+			VALUES
+				(:firstName,
+					:lastName,
+					:birthDate,
+					:homeCountry);
+		";
+		$DB->query($query, array(
+				'firstName' => $request['author-firstName'],
+				'lastName' => $request['author-lastName'],
+				'birthDate' => $request['author-birthDate'],
+				'homeCountry' => $request['author-homeCountry'],
+			));
+
+		$jsonResult['success'] = true;
+		$jsonResult['data'][] = $DB->lastInsertedId();
 	}
 
 	/**
@@ -249,104 +339,6 @@ class InventoryController {
 		$DB->query($query, array(
 				'returnDate' => $bookReturn['returnDate'],
 				'bookCopyId' => $bookReturn['bookCopyId'],
-			));
-
-		$jsonResult['success'] = true;
-	}
-
-	/**
-	 * Adds new author to table. Caller is expected to call read/viewAuthorID first to make sure
-     * the entry does not already exist. IGNORE flag is not used, as it might mask other errors.
-	 *
-	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
-	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-	 */
-	public function addNewAuthor($request, &$jsonResult) {
-		global $DB;
-
-        if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
-            return;
-        }
-
-		$author = $request['author'];
-
-		//omit BookTransactionID since it's auto-increment
-		$query = "
-			INSERT INTO Author
-				(`FirstName`,
-					`LastName`,
-					`BirthDate`,
-					`HomeCountry`)
-			VALUES
-				(:firstName,
-					:lastName,
-					:birthDate,
-					:homeCountry);
-		";
-		$DB->query($query, array(
-				'firstName' => $author['firstName'],
-				'lastName' => $author['lastName'],
-                'birthDate' => $author['birthDate'],
-				'homeCountry' => $author['homeCountry'],
-			));
-
-		$jsonResult['success'] = true;
-        $jsonResult['data'][] = $DB->lastInsertedId();
-	}
-
-    /**
-     * Checks if Author exists in Author Table. If so, gathers AuthorId and creates new entry in
-     * BookAuthor. If not, adds new entry to Author to Author table, stores Author ID, and creates entry in BookAuthor with ID.
-     *
-     * @param array $request A bundle of request data. Usually comes from URL parameter string.
-     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-     */
-	public function addAuthorToBook($request, &$jsonResult) {
-		global $DB;
-
-        if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
-            return;
-        }
-
-        $bookAuthor = $request['bookAuthor'];
-
-        $authorId = json_decode(apiCall(array(
-                'controller' => 'read',
-                'action' => 'viewAuthorId',
-                'firstName' => $bookAuthor['firstName'],
-			    'lastName' => $bookAuthor['lastName'],
-            )));
-
-        //test for $authorId present or not. if not, insert
-        if ($authorId->data[0] == -1) { //Should really use a constant error value here
-            $authorId = json_decode(apiCall(array(
-                   'controller' => 'inventory',
-                   'action' => 'addNewAuthor',
-                   'author' => array(
-                       'firstName' => $bookAuthor['firstName'],
-                       'lastName' => $bookAuthor['lastName'],
-                       'birthDate' => $bookAuthor['birthDate'],
-                       'homeCountry' => $bookAuthor['homeCountry'],
-                   ),
-                )));
-
-        }
-
-        if(!$authorId->success) {
-            return;
-        }
-
-		$query = "
-			INSERT IGNORE INTO BookAuthor
-				(`ISBN`,
-					`AuthorId`)
-			VALUES
-				(:isbn,
-					:authorId);
-		";
-		$DB->query($query, array(
-                'isbn' => $bookAuthor['isbn'],
-                'authorId' => $authorId->data[0],
 			));
 
 		$jsonResult['success'] = true;

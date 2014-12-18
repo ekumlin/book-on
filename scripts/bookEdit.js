@@ -7,6 +7,12 @@ $(document).ready(function() {
 		var field = $input.attr('name'),
 			mode = $(this).hasClass('create') ? 'create' : 'select';
 
+		e.preventDefault();
+
+		if ($group.hasClass('disabled')) {
+			return;
+		}
+
 		if (field == 'publisher') {
 			if (mode == 'select') {
 				askSelectPublisher($group, $input, $popup, field, mode);
@@ -20,8 +26,6 @@ $(document).ready(function() {
 				askCreateAuthor($group, $input, $popup, field, mode);
 			}
 		}
-
-		e.preventDefault();
 	});
 });
 
