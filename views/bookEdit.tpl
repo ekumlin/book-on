@@ -44,6 +44,7 @@
 			<a href="#" class="button-flat action-creative create">Create</a>
 			<div class="selector-content"><?php echo $viewBag['book']->publisher; ?></div>
 		</div>
+		<input type="hidden" name="publisher" value="" />
 	</div>
 	<div class="input-group">
 		<label>Author</label>
@@ -56,9 +57,11 @@
 				<?php endforeach; ?>
 			</div>
 		</div>
+		<input type="hidden" name="authors" value="" />
 	</div>
 	<div class="form-controls">
 		<input type="button" value="Discard" class="button-flat action-negative" />
 		<input type="submit" value="Save" class="button-flat action-primary" />
 	</div>
+	<?php View::render('popup', array('class' => 'bookEditPopup', 'content' => '')); ?>
 </form>

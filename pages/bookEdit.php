@@ -18,7 +18,7 @@ if (isset($_POST['bookTitle'])) {
 	$errors = array();
 
 	$isbn = $title = $language = NULL;
-	$edition = $salePrice = $pageCount = 0;
+	$edition = $salePrice = $pageCount = $publisher = 0;
 
 	$isbn = str_replace('-', '', strval($_POST['isbn']));
 	if (!ctype_digit($isbn) || (strlen($isbn) != 13 && strlen($isbn) != 10)) {
@@ -49,6 +49,10 @@ if (isset($_POST['bookTitle'])) {
 		$pageCount = intval($_POST['pageCount']);
 	}
 
+	if (ctype_digit($_POST['publisher'])) {
+		$publisher = intval($_POST['publisher']);
+	}
+
 	if (!$isbn) {
 		$errors[] = 'Invalid ISBN.';
 	}
@@ -72,7 +76,7 @@ if (isset($_POST['bookTitle'])) {
 							'pageCount' => $pageCount,
 							'edition' => $edition,
 							'language' => $language,
-							'publisher' => NULL,
+							'publisher' => $publisher,
 						),
 				)));
 
@@ -89,7 +93,7 @@ if (isset($_POST['bookTitle'])) {
 							'pageCount' => $pageCount,
 							'edition' => $edition,
 							'language' => $language,
-							'publisher' => NULL,
+							'publisher' => $publisher,
 						),
 				)));
 
@@ -134,7 +138,7 @@ if ($editingIsbn == 0) {
 print View::toString('page', array(
 		'title' => 'Editing book',
 		'styles' => array('bookView', 'forms'),
-		'scripts' => array('forms'),
+		'scripts' => array('bookEdit', 'forms'),
 		'searchTarget' => 'books/search',
 		'body' => $content,
 	));

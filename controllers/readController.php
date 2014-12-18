@@ -17,6 +17,31 @@ class ReadController {
 	}
 
 	/**
+	 * Makes an API call to list all publishers.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function allPublishers($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				p.*
+			FROM
+				Publisher AS p
+			ORDER BY p.Name
+		";
+
+		$results = $DB->query($query);
+
+		$jsonResult['success'] = true;
+		foreach ($results as $result) {
+			$jsonResult['data'][] = new Publisher($result);
+		}
+	}
+
+	/**
 	 * Makes an API call to list all users.
 	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -33,11 +58,11 @@ class ReadController {
 			ORDER BY u.CardNumber
 		";
 
-		$users = $DB->query($query);
+		$results = $DB->query($query);
 
 		$jsonResult['success'] = true;
-		foreach ($users as $user) {
-			$jsonResult['data'][] = new User($user);
+		foreach ($results as $result) {
+			$jsonResult['data'][] = new User($result);
 		}
 	}
 
