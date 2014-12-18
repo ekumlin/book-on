@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2014 at 10:39 PM
+-- Generation Time: Dec 18, 2014 at 05:48 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `Birthdate` date DEFAULT NULL,
   `HomeCountry` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`AuthorId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `author`
@@ -49,7 +49,9 @@ INSERT INTO `author` (`AuthorId`, `FirstName`, `LastName`, `Birthdate`, `HomeCou
 (7, 'Peter', 'Linz', NULL, NULL),
 (8, 'Ira', 'Forman', NULL, NULL),
 (9, 'Nate', 'Forman', NULL, NULL),
-(10, 'David', 'Wetherall', NULL, NULL);
+(10, 'David', 'Wetherall', NULL, NULL),
+(11, 'Haruki', 'Murakami', NULL, 'Ja'),
+(12, 'Yoshihiro', 'Togashi', NULL, 'ja');
 
 -- --------------------------------------------------------
 
@@ -74,6 +76,9 @@ CREATE TABLE IF NOT EXISTS `book` (
 --
 
 INSERT INTO `book` (`ISBN`, `Title`, `SalePrice`, `PageCount`, `Edition`, `Language`, `Publisher`) VALUES
+(9780099448792, 'The Wind-Up Bird Chronicle', 165.98, 624, 1, 'ja', 6),
+(9780099448822, 'Norwegian Wood', 15.42, 400, 1, 'ja', 6),
+(9780099506249, 'After Dark', 29.74, 208, 1, 'ja', 6),
 (9780131485211, 'Structured Computer Organization', 70.2, 800, 5, 'en', 2),
 (9780132126953, 'Computer Networks', 159.8, 960, 5, 'en', 2),
 (9780133591620, 'Modern Operating Systems', 71.99, 1136, 4, 'en', 2),
@@ -82,6 +87,9 @@ INSERT INTO `book` (`ISBN`, `Title`, `SalePrice`, `PageCount`, `Edition`, `Langu
 (9781285196145, 'Database Systems: Design, Implementation, & Management', 49.99, 784, 11, 'en', 1),
 (9781423902010, 'Database Systems: Design, Implementation, and Management', 28.99, 728, 8, 'en', 1),
 (9781449615529, 'An Introduction To Formal Languages And Automata', 175.98, 437, 5, 'en', 4),
+(9781591167532, 'Hunter x Hunter 1', 9.81, 184, 1, 'ja', 7),
+(9781591167853, 'Hunter x Hunter 2', 10.01, 192, 1, 'ja', 7),
+(9781591168492, 'Hunter x Hunter 3', 6.8, 192, 1, 'ja', 7),
 (9781890774691, 'Murach''s SQL Server 2012 for Developers: Training & Reference', 60.84, 796, 1, 'en', NULL),
 (9781932394184, 'Java Reflection in Action', 42.81, 273, 2, 'en', 5);
 
@@ -115,7 +123,13 @@ INSERT INTO `bookauthor` (`ISBN`, `AuthorId`) VALUES
 (9781932394184, 8),
 (9781932394184, 9),
 (9780201433050, 8),
-(9780132126953, 10);
+(9780132126953, 10),
+(9780099448822, 11),
+(9780099448792, 11),
+(9780099506249, 11),
+(9781591167532, 12),
+(9781591167853, 12),
+(9781591168492, 12);
 
 -- --------------------------------------------------------
 
@@ -136,8 +150,13 @@ CREATE TABLE IF NOT EXISTS `bookcollected` (
 
 INSERT INTO `bookcollected` (`CollectionId`, `ISBN`) VALUES
 (2, 9781285196145),
-(2, 9781423902010),
-(3, 9781449615529);
+(3, 9781449615529),
+(3, 9780132126953),
+(3, 9780201433050),
+(1, 9781449615529),
+(1, 9780133591620),
+(2, 9780133591620),
+(3, 9781285196145);
 
 -- --------------------------------------------------------
 
@@ -153,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `bookcopy` (
   PRIMARY KEY (`BookCopyId`),
   KEY `ISBN` (`ISBN`),
   KEY `HeldBy` (`HeldBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `bookcopy`
@@ -161,18 +180,18 @@ CREATE TABLE IF NOT EXISTS `bookcopy` (
 
 INSERT INTO `bookcopy` (`BookCopyId`, `IsForSale`, `HeldBy`, `ISBN`) VALUES
 (1, 0, NULL, 9781285196145),
-(2, 0, 412100001, 9781285196145),
+(2, 0, NULL, 9781285196145),
 (3, 1, NULL, 9781285196145),
 (4, 1, NULL, 9780133591620),
 (5, 1, NULL, 9780133591620),
-(6, 0, 412100002, 9780131485211),
+(6, 0, NULL, 9780131485211),
 (7, 1, NULL, 9780131485211),
 (8, 1, NULL, 9780131485211),
 (9, 0, NULL, 9780201485677),
 (10, 0, NULL, 9780201485677),
 (11, 1, NULL, 9780201485677),
 (12, 1, NULL, 9781449615529),
-(13, 0, 412100003, 9781449615529),
+(13, 0, NULL, 9781449615529),
 (14, 0, NULL, 9781449615529),
 (15, 0, NULL, 9781932394184),
 (16, 1, NULL, 9781932394184),
@@ -180,9 +199,33 @@ INSERT INTO `bookcopy` (`BookCopyId`, `IsForSale`, `HeldBy`, `ISBN`) VALUES
 (18, 1, NULL, 9780201433050),
 (19, 1, NULL, 9780201433050),
 (20, 0, NULL, 9780201433050),
-(21, 0, 412100002, 9780201433050),
-(22, 0, 412100001, 9780132126953),
-(23, 0, NULL, 9780132126953);
+(21, 0, NULL, 9780201433050),
+(22, 0, NULL, 9780132126953),
+(23, 0, NULL, 9780132126953),
+(24, 0, NULL, 9780099506249),
+(25, 1, NULL, 9780099506249),
+(26, 1, NULL, 9780099506249),
+(27, 1, NULL, 9780099506249),
+(28, 0, NULL, 9780099448822),
+(29, 1, NULL, 9780099448822),
+(30, 1, NULL, 9780099448822),
+(31, 0, NULL, 9780099448792),
+(32, 0, NULL, 9780099448792),
+(33, 1, NULL, 9780099448792),
+(34, 1, NULL, 9780099448792),
+(35, 0, NULL, 9781591167532),
+(36, 0, NULL, 9781591167532),
+(37, 0, NULL, 9781591167532),
+(38, 1, NULL, 9781591167532),
+(39, 1, NULL, 9781591167532),
+(40, 0, NULL, 9781591167853),
+(41, 1, NULL, 9781591167853),
+(42, 1, NULL, 9781591167853),
+(43, 1, NULL, 9781591167853),
+(44, 1, NULL, 9781591167853),
+(45, 0, NULL, 9781591168492),
+(46, 1, NULL, 9781591168492),
+(47, 1, NULL, 9781591168492);
 
 -- --------------------------------------------------------
 
@@ -196,10 +239,22 @@ CREATE TABLE IF NOT EXISTS `bookrated` (
   `ISBN` bigint(13) NOT NULL,
   `Rating` tinyint(1) NOT NULL,
   `Review` text NOT NULL,
+  `Date` datetime NOT NULL,
   PRIMARY KEY (`RatingId`),
   KEY `CardNumber` (`CardNumber`),
   KEY `ISBN` (`ISBN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `bookrated`
+--
+
+INSERT INTO `bookrated` (`RatingId`, `CardNumber`, `ISBN`, `Rating`, `Review`, `Date`) VALUES
+(4, 412100003, 9780201433050, 3, '', '2014-12-17 21:44:03'),
+(5, 412100001, 9780201433050, 4, '', '2014-12-17 21:44:36'),
+(6, 412100004, 9781285196145, 3, '', '2014-12-17 23:02:38'),
+(7, 412100004, 9780132126953, 3, '', '2014-12-17 23:15:20'),
+(8, 412100004, 9781449615529, 3, '', '2014-12-17 23:16:18');
 
 -- --------------------------------------------------------
 
@@ -217,17 +272,18 @@ CREATE TABLE IF NOT EXISTS `booktransaction` (
   PRIMARY KEY (`BookTransactionId`),
   KEY `BookCopyId` (`BookCopyId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `booktransaction`
 --
 
 INSERT INTO `booktransaction` (`BookTransactionId`, `BookCopyId`, `Time`, `ExpectedReturn`, `ActualReturn`, `CardNumber`) VALUES
-(1, 13, '2014-12-15 15:36:58', '2014-12-12 04:00:00', NULL, 412100003),
+(1, 13, '2014-12-15 11:30:00', '2014-12-17 04:00:00', NULL, 412100003),
 (2, 21, '2014-12-15 05:30:00', '2014-12-07 05:30:00', NULL, 412100002),
-(3, 6, '2014-12-16 14:35:14', '2014-12-18 07:20:00', NULL, 412100002),
-(4, 22, '2014-12-16 09:20:00', '2014-12-18 16:20:00', NULL, 412100001);
+(3, 6, '2014-12-15 13:20:00', '2014-12-18 07:20:00', NULL, 412100002),
+(4, 22, '2014-12-16 09:20:00', '2014-12-18 16:20:00', NULL, 412100001),
+(5, 2, '2014-12-16 15:20:00', '2014-12-20 18:30:00', NULL, 412100001);
 
 -- --------------------------------------------------------
 
@@ -241,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `collection` (
   `CardNumber` int(11) NOT NULL,
   PRIMARY KEY (`CollectionId`),
   KEY `CardNumber` (`CardNumber`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `collection`
@@ -250,7 +306,8 @@ CREATE TABLE IF NOT EXISTS `collection` (
 INSERT INTO `collection` (`CollectionId`, `Name`, `CardNumber`) VALUES
 (1, 'Favorites', 412100001),
 (2, 'Textbooks', 412100001),
-(3, 'Expensive Books', 412100003);
+(3, 'Expensive Books', 412100003),
+(4, 'Favorites', 412100004);
 
 -- --------------------------------------------------------
 
@@ -264,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `publisher` (
   `Address` varchar(511) NOT NULL,
   `Phone` bigint(11) NOT NULL,
   PRIMARY KEY (`PublisherId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `publisher`
@@ -275,7 +332,9 @@ INSERT INTO `publisher` (`PublisherId`, `Name`, `Address`, `Phone`) VALUES
 (2, 'Prentice Hall', 'Upper Saddle River, NJ 07458', 18008489500),
 (3, 'Addison Wesley', '26 Prince Andrew Place Don Mills, ON M3C 2T8', 18002639965),
 (4, 'Jones & Bartlett Learning', '5 Wall Street Burlington, MA 01803', 18008320034),
-(5, 'Manning Publications', '20 Baldwin Road,Shelter Island, NY 11963', 2036261510);
+(5, 'Manning Publications', '20 Baldwin Road,Shelter Island, NY 11963', 2036261510),
+(6, 'Vintage Publishing', '20 Vauxhall Bridge Road, London SW1V 2SA', 4402078408400),
+(7, 'Viz Media', '1355 Market Street, Suite #200, San Francisco, CA 94103', 5552034578);
 
 -- --------------------------------------------------------
 
@@ -301,7 +360,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`CardNumber`, `IsEmployee`, `Name`, `Password`, `Email`, `AccountStatus`) VALUES
 (412100001, 1, 'Eric Kumlin', '$2y$10$9pPv.7ymnYg9eFc1LBK1tOZKBgB1UoOEzxDpF7MYZBYw99Uk/3Q2q', 'eric.kumlin@gmail.com', 0),
 (412100002, 2, 'Sarah Durant', '$2y$10$Ye0QxeXNC2OphK7cklHOzudZDCgYbNKVEPC0WlJ13OmKv4Ta9osQi', 'sarah.ash.durant@gmail.com', 0),
-(412100003, 2, 'Desmond Chan', '$2y$10$kf0cU6g5Sr14PkNmp7cm2.DFF5lQu2la1BgQKlmHkJfaXOEpu6QhW', 'desmond.chan@live.ca', 0);
+(412100003, 2, 'Desmond Chan', '$2y$10$kf0cU6g5Sr14PkNmp7cm2.DFF5lQu2la1BgQKlmHkJfaXOEpu6QhW', 'desmond.chan@live.ca', 0),
+(412100004, 0, 'John Smith', '$2y$10$h/YjxovnjZ79Ao9OORJ62OCesSlKKfTmBIfmsyxCra3ThXfH35/tK', 'johnsmith@gmail.com', 0);
 
 --
 -- Constraints for dumped tables
