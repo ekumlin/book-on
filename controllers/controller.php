@@ -13,7 +13,7 @@ class Controller {
 	 * @param array $jsonResult A bundle that holds the JSON result of the regular controller call. Requires success element to be true or false.
 	 */
 	public static function verifyAccess($required, &$jsonResult) {
-		if (!Http::canAccess(User::USER_STAFF)) {
+		if (!Http::canAccess($required)) {
 			$jsonResult['errno'] = 0;
 			$jsonResult['errstr'] = 'Invalid access.';
 			return false;
