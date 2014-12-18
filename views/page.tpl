@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<title><?php echo (isset($viewBag['title']) && $viewBag['title']) ? "{$viewBag['title']} :: " : ''; ?>Book-On</title>
+		<link href="<?php echo _HOST; ?>favicon.ico" rel="shortcut icon">
+		<link href="<?php echo _HOST; ?>favicon.ico" rel="icon">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<?php
