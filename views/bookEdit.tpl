@@ -60,7 +60,6 @@
 		<input type="hidden" name="authors" value="" />
 	</div>
 	<div class="form-controls">
-		<input type="button" value="Discard" class="button-flat action-negative" />
 		<input type="submit" value="Save" class="button-flat action-primary" />
 	</div>
 </form>
