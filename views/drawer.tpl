@@ -36,8 +36,12 @@
 				<td><a href='<?php echo _HOST; ?>books/list'>View inventory</a></td>
 			</tr>
 			<tr class="item">
+				<td><img src="<?php echo _HOST; ?>assets/icon-book-add-copy.png" title="Add copy of book"/></td>
+				<td><a href='<?php echo _HOST; ?>books/addcopy'>Add to inventory</a></td>
+			</tr>
+			<tr class="item">
 				<td><img src="<?php echo _HOST; ?>assets/icon-book-add.png" title="Add book"/></td>
-				<td><a href='<?php echo _HOST; ?>books/add'>Add book</a></td>
+				<td><a href='<?php echo _HOST; ?>books/add'>Add new book</a></td>
 			</tr>
 			<tr class="item">
 				<td><img src="<?php echo _HOST; ?>assets/icon-user-list.png" title="List all users"/></td>
