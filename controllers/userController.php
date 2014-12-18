@@ -200,17 +200,19 @@ class UserController {
 		global $DB;
 
 		$this->getUserByCard($request, $jsonResult);
-		$user = $jsonResult['data'][0];
 
-		$jsonResult['success'] = false;
-		$jsonResult['data'] = array();
+		if (count($jsonResult['data'])) {
+			$user = $jsonResult['data'][0];
+			$jsonResult['success'] = false;
+			$jsonResult['data'] = array();
 
-		$pwdHash = $user['Password'];
+			$pwdHash = $user['Password'];
 
-		if (password_verify($request['password'], $pwdHash)) {
-			$jsonResult['success'] = true;
+			if (password_verify($request['password'], $pwdHash)) {
+				$jsonResult['success'] = true;
 
-			$_SESSION['User'] = new User($user);
+				$_SESSION['User'] = new User($user);
+			}
 		}
 
 		if (!$jsonResult['success']) {
