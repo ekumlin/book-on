@@ -48,10 +48,10 @@ class User {
 			), $row ? $row : array());
 
 		$this->cardNumber = $row['CardNumber'];
-		$this->employeeLevel = $row['IsEmployee'];
+		$this->employeeLevel = intval($row['IsEmployee']);
 		$this->name = $row['Name'];
 		$this->email = $row['Email'];
-		$this->accountStatus = $row['AccountStatus'];
+		$this->accountStatus = intval($row['AccountStatus']);
 	}
 
 	public function getAccountStatus() {
