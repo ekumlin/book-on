@@ -320,7 +320,7 @@ class ReadController {
 
 		return $bookMap;
 	}
-    
+
      /**
 	 * Makes an API call to view the AuthorID of an author for use with BookAuthor pairing.
      * Assumption: Two Authors do not have the same first+last name pairing.
@@ -336,7 +336,7 @@ class ReadController {
         }
 
 		$query = "
-    			SELECT 
+    			SELECT
                 a.AuthorId
             FROM
                 Author as a
@@ -350,10 +350,10 @@ class ReadController {
 				'lastName' => $request['lastName'],
 			));
         $resultId = (sizeof($authorId) == 0) ? -1 : $authorId[0]['AuthorId'];
-        
+
 
 		$jsonResult['success'] = true;
-		$jsonResult['data'][] = $resultId; 
+		$jsonResult['data'][] = $resultId;
 	}
 }
 

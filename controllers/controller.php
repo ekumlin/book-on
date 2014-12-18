@@ -8,7 +8,7 @@ if (!defined('VALID_REQUEST')) {
 class Controller {
 	/**
 	 * Checks whether a user has access to the current controller, and throws an error string to the JSON result if not.
-	 * 
+	 *
 	 * @param integer $required The access level required for the controller.
 	 * @param array $jsonResult A bundle that holds the JSON result of the regular controller call. Requires success element to be true or false.
 	 */

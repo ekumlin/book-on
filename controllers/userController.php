@@ -8,7 +8,7 @@ if (!defined('VALID_REQUEST')) {
 class UserController {
 	/**
 	 * Administratively enable user.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -18,22 +18,22 @@ class UserController {
 		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
 			return;
 		}
-		
+
 		$query = "
 			UPDATE User
 			SET
 				AccountStatus = 0
-			WHERE 
+			WHERE
 				CardNumber = :cardNumber;
 		";
 		$DB->query($query, array(
 				'cardNumber' => $request['cardNumber'],
 			));
 	}
-	
+
 	/**
 	 * Administratively disable user.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -43,22 +43,22 @@ class UserController {
 		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
 			return;
 		}
-		
+
 		$query = "
 			UPDATE User
 			SET
 				AccountStatus = 1
-			WHERE 
+			WHERE
 				CardNumber = :cardNumber;
 		";
 		$DB->query($query, array(
 				'cardNumber' => $request['cardNumber'],
 			));
 	}
-	
+
 	/**
 	 * Administratively resets password.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -68,12 +68,12 @@ class UserController {
 		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
 			return;
 		}
-		
+
 		$query = "
 			UPDATE User
 			SET
 				Password = :password
-			WHERE 
+			WHERE
 				CardNumber = :cardNumber
 		";
 		$DB->query($query, array(
@@ -113,7 +113,7 @@ class UserController {
 
 	/**
 	 * Checks if a user exists by email address.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -162,7 +162,7 @@ class UserController {
 
 	/**
 	 * Gets a user by card number.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -186,7 +186,7 @@ class UserController {
 
 	/**
 	 * Attempts to log in a user.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -215,7 +215,7 @@ class UserController {
 
 	/**
 	 * Checks if a user exists by email address.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */

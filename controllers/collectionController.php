@@ -8,7 +8,7 @@ if (!defined('VALID_REQUEST')) {
 class CollectionController {
 	/**
 	 * Makes an API call to add a book to a user's collection.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -61,7 +61,7 @@ class CollectionController {
 
 	/**
 	 * Makes an API call to remove a book from a user's collection.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
@@ -110,7 +110,7 @@ class CollectionController {
 
 	/**
 	 * Makes an API call to get all of a user's collections.
-	 * 
+	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
 	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */

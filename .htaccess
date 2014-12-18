@@ -15,7 +15,7 @@ FileETag None
 <IfModule mod_mime.c>
 	# Set XML files to be read as PHP (this is for dynamic RSS feeds)
 	AddType application/x-httpd-php xml
-	
+
 	# Set MIME types for fonts
 	AddType font/embedopentype .eot
 	AddType font/opentype .otf
@@ -41,18 +41,18 @@ FileETag None
 	<FilesMatch "\.(html|htm|php|php5)$">
 		Header set Content-type "text/html;charset=utf-8"
 	</FilesMatch>
-	
+
 	# Cache control
 	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
 		Header set Cache-Control "max-age=30240000, public, must-revalidate"
 		Header set Expires "access plus 50 weeks"
 	</FilesMatch>
-	
+
 	<FilesMatch "\.(xml|txt)$">
 		Header set Cache-Control "max-age=172800, public, must-revalidate"
 		Header set Expires "access plus 2 days"
 	</FilesMatch>
-	
+
 	<FilesMatch "\.(js|css)$">
 		Header set Cache-Control "max-age=43200, public, must-revalidate"
 		Header set Expires "access plus 12 hours"

@@ -31,7 +31,7 @@ class String {
 	 */
 	public static function formatIsbn($isbn) {
 		$isbn = strval($isbn);
-		
+
 		if (strlen($isbn) == 13) {
 			return substr($isbn, 0, 3) . '-' . substr($isbn, 3);
 		}

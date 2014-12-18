@@ -255,7 +255,7 @@ class InventoryController {
 	}
 
 	/**
-	 * Adds new author to table. Caller is expected to call read/viewAuthorID first to make sure 
+	 * Adds new author to table. Caller is expected to call read/viewAuthorID first to make sure
      * the entry does not already exist. IGNORE flag is not used, as it might mask other errors.
 	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
@@ -289,11 +289,11 @@ class InventoryController {
                 'birthDate' => $author['birthDate'],
 				'homeCountry' => $author['homeCountry'],
 			));
-        
+
 		$jsonResult['success'] = true;
         $jsonResult['data'][] = $DB->lastInsertedId();
 	}
-    
+
     /**
      * Checks if Author exists in Author Table. If so, gathers AuthorId and creates new entry in
      * BookAuthor. If not, adds new entry to Author to Author table, stores Author ID, and creates entry in BookAuthor with ID.
@@ -316,7 +316,7 @@ class InventoryController {
                 'firstName' => $bookAuthor['firstName'],
 			    'lastName' => $bookAuthor['lastName'],
             )));
-        
+
         //test for $authorId present or not. if not, insert
         if ($authorId->data[0] == -1) { //Should really use a constant error value here
             $authorId = json_decode(apiCall(array(
@@ -329,13 +329,13 @@ class InventoryController {
                        'homeCountry' => $bookAuthor['homeCountry'],
                    ),
                 )));
-   
+
         }
-        
+
         if(!$authorId->success) {
             return;
         }
-        
+
 		$query = "
 			INSERT IGNORE INTO BookAuthor
 				(`ISBN`,
@@ -348,7 +348,7 @@ class InventoryController {
                 'isbn' => $bookAuthor['isbn'],
                 'authorId' => $authorId->data[0],
 			));
-        
+
 		$jsonResult['success'] = true;
 	}
 }

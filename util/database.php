@@ -35,7 +35,7 @@ class Connection {
 
 	/**
 	 * Get the number of affected rows in the previous query.
-	 * 
+	 *
 	 * @return integer The number of affected rows.
 	 */
 	public function affectedRows() {
@@ -44,7 +44,7 @@ class Connection {
 
 	/**
 	 * Get the ID of the last inserted row.
-	 * 
+	 *
 	 * @return integer The ID of the last inserted row.
 	 */
 	public function lastInsertedId() {

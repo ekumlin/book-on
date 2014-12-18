@@ -24,6 +24,11 @@ class Collection {
 		$this->items = array();
 	}
 
+	/**
+	 * Adds a new book item to the list of items this collection holds.
+	 *
+	 * @param Book $row The Book item to add.
+	 */
 	public function addItem($item) {
 		if (get_class($item) != 'Book') {
 			throw new Exception('Provided item argument is ' . get_class($item) . ', expected Book');
@@ -31,22 +36,21 @@ class Collection {
 
 		$this->items[] = $item;
 	}
-    
-    public function removeItem($isbn) {
-        if (get_class($item) != 'Book') {
-			throw new Exception('Provided item argument is ' . get_class($item) . ', expected Book');
+
+	/**
+	 * Removes a book item from the list of items this collection holds.
+	 *
+	 * @param integer $row The ISBN of the book item to remove.
+	 */
+	public function removeItem($isbn) {
+		for ($i = 0; $i < sizeof($this->items); $i++) {
+			if ($this->$items[$i]->isbn == $isbn) {
+				unset($this->$items[$i]);
+				$this->$items = array_values($this->$items); //preserve contiguous numerical index
+				return;
+			}
 		}
-        
-        for ($i = 0; $i < sizeof($this->items); $i++)
-        {
-        	if ($this->$items[$i]->isbn == $isbn) {
-                unset($this->$items[$i]);
-                $this->$items = array_values($this->$items); //preserve contiguous numerical index
-                return;
-            }
-        }
-        
-    }
+	}
 }
 
 ?>
