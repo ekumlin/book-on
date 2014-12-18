@@ -161,6 +161,31 @@ class UserController {
 			$jsonResult['data'] = true;
 		}
 	}
+    
+    /**
+     * Administratively resets password.
+     * 
+     * @param array $request A bundle of request data. Usually comes from URL parameter string.
+     * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+     */
+	public function adminPasswordReset($request, &$jsonResult) {
+		global $DB;
+
+        if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+            return;
+        }
+        
+        $query = "
+			UPDATE User
+            SET
+                Password = :password
+			WHERE 
+                CardNumber = :cardNumber;
+		";
+		$users = $DB->query($query, array(
+				'password' => password_hash($request['password'], PASSWORD_BCRYPT),
+			));
+	}
 }
 
 ?>
