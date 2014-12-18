@@ -9,7 +9,15 @@ $(document).ready(function() {
 		}
 	}).on('keydown', 'input', function(e) {
 		if (e.keyCode == 9 || e.keyCode == 13) {
-			$(this).blur().closest('.input-group').next().find('input').focus();
+			var $this = $(this);
+			$this.blur();
+
+			var $inputs = $form.find('input[name][placeholder]');
+			var thisIndex = $inputs.index($this);
+			var $nextInput = $inputs.get(thisIndex + 1);
+
+			$nextInput.focus();
+
 			return false;
 		}
 	});
@@ -19,13 +27,17 @@ $(document).ready(function() {
 
 function newCopyField($parent) {
 	var $box = $('<div class=\'input-group\'>' + $('#blank-copy-field').html() + '</div>'), $lastInput = $parent.find('.input-group:last input');
-	var index = $lastInput.length ? (parseInt($parent.find('.input-group:last input').attr('name').match(/[0-9]+$/g)) + 1) : 1, name = 'copyId' + index;
-	$box.find('input').attr({
-		id: name,
-		name: name,
+	var index = $lastInput.length ? (parseInt($parent.find('.input-group:last input').attr('name').match(/[0-9]+$/g)) + 1) : 1;
+	$box.find('input').each(function() {
+		var name = $(this).attr('name') + index;
+		$(this).attr({
+			id: name,
+			name: name,
+		});
 	});
 
 	$parent.append($box);
 	$parent.closest('form').find('input[name=maxCopyIndex]').val(index);
-	$box.hide().slideDown()
+	$box.hide().slideDown();
+	console.log(1);
 }

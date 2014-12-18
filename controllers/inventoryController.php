@@ -33,12 +33,12 @@ class InventoryController {
 					:cardNumber);
 		";
 		$DB->query($query, array(
-			'bookCopyId' => $bookTrans['bookCopyId'],
-			'transDate' => $bookTrans['transDate'],
-			'expectDate' => $bookTrans['expectDate'],
-			'actualDate' => $bookTrans['actualDate'],
-			'cardNumber' => $bookTrans['cardNumber'],
-		));
+				'bookCopyId' => $bookTrans['bookCopyId'],
+				'transDate' => $bookTrans['transDate'],
+				'expectDate' => $bookTrans['expectDate'],
+				'actualDate' => $bookTrans['actualDate'],
+				'cardNumber' => $bookTrans['cardNumber'],
+			));
 
 		$jsonResult['success'] = true;
 		$jsonResult['data'][] = $DB->lastInsertedId();
@@ -85,6 +85,37 @@ class InventoryController {
 			));
 
 		$jsonResult['success'] = true;
+	}
+
+	/**
+	 * Makes an API call to update a book copy as part of checking in/out a book by the user.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function insertBookCopy($request, &$jsonResult) {
+		global $DB;
+
+		$bookCopy = $request['bookCopy'];
+
+		$query = "
+			INSERT INTO BookCopy
+				(`BookCopyId`,
+					`IsForSale`,
+					`HeldBy`,
+					`ISBN`)
+			VALUES
+				(:copyId,
+					0,
+					NULL,
+					:isbn)
+		";
+		$insertion = $DB->query($query, array(
+				'isbn' => $bookCopy['isbn'],
+				'copyId' => $bookCopy['copyId'],
+			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
 	}
 
 	/**
@@ -144,11 +175,11 @@ class InventoryController {
 				BookCopyId = :bookCopyId;
 		";
 		$insertion = $DB->query($query, array(
-			'isForSale' => $bookCopy['isForSale'],
-			'heldBy' => $bookCopy['heldBy'],
-			'isbn' => $bookCopy['isbn'],
-			'bookCopyId' => $bookCopy['bookCopyId'],
-		));
+				'isForSale' => $bookCopy['isForSale'],
+				'heldBy' => $bookCopy['heldBy'],
+				'isbn' => $bookCopy['isbn'],
+				'bookCopyId' => $bookCopy['bookCopyId'],
+			));
 
 		$jsonResult['success'] = true;
 	}
@@ -174,9 +205,9 @@ class InventoryController {
 				AND BookCopyId = :bookCopyId
 		";
 		$DB->query($query, array(
-			'returnDate' => $bookReturn['returnDate'],
-			'bookCopyId' => $bookReturn['bookCopyId'],
-		));
+				'returnDate' => $bookReturn['returnDate'],
+				'bookCopyId' => $bookReturn['bookCopyId'],
+			));
 
 		$jsonResult['success'] = true;
 	}
