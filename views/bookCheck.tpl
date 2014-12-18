@@ -5,7 +5,11 @@
 	<input type="hidden" name="cardNumber" value="0" />
 	<?php else: ?>
 	<div class="input-group">
+		<?php if (Http::canAccess(User::USER_STAFF)): ?>
 		<input type="number" name="cardNumber" value="<?php echo isset($_POST['cardNumber']) ? htmlentities($_POST['cardNumber']) : ''; ?>" pattern="^[0-9]+$" placeholder="Card number" />
+		<?php else: ?>
+		<input type="number" name="cardNumber" value="<?php echo $_SESSION['User']->cardNumber; ?>" pattern="^[0-9]+$" placeholder="Card number" disabled />
+		<?php endif; ?>
 		<div class="input-status input-error"></div>
 	</div>
 	<?php endif; ?>

@@ -18,7 +18,7 @@ $errors = array();
 $mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
 $title = "Check {$mode} books";
 
-if (isset($_POST['cardNumber'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	//REQUIRED DATA: bookCopy.ISBN, copyID, rental date, return date, bookCopy.HeldBy
 	//               cardNumber,
 
@@ -30,7 +30,7 @@ if (isset($_POST['cardNumber'])) {
 
 	$nowDate = new DateTime();
 	$returnDate = (new DateTime())->add(new DateInterval("P7D"));
-	$cardNo = $_POST['cardNumber'];
+	$cardNo = (Http::canAccess(User::USER_STAFF) && isset($_POST['cardNumber'])) ? $_POST['cardNumber'] : $_SESSION['User']->cardNumber;
 
 	$copies = array();
 	$maxCInd = intval($_POST['maxCopyIndex']);

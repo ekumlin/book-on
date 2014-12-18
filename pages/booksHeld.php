@@ -5,7 +5,7 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
-if (!isset($_SESSION['User'])) {
+if (!Http::canAccess(User::USER_BASIC)) {
 	header('Location: ' . _HOST . 'login');
 	exit;
 }
