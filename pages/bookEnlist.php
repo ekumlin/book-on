@@ -14,9 +14,9 @@ if (!Http::canAccess(User::USER_STAFF)) {
 }
 
 $title = "Add books to inventory";
+$isWarning = false;
 
-if (isset($_POST['cardNumber'])) {
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$maxCInd = intval($_POST['maxCopyIndex']);
 
 	for ($cInd = 1; $cInd <= $maxCInd; $cInd++) {
@@ -38,26 +38,33 @@ if (isset($_POST['cardNumber'])) {
 		)));
 
 		if ($existingCopy->success && count($existingCopy->data) > 0) {
+			$isWarning = true;
 			$tasks[] = "Book copy {$copyID} is already in inventory";
 			continue;
 		}
 
-		apiCall(array(
-			'controller' => 'inventory',
-			'action' => 'insertBookCopy',
-			'bookCopy' => array(
-					'isbn' => $isbn,
-					'copyId' => $copyID,
-				),
-		));
+		$insertion = json_decode(apiCall(array(
+				'controller' => 'inventory',
+				'action' => 'insertBookCopy',
+				'bookCopy' => array(
+						'isbn' => $isbn,
+						'copyId' => $copyID,
+						'isForSale' => (isset($_POST['areSoldBooks']) && $_POST['areSoldBooks'] == 'on') ? 1 : 0,
+					),
+			)));
 
-		$tasks[] = "Book copy {$copyID} has been added to the inventory";
+		if ($insertion->success) {
+			$tasks[] = "Book copy {$copyID} has been added to inventory";
+		} else {
+			$isWarning = true;
+			$tasks[] = "Book copy {$copyID} was not added to inventory: {$insertion->errstr}";
+		}
 	}
 }
 
 if (count($tasks) > 0) {
 	$content .= View::toString('notice', array(
-			'class' => 'success',
+			'class' => $isWarning ? 'warning' : 'success',
 			'title' => 'Operation complete',
 			'message' => '<ul><li>' . join('</li><li>', $tasks) . '</li></ul>',
 		));

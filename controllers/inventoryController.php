@@ -110,24 +110,34 @@ class InventoryController {
 
 		$bookCopy = $request['bookCopy'];
 
-		$query = "
-			INSERT INTO BookCopy
-				(`BookCopyId`,
-					`IsForSale`,
-					`HeldBy`,
-					`ISBN`)
-			VALUES
-				(:copyId,
-					0,
-					NULL,
-					:isbn)
-		";
-		$DB->query($query, array(
+		$DB->query('SELECT * FROM Book AS b WHERE b.ISBN = :isbn', array(
 				'isbn' => $bookCopy['isbn'],
-				'copyId' => $bookCopy['copyId'],
 			));
 
-		$jsonResult['success'] = $DB->affectedRows() > 0;
+		if ($DB->affectedRows() > 0) {
+			$query = "
+				INSERT INTO BookCopy
+					(`BookCopyId`,
+						`IsForSale`,
+						`HeldBy`,
+						`ISBN`)
+				VALUES
+					(:copyId,
+						:isForSale,
+						NULL,
+						:isbn)
+			";
+			$DB->query($query, array(
+					'isbn' => $bookCopy['isbn'],
+					'copyId' => $bookCopy['copyId'],
+					'isForSale' => $bookCopy['isForSale'],
+				));
+
+			$jsonResult['success'] = $DB->affectedRows() > 0;
+		} else {
+			$jsonResult['errno'] = 0;
+			$jsonResult['errstr'] = "A book with the ISBN '{$bookCopy['isbn']}' was not found in the database.";
+		}
 	}
 
 	/**
