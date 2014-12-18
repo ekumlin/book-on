@@ -18,7 +18,7 @@ $books = json_decode(apiCall(array(
 if ($books->success) {
 	if (count($books->data) >= 1) {
 		$reviews = json_decode(apiCall(array(
-				'controller' => 'read',
+				'controller' => 'rating',
 				'action' => 'viewRatings',
 				'isbn' => $desiredIsbn,
 			)));

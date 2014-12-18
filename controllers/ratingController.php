@@ -83,6 +83,39 @@ class RatingController {
 			$jsonResult['errstr'] = 'You cannot rate books if you are not logged in.';
 		}
 	}
+
+	/**
+	 * Makes an API call to get all of a book's ratings and reviews.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function viewRatings($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				br.*,
+				u.Name,
+				u.Email
+			FROM
+				BookRated AS br
+				JOIN User AS u ON u.CardNumber = br.CardNumber
+			WHERE
+				br.ISBN = :isbn
+		";
+		$ratings = $DB->query($query, array(
+				'isbn' => $request['isbn'],
+			));
+
+		$jsonResult['success'] = true;
+		foreach ($ratings as $r) {
+			$rating = new Rating($r);
+			$rating->user = new User($r);
+
+			$jsonResult['data'][] = $rating;
+		}
+	}
 }
 
 ?>
