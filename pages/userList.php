@@ -18,7 +18,7 @@ if ($_SESSION['User']->employeeLevel < User::USER_STAFF) {
 $content = '';
 
 $books = json_decode(apiCall(array(
-		'controller' => 'read',
+		'controller' => 'user',
 		'action' => 'allUsers',
 	)));
 

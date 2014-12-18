@@ -42,31 +42,6 @@ class ReadController {
 	}
 
 	/**
-	 * Makes an API call to list all users.
-	 *
-	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
-	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
-	 */
-	public function allUsers($request, &$jsonResult) {
-		global $DB;
-
-		$query = "
-			SELECT
-				u.*
-			FROM
-				User AS u
-			ORDER BY u.CardNumber
-		";
-
-		$results = $DB->query($query);
-
-		$jsonResult['success'] = true;
-		foreach ($results as $result) {
-			$jsonResult['data'][] = new User($result);
-		}
-	}
-
-	/**
 	 * Constructs an ISBN->book mapping of all books from a set of rows.
 	 *
 	 * @param array $books An iterable list of database rows containing book data.
