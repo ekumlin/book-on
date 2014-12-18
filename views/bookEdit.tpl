@@ -30,7 +30,7 @@
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="input-group">
-		<input type="number" name="salePrice" id="bookEdit-salePrice" value="<?php echo $viewBag['book']->salePrice; ?>" pattern="^[0-9.]+$" placeholder="Price" />
+		<input type="number" name="salePrice" id="bookEdit-salePrice" value="<?php echo $viewBag['book']->salePrice; ?>" pattern="^[0-9.]+$" step="any" placeholder="Price" />
 		<div class="input-status input-error"></div>
 	</div>
 	<div class="input-group">

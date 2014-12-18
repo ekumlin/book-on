@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	var $form = $('form.bookEdit-form').first();
-	$form.on('click', 'a.select', function(e) {
+	$form.on('click', 'a.select, a.create', function(e) {
 		var $group = $(this).closest('.input-group'),
 			$input = $group.find('input[type=hidden]'),
 			$popup = $('.popup.bookEditPopup');
-		var mode = $input.attr('name');
+		var field = $input.attr('name'),
+			mode = $(this).hasClass('create') ? 'create' : 'select';
 
-		if (mode == 'publisher') {
+		if (field == 'publisher') {
 			var $title = $popup.find('.title').text('Create publisher');
 			var $body = $popup.find('.body').text('Loading...');
 

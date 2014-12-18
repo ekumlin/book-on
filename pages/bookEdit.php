@@ -17,8 +17,8 @@ $emptyBook = new Book();
 if (isset($_POST['bookTitle'])) {
 	$errors = array();
 
-	$isbn = $title = $language = NULL;
-	$edition = $salePrice = $pageCount = $publisher = 0;
+	$isbn = $title = $language = $publisher = NULL;
+	$edition = $salePrice = $pageCount = 0;
 
 	$isbn = str_replace('-', '', strval($_POST['isbn']));
 	if (!ctype_digit($isbn) || (strlen($isbn) != 13 && strlen($isbn) != 10)) {
