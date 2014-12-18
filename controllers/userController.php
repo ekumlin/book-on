@@ -243,7 +243,6 @@ class UserController {
 			$jsonResult['data'] = true;
 		}
 	}
-
 }
 
 ?>

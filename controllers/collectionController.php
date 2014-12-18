@@ -44,11 +44,11 @@ class CollectionController {
 		if (!$jsonResult['success'] && count($collectedBooks) > 0) {
 			$query = "
 				INSERT INTO BookCollected
-					(CollectionId,
-					 ISBN)
+					(`CollectionId`,
+						`ISBN`)
 				VALUES
 					(:collectionId,
-					 :isbn)
+						:isbn)
 			";
 			$DB->query($query, array(
 					'collectionId' => $request['collectionId'],
@@ -57,6 +57,38 @@ class CollectionController {
 
 			$jsonResult['success'] = true;
 		}
+	}
+
+	/**
+	 * Makes an API call to create a collection for the current user.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function addCollection($request, &$jsonResult) {
+		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
+
+		$user = $_SESSION['User'];
+
+		$query = "
+				INSERT INTO Collection
+					(`Name`,
+						`CardNumber`)
+				VALUES
+					(:name,
+						:cardNumber)
+		";
+		$collections = $DB->query($query, array(
+				'name' => $request['name'],
+				'cardNumber' => $user->cardNumber,
+			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
+		$jsonResult['data'] = $DB->lastInsertedId();
 	}
 
 	/**
