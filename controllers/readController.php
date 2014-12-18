@@ -42,23 +42,52 @@ class ReadController {
 	}
 
 	/**
-	 * Constructs an ISBN->book mapping of all books from a set of rows.
+	 * Makes an API call to create a new publisher.
 	 *
-	 * @param array $books An iterable list of database rows containing book data.
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
 	 */
-	private function constructBookMap($books) {
-		$bookMap = array();
+	public function createPublisher($request, &$jsonResult) {
+		global $DB;
 
-		foreach ($books as $book) {
-			$isbn = $book['ISBN'];
-			if (!isset($bookMap[$isbn])) {
-				$bookMap[$isbn] = new Book($book);
+		$phone = NULL;
+		if ($request['phone']) {
+			if (!ctype_digit($request['phone'])) {
+				$jsonResult['success'] = false;
+				$jsonResult['errno'] = 0;
+				$jsonResult['errstr'] = "Provided phone number \"{$request['phone']}\" is not valid";
+			} else {
+				$phone = $request['phone'];
 			}
-
-			$bookMap[$isbn]->addAuthor(new Author($book));
 		}
 
-		return $bookMap;
+		if (!$request['name']) {
+			$jsonResult['success'] = false;
+			$jsonResult['errno'] = 0;
+			$jsonResult['errstr'] = 'Publisher name not provided';
+		}
+
+		$query = "
+			INSERT INTO Publisher
+				(`Name`,
+					`Address`,
+					`Phone`)
+			VALUES
+				(:name,
+					:address,
+					:phone)
+		";
+
+		$DB->query($query, array(
+				'name' => $request['name'],
+				'address' => $request['address'],
+				'phone' => $phone,
+			));
+
+		$jsonResult['success'] = $DB->affectedRows() > 0;
+		if ($jsonResult['success']) {
+			$jsonResult['data'] = array('id' => $DB->lastInsertedId(), 'name' => $request['name']);
+		}
 	}
 
 	/**
@@ -258,6 +287,25 @@ class ReadController {
 		$jsonResult['data'][] = $transactionID;
 	}
 
+	/**
+	 * Constructs an ISBN->book mapping of all books from a set of rows.
+	 *
+	 * @param array $books An iterable list of database rows containing book data.
+	 */
+	private function constructBookMap($books) {
+		$bookMap = array();
+
+		foreach ($books as $book) {
+			$isbn = $book['ISBN'];
+			if (!isset($bookMap[$isbn])) {
+				$bookMap[$isbn] = new Book($book);
+			}
+
+			$bookMap[$isbn]->addAuthor(new Author($book));
+		}
+
+		return $bookMap;
+	}
 }
 
 ?>

@@ -1,5 +1,5 @@
 form.material-form {
-	margin: 0 auto 16px;
+	margin: 0 auto 16px !important;
 	max-width: 500px;
 	width: 100%;
 }
@@ -73,3 +73,7 @@ form.material-form {
 		border-width: 0 0 2px;
 		margin-bottom: 0;
 	}
+
+.popup form.material-form .form-controls {
+	padding: 16px 16px 0;
+}

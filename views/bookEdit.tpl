@@ -63,5 +63,6 @@
 		<input type="button" value="Discard" class="button-flat action-negative" />
 		<input type="submit" value="Save" class="button-flat action-primary" />
 	</div>
-	<?php View::render('popup', array('class' => 'bookEditPopup', 'content' => '')); ?>
 </form>
+<?php View::render('popup', array('class' => 'bookEditPopup', 'content' => '')); ?>
+<?php View::render('bookEditPublisher'); ?>

@@ -1,6 +1,11 @@
 $(document).ready(function() {
 	$('.content form').on('change', 'input', function() {
-		var $this = $(this), $label = $this.siblings('label');
+		var $this = $(this);
+		if ($this.parents('.popup').length) {
+			return;
+		}
+
+		var $label = $this.siblings('label');
 		var label = $(this).attr('placeholder');
 
 		if (label) {
