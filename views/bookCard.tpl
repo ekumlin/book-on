@@ -23,7 +23,9 @@
 		</div>
 		<div class="buttons">
 			<a href="<?php echo $bookUrl; ?>" class="button-flat card-button primary">View</a>
+			<?php if (Http::canAccess(User::USER_BASIC)): ?>
 			<a href="#" class="button-flat card-button collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
