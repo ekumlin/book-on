@@ -19,7 +19,7 @@
 			</tr>
 		</table>
 	</div>
-	<?php if ($_SESSION['User']->employeeLevel >= User::USER_STAFF): ?>
+	<?php if (Http::canAccess(User::USER_STAFF)): ?>
 	<div class="section">
 		<div class="title">Administration</div>
 		<table>

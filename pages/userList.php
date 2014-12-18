@@ -5,12 +5,7 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
-if (!isset($_SESSION['User'])) {
-	http_response_code(404);
-	exit;
-}
-
-if ($_SESSION['User']->employeeLevel < User::USER_STAFF) {
+if (!Http::canAccess(User::USER_STAFF)) {
 	header('Location: ' . _HOST);
 	exit;
 }

@@ -8,7 +8,10 @@ if (!defined('VALID_REQUEST')) {
 $content = '';
 $tasks = array();
 
-$userLevel = isset($_SESSION['User']) ? $_SESSION['User']->employeeLevel : User::USER_BASIC;
+if (!Http::canAccess(User::USER_STAFF)) {
+	header('Location: ' . _HOST . ($editingIsbn ? 'books/' . $editingIsbn : ''));
+	exit;
+}
 
 $title = "Add books to inventory";
 

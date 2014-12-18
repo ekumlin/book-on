@@ -6,7 +6,7 @@ if (!defined('VALID_REQUEST')) {
 }
 
 if (!isset($_SESSION['User'])) {
-	http_response_code(404);
+	header('Location: ' . _HOST . 'login');
 	exit;
 }
 

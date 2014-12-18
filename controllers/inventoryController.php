@@ -15,6 +15,10 @@ class InventoryController {
 	public function addBookTransaction($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$bookTrans = $request['bookTrans'];
 
 		//omit BookTransactionID since it's auto-increment
@@ -54,6 +58,10 @@ class InventoryController {
 	public function addNewBook($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$book = $request['book'];
 
 		$query = "
@@ -74,7 +82,7 @@ class InventoryController {
 					:language,
 					:publisher);
 		";
-		$insertion = $DB->query($query, array(
+		$DB->query($query, array(
 				'isbn' => $book['isbn'],
 				'title' => $book['title'],
 				'salePrice' => $book['salePrice'],
@@ -96,6 +104,10 @@ class InventoryController {
 	public function insertBookCopy($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$bookCopy = $request['bookCopy'];
 
 		$query = "
@@ -110,7 +122,7 @@ class InventoryController {
 					NULL,
 					:isbn)
 		";
-		$insertion = $DB->query($query, array(
+		$DB->query($query, array(
 				'isbn' => $bookCopy['isbn'],
 				'copyId' => $bookCopy['copyId'],
 			));
@@ -127,6 +139,10 @@ class InventoryController {
 	public function updateBook($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$book = $request['book'];
 
 		$query = "
@@ -141,7 +157,7 @@ class InventoryController {
 			WHERE
 				ISBN = :isbn;
 		";
-		$insertion = $DB->query($query, array(
+		$DB->query($query, array(
 				'isbn' => $book['isbn'],
 				'title' => $book['title'],
 				'salePrice' => $book['salePrice'],
@@ -163,6 +179,18 @@ class InventoryController {
 	public function updateBookCopy($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
+
+		if ($bookCopy['heldBy']) {
+			if (!Http::canAccess(User::USER_STAFF) && strval($bookCopy['heldBy']) != strval($_SESSION['User']->cardNumber)) {
+				$jsonResult['errno'] = 0;
+				$jsonResult['errstr'] = 'You cannot check out a book in someone else\'s name.';
+				return;
+			}
+		}
+
 		$bookCopy = $request['bookCopy'];
 
 		$query = "
@@ -174,7 +202,7 @@ class InventoryController {
 			WHERE
 				BookCopyId = :bookCopyId;
 		";
-		$insertion = $DB->query($query, array(
+		$DB->query($query, array(
 				'isForSale' => $bookCopy['isForSale'],
 				'heldBy' => $bookCopy['heldBy'],
 				'isbn' => $bookCopy['isbn'],
@@ -192,6 +220,10 @@ class InventoryController {
 	 */
 	public function updateReturnTransaction($request, &$jsonResult) {
 		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
 
 		$bookReturn = $request['returnTrans'];
 

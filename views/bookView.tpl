@@ -28,7 +28,7 @@
 		<img src="<?php echo _HOST; ?>assets/cover-missing.png" title="No cover image"/>
 		<?php if (isset($_SESSION['User'])): ?>
 		<a href="#" class="button button-raised collect" data-collect="<?php echo $viewBag['book']->isbn; ?>">Collect</a><br/>
-		<?php if ($_SESSION['User']->employeeLevel >= User::USER_STAFF): ?>
+		<?php if (Http::canAccess(User::USER_STAFF)): ?>
 		<a href="<?php echo _HOST; ?>books/edit/<?php echo $viewBag['book']->isbn; ?>" class="button button-raised edit">Edit</a>
 		<?php endif; endif; ?>
 	</div><div class="data">

@@ -5,14 +5,17 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
+if (!Http::canAccess(User::USER_BASIC)) {
+	header('Location: ' . _HOST . ($editingIsbn ? 'books/' . $editingIsbn : ''));
+	exit;
+}
+
 $content = '';
 $fields = '';
 $tasks = array();
 $errors = array();
 
 $mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
-$userLevel = isset($_SESSION['User']) ? $_SESSION['User']->employeeLevel : User::USER_BASIC;
-
 $title = "Check {$mode} books";
 
 if (isset($_POST['cardNumber'])) {
@@ -85,7 +88,12 @@ if (isset($_POST['cardNumber'])) {
 			}
 		} else {
 			if ($copyBook->heldBy != NULL) {
-				$ownerName = $userLevel >= User::USER_STAFF ? $copyBook->heldBy : 'someone else';
+				if (Http::canAccess(User::USER_STAFF)) {
+					$ownerName = $copyBook->heldBy;
+				} else {
+					$ownerName = 'someone else';
+				}
+
 				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is currently checked out to {$ownerName}";
 			}
 		}

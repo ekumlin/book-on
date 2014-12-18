@@ -13,6 +13,7 @@ $.extend($.easing, {
 });
 
 /* Check browser support for CSS transitions */
+/* Via http://www.abeautifulsite.net/feature-detection-for-css-transitions-via-jquery-support/ */
 $.support.transition = (function(){
 	var thisBody = document.body || document.documentElement,
 		thisStyle = thisBody.style,

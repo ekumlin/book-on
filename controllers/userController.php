@@ -15,6 +15,10 @@ class UserController {
 	public function allUsers($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$query = "
 			SELECT
 				u.*
@@ -114,19 +118,17 @@ class UserController {
 		global $DB;
 
 		$this->getUserByCard($request, $jsonResult);
-		$users = $jsonResult['data'][0];
+		$user = $jsonResult['data'][0];
 
 		$jsonResult['success'] = false;
 		$jsonResult['data'] = array();
 
-		foreach ($users as $user) {
-			$pwdHash = $user['Password'];
+		$pwdHash = $user['Password'];
 
-			if (password_verify($request['password'], $pwdHash)) {
-				$jsonResult['success'] = true;
+		if (password_verify($request['password'], $pwdHash)) {
+			$jsonResult['success'] = true;
 
-				$_SESSION['User'] = new User($user);
-			}
+			$_SESSION['User'] = new User($user);
 		}
 
 		if (!$jsonResult['success']) {

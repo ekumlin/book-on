@@ -29,6 +29,16 @@ class Http {
 		header("Location: {$returnUrl}");
 		exit;
 	}
+
+	/**
+	 * Checks if the currently logged-in user has access to a clearance specified.
+	 *
+	 * @param integer $required The access level required to compare to. Should be a constant from the User class.
+	 */
+	public static function canAccess($required) {
+		$userLevel = isset($_SESSION['User']) ? $_SESSION['User']->employeeLevel : User::USER_NONE;
+		return $userLevel >= $required;
+	}
 }
 
 ?>

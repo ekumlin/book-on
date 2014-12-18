@@ -50,6 +50,10 @@ class ReadController {
 	public function createPublisher($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_STAFF, $jsonResult)) {
+			return;
+		}
+
 		$phone = NULL;
 		if ($request['phone']) {
 			if (!ctype_digit($request['phone'])) {
@@ -110,8 +114,10 @@ class ReadController {
 		global $DB;
 
 		$owner = NULL;
-		if (isset($request['heldBy']) && ctype_digit($request['heldBy'])) {
-			$owner = $request['heldBy'];
+		if (Http::canAccess(User::USER_BASIC)) {
+			if (isset($request['heldBy']) && ctype_digit($request['heldBy'])) {
+				$owner = $request['heldBy'];
+			}
 		}
 
 		if ($owner) {
@@ -217,6 +223,10 @@ class ReadController {
 	public function viewHeldBooks($request, &$jsonResult) {
 		global $DB;
 
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
+
 		$query = "
 			SELECT
 				b.*,
@@ -256,6 +266,10 @@ class ReadController {
 	 */
 	public function viewMostRecentRentalForUser($request, &$jsonResult) {
 		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
 
 		$transaction = $request['transaction'];
 
