@@ -81,7 +81,7 @@ $(document).ready(function() {
 				if (msg.success) {
 					$this.closest('.list-item').remove();
 				} else {
-					alert('Failed to remove book from collection');
+					alert(msg.errstr);
 				}
 			}).fail(function(jqXHR, textStatus) {
 				alert('Failed to remove book from collection');

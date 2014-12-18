@@ -23,7 +23,6 @@ $(document).ready(function() {
 	});
 
 	$('form').on('click', 'input.action-negative', function() {
-		console.log(window.location);
 		if (confirm('Are you sure you want to cancel this transaction? All purchase data will be lost.')) {
 			window.location = window.location;
 		}

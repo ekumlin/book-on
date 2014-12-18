@@ -58,7 +58,7 @@ function askCreatePublisher($group, $input, $popup, field, mode) {
 				$input.val(msg.data.id);
 				$group.find('.selector-content').text(msg.data.name);
 			} else {
-				alert('Failed to load publishers');
+				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
 			alert('Failed to load publishers');
@@ -94,7 +94,7 @@ function askSelectPublisher($group, $input, $popup, field, mode) {
 
 			positionPopup($popup);
 		} else {
-			alert('Failed to load publishers');
+			alert(msg.errstr);
 		}
 	}).fail(function(jqXHR, textStatus) {
 		alert('Failed to load publishers');

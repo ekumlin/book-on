@@ -72,6 +72,12 @@ class CollectionController {
 			return;
 		}
 
+		if (!$request['name']) {
+			$jsonResult['errno'] = 0;
+			$jsonResult['errstr'] = 'You must give the collection a name.';
+			return;
+		}
+
 		$user = $_SESSION['User'];
 
 		$query = "

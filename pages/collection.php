@@ -29,6 +29,8 @@ if ($collections->success) {
 			));
 		}
 
+		$content .= '<div style="padding: 16px"><a href="#" class="button-flat action-creative addcollection">Add collection</a></div>';
+
 		$pgTitle = 'Collections';
 	} else if (count($collections->data) > 0) {
 		if (count($collections->data[0]->items) == 0) {

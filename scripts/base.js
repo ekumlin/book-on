@@ -110,11 +110,13 @@ $(document).ready(function() {
 			dataType: 'json',
 		}).done(function(msg) {
 			if (!msg.success) {
-				alert('Failed to save book rating');
+				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
 			alert('Failed to save book rating');
 		});
+
+		e.preventDefault();
 	});
 
 	/* Reset password */
@@ -131,15 +133,39 @@ $(document).ready(function() {
 			},
 			dataType: 'json',
 		}).done(function(msg) {
-			console.log(msg);
 			if (msg.success) {
 				alert('Password updated!');
 			} else {
-				alert('Failed to save password');
+				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
 			alert('Failed to save password');
 		});
+
+		e.preventDefault();
+	});
+
+	/* New collection */
+	$('body').on('click', '.addcollection', function(e) {
+		$.ajax({
+			url: BookOnData.host + 'api.php',
+			data: {
+				controller: 'collection',
+				action: 'addCollection',
+				name: prompt('Please enter name of collection:'),
+			},
+			dataType: 'json',
+		}).done(function(msg) {
+			if (msg.success) {
+				window.location = window.location;
+			} else {
+				alert(msg.errstr);
+			}
+		}).fail(function(jqXHR, textStatus) {
+			alert('Failed to save password');
+		});
+
+		e.preventDefault();
 	});
 });
 
