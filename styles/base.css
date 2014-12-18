@@ -1,3 +1,9 @@
+@media only screen and (max-width: 1223px) {
+	.desktop-only {
+		display: none;
+	}
+}
+
 body {
 	background: #FAFAFA;
 	font: 16px Roboto, Helvetica, 'Trebuchet MS', sans-serif;

@@ -19,7 +19,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="section">
+	<div class="section desktop-only">
 		<div class="title">Rentals</div>
 		<table>
 			<tr class="item">
@@ -42,7 +42,7 @@
 	<div class="section">
 		<div class="title">Administration</div>
 		<table>
-			<tr class="item">
+			<tr class="item desktop-only">
 				<td><img src="<?php echo _HOST; ?>assets/icon-book-add.png" title="Add book"/></td>
 				<td><a href='<?php echo _HOST; ?>books/add'>Add new book</a></td>
 			</tr>
@@ -50,7 +50,7 @@
 				<td><img src="<?php echo _HOST; ?>assets/icon-book-list.png" title="List all books"/></td>
 				<td><a href='<?php echo _HOST; ?>books/list'>View book list</a></td>
 			</tr>
-			<tr class="item">
+			<tr class="item desktop-only">
 				<td><img src="<?php echo _HOST; ?>assets/icon-book-add-copy.png" title="Add copy of book"/></td>
 				<td><a href='<?php echo _HOST; ?>books/addcopy'>Add to inventory</a></td>
 			</tr>
