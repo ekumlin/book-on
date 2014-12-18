@@ -41,6 +41,7 @@ class Collection {
         {
         	if ($this->$items[$i]->isbn == $isbn) {
                 unset($this->$items[$i]);
+                $this->$items = array_values($this->$items); //preserve contiguous numerical index
                 return;
             }
         }
