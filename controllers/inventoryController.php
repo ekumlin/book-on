@@ -193,6 +193,8 @@ class InventoryController {
 			return;
 		}
 
+		$bookCopy = $request['bookCopy'];
+
 		if ($bookCopy['heldBy']) {
 			if (!Http::canAccess(User::USER_STAFF) && strval($bookCopy['heldBy']) != strval($_SESSION['User']->cardNumber)) {
 				$jsonResult['errno'] = 0;
@@ -200,8 +202,6 @@ class InventoryController {
 				return;
 			}
 		}
-
-		$bookCopy = $request['bookCopy'];
 
 		$query = "
 			UPDATE BookCopy

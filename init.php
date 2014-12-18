@@ -8,6 +8,8 @@ if (!defined('VALID_REQUEST')) {
 define('_ROOT', rtrim(realpath(dirname(__FILE__)), '/') . '/');
 define('_HOST', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . rtrim('/' . substr(realpath(dirname($_SERVER['SCRIPT_FILENAME'])), strlen($_SERVER['DOCUMENT_ROOT'])), '/') . '/');
 
+define('TAX_RATE', 0.05);
+
 global $CONFIG, $DB;
 
 require(_ROOT . 'config.php');

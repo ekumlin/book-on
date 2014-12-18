@@ -30,6 +30,12 @@
 				<td><img src="<?php echo _HOST; ?>assets/icon-book-checkout.png" title="Check books out"/></td>
 				<td><a href='<?php echo _HOST; ?>books/checkout'>Check books out</a></td>
 			</tr>
+			<?php if (Http::canAccess(User::USER_STAFF)): ?>
+			<tr class="item">
+				<td><img src="<?php echo _HOST; ?>assets/icon-buy.png" title="Sell books"/></td>
+				<td><a href='<?php echo _HOST; ?>books/sell'>Sell books</a></td>
+			</tr>
+			<?php endif; ?>
 		</table>
 	</div>
 	<?php if (Http::canAccess(User::USER_STAFF)): ?>

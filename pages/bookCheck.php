@@ -14,9 +14,18 @@ $content = '';
 $fields = '';
 $tasks = array();
 $errors = array();
+$copies = array();
+$isConfirmation = false;
 
-$mode = (isset($_GET['mode']) && strtolower($_GET['mode']) == 'in') ? 'in' : 'out';
-$title = "Check {$mode} books";
+$mode = isset($_GET['mode']) ? strtolower($_GET['mode']) : 'in';
+if ($mode == 'sell') {
+	$actionLabel = "Sell";
+} else {
+	if ($mode != 'in') {
+		$mode = 'out';
+	}
+	$actionLabel = "Check {$mode}";
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	//REQUIRED DATA: bookCopy.ISBN, copyID, rental date, return date, bookCopy.HeldBy
@@ -30,9 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$nowDate = new DateTime();
 	$returnDate = (new DateTime())->add(new DateInterval("P7D"));
-	$cardNo = (Http::canAccess(User::USER_STAFF) && isset($_POST['cardNumber'])) ? $_POST['cardNumber'] : $_SESSION['User']->cardNumber;
 
-	$copies = array();
+	$cardNo = (Http::canAccess(User::USER_STAFF) && isset($_POST['cardNumber'])) ? $_POST['cardNumber'] : $_SESSION['User']->cardNumber;
 	$maxCInd = intval($_POST['maxCopyIndex']);
 
 	if (!ctype_digit($cardNo)) {
@@ -82,7 +90,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$copyBook = $copy->data[0];
 		$copies[$copyID] = $copyBook;
 
-		if ($mode == 'in') {
+		if ($copyBook->isForSale && $mode != 'sell') {
+			$errors[] = "'{$copyBook->book->title}' cannot be rented, it is for purchase only";
+			continue;
+		}
+
+		if ($mode == 'sell') {
+			if (!$copyBook->isForSale) {
+				$errors[] = "'{$copyBook->book->title}' cannot be purchased, it is for rental only";
+				continue;
+			}
+			if ($copyBook->heldBy != NULL) {
+				if (Http::canAccess(User::USER_STAFF)) {
+					$ownerName = $copyBook->heldBy;
+				} else {
+					$ownerName = 'someone else';
+				}
+
+				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is currently held by {$ownerName}";
+			}
+		} else if ($mode == 'in') {
 			if ($copyBook->heldBy == NULL) {
 				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is not currently checked out";
 			}
@@ -94,13 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$ownerName = 'someone else';
 				}
 
-				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is currently checked out to {$ownerName}";
+				$errors[] = "'{$copyBook->book->title}' with ID {$copyID} is currently held by {$ownerName}";
 			}
 		}
 	}
 
 	if (count($errors) == 0) {
 		// No errors, assume all data is okay
+
 		for ($cInd = 1; $cInd <= $maxCInd; $cInd++) {
 			if (!isset($_POST["copyId{$cInd}"])) {
 				continue;
@@ -136,7 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				));
 
 				$tasks[] = "Book copy {$copyID} has been checked in from {$copyBook->heldBy}";
-			} else { //check out
+			} else if ($mode == 'sell' && !isset($_POST['final'])) {
+				$isConfirmation = true;
+			} else  { //check out
 				$copyBook->rentalDate = $nowDate;
 				$copyBook->returnDate = $returnDate;
 				$copyBook->book = json_decode(apiCall(array(
@@ -163,11 +193,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					'bookTrans' => array(
 							'bookCopyId' =>  $copyID,
 							'transDate' => $copyBook->rentalDate,
-							'expectDate' => $copyBook->returnDate,
+							'expectDate' => $mode == 'sell' ? NULL : $copyBook->returnDate,
 							'actualDate' => NULL,
 							'cardNumber' => $cardNo,
 						),
 				));
+
+				// You would check here to see if `$mode == 'sell'`, then charge the person.
 
 				$tasks[] = "'{$copyBook->book->data[0]->title}' has been checked out to {$cardNo}";
 			}
@@ -191,13 +223,21 @@ if (count($tasks) > 0) {
 		));
 }
 
-$content .= View::toString('bookCheck', array(
-		'mode' => $mode,
-		'fields' => $fields,
-	));
+if ($isConfirmation) {
+	$content .= View::toString('bookTransaction', array(
+			'books' => $copies,
+		));
+	//TAX_RATE
+} else {
+	$content .= View::toString('bookCheck', array(
+			'title' => "{$actionLabel} books",
+			'mode' => $mode,
+			'fields' => $fields,
+		));
+}
 
 print View::toString('page', array(
-		'title' => $title,
+		'title' => "{$actionLabel} books",
 		'styles' => array('forms'),
 		'scripts' => array('forms', 'bookCheck'),
 		'searchTarget' => 'books/search',
