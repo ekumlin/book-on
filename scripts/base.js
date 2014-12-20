@@ -168,10 +168,9 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	$('body').on('click', '.removecollection', function(e) {
-		var id = $('.collection-item-list').data('collectionid');
-		console.log(id);
-
 		if (confirm('Are you sure you want to delete this collection?')) {
+			var id = $('.collection-item-list').data('collectionid');
+
 			$.ajax({
 				url: BookOnData.host + 'api.php',
 				data: {

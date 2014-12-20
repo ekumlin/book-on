@@ -40,24 +40,24 @@
 	<div class="input-group">
 		<label>Publisher</label>
 		<div class="selector">
-			<a href="#" class="button-flat action-primary select">Select</a>
 			<a href="#" class="button-flat action-creative create">Create</a>
+			<a href="#" class="button-flat action-primary select">Select</a>
 			<div class="selector-content"><?php echo $viewBag['book']->publisher; ?></div>
 		</div>
 		<input type="hidden" name="publisher" value="" />
 	</div>
-	<div class="input-group disabled">
+	<div class="input-group authors">
 		<label>Author</label>
 		<div class="selector">
-			<a href="#" class="button-flat action-primary select">Select</a>
 			<a href="#" class="button-flat action-creative create">Create</a>
 			<div class="selector-content">
 				<?php foreach ($viewBag['book']->authors as $a): ?>
-				<div><?php echo "{$a->firstName} {$a->lastName}"; ?></div>
+				<div data-authorid="<?php echo $a->id; ?>"><span class="removelink">&#x2716;</span> <?php echo "{$a->firstName} {$a->lastName}"; ?></div>
 				<?php endforeach; ?>
 			</div>
 		</div>
-		<input type="hidden" name="authors" value="" />
+		<a href="#" class="button-flat action-primary select">Add</a>
+		<input type="hidden" name="authorIds" value="" />
 	</div>
 	<div class="form-controls">
 		<input type="submit" value="Save" class="button-flat action-primary" />

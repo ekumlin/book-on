@@ -7,6 +7,31 @@ if (!defined('VALID_REQUEST')) {
 
 class ReadController {
 	/**
+	 * Makes an API call to list all authors.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function allAuthors($request, &$jsonResult) {
+		global $DB;
+
+		$query = "
+			SELECT
+				a.*
+			FROM
+				Author AS a
+			ORDER BY a.LastName, a.FirstName
+		";
+
+		$results = $DB->query($query);
+
+		$jsonResult['success'] = true;
+		foreach ($results as $result) {
+			$jsonResult['data'][] = new Author($result);
+		}
+	}
+
+	/**
 	 * Makes an API call to list all books.
 	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.

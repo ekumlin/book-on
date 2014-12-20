@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$tasks[] = "Book copy {$copyID} has been checked in from {$copyBook->heldBy}";
 			} else if ($mode == 'sell' && !isset($_POST['final'])) {
 				$isConfirmation = true;
-			} else  { //check out
+			} else { //check out
 				$copyBook->rentalDate = $nowDate;
 				$copyBook->returnDate = $returnDate;
 				$copyBook->book = json_decode(apiCall(array(

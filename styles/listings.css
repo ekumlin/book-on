@@ -178,7 +178,7 @@ div.user-list-item {
 				width: 40%;
 			}
 
-			div.user-list-item > div.userType, div.user-list-item  > div.accountStatus {
+			div.user-list-item > div.userType, div.user-list-item > div.accountStatus {
 				width: 30%;
 			}
 		}

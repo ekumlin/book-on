@@ -6,6 +6,7 @@ if (!defined('VALID_REQUEST')) {
 }
 
 class Author {
+	public $id;
 	public $firstName;
 	public $lastName;
 	public $birthdate;
@@ -17,6 +18,7 @@ class Author {
 	 * @param string $row The database row containing author data.
 	 */
 	public function __construct($row) {
+		$this->id = $row['AuthorId'];
 		$this->firstName = $row['FirstName'];
 		$this->lastName = $row['LastName'];
 		$this->birthdate = $row['Birthdate'];

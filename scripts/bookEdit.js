@@ -26,7 +26,12 @@ $(document).ready(function() {
 				askCreateAuthor($group, $input, $popup, field, mode);
 			}
 		}
+	}).on('click', '.removelink', function() {
+		$(this).parent().remove();
+		updateAuthorList($('.input-group.authors'));
 	});
+
+	updateAuthorList($('.input-group.authors'));
 });
 
 function askCreatePublisher($group, $input, $popup, field, mode) {
@@ -70,7 +75,7 @@ function askCreatePublisher($group, $input, $popup, field, mode) {
 
 function askSelectPublisher($group, $input, $popup, field, mode) {
 	var $title = $popup.find('.title').text('Select publisher');
-	var $body = $popup.find('.body').text('Loading...');
+	var $body = $popup.find('.body').html('<div>Loading...</div>');
 
 	$.ajax({
 		url: BookOnData.host + 'api.php',
@@ -107,9 +112,75 @@ function askSelectPublisher($group, $input, $popup, field, mode) {
 		var publisherId = $(this).data('id');
 
 		closePopup($popup);
-		$input.val(publisherId);
 		$group.find('.selector-content').text($(this).text());
+		$input.val(publisherId);
 
 		ei.preventDefault();
 	});
+}
+
+function askSelectAuthor($group, $input, $popup, field, mode) {
+	var $title = $popup.find('.title').text('Select author');
+	var $body = $popup.find('.body').html('<div>Loading...</div>');
+
+	$.ajax({
+		url: BookOnData.host + 'api.php',
+		data: {
+			controller: 'read',
+			action: 'allAuthors',
+		},
+		dataType: 'json',
+	}).done(function(msg) {
+		if (msg.success) {
+			$body.text('');
+
+			for (var i in msg.data) {
+				var $element = $('<div/>');
+				$element.addClass('popup-list-item');
+				$element.text(msg.data[i].firstName + ' ' + msg.data[i].lastName);
+				$element.data('id', msg.data[i].id);
+
+				$body.append($element);
+			}
+
+			positionPopup($popup);
+		} else {
+			alert(msg.errstr);
+		}
+	}).fail(function(jqXHR, textStatus) {
+		alert('Failed to load authors');
+	});
+
+	openPopup($popup);
+	positionPopup($popup);
+
+	$popup.off().on('click', '.popup-list-item', function(ei) {
+		var authorId = $(this).data('id');
+
+		var isAuthorAdded = $group.find('.selector-content div').filter(function() {
+			return $(this).data('authorid') == authorId;
+		}).length > 0;
+
+		closePopup($popup);
+
+		if (!isAuthorAdded) {
+			var $newDiv = $('<div/>');
+			$newDiv.data('authorid', authorId).html('<span class="removelink">&#x2716;</span> ' + $(this).html());
+
+			$group.find('.selector-content').append($newDiv);
+			updateAuthorList($group);
+		}
+
+		ei.preventDefault();
+	});
+}
+
+function updateAuthorList($group) {
+	var ids = [];
+
+	$group.find('.selector-content div').each(function() {
+		ids[ids.length] = $(this).data('authorid');
+	});
+
+	$group.find('input[name=authorIds]').val(ids.join(','));
 }

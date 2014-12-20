@@ -188,6 +188,15 @@ class InventoryController {
 				'publisher' => $book['publisher'],
 			));
 
+		$authorIds = array_unique(explode(',', $book['authorIds']));
+		foreach ($authorIds as $id) {
+			$tempResult = array();
+			$this->addAuthorToBook(array(
+					'author-isbn' => $book['isbn'],
+					'author-id' => $id,
+				), $tempResult);
+		}
+
 		$jsonResult['success'] = true;
 	}
 
@@ -261,7 +270,7 @@ class InventoryController {
 				Language = :language,
 				Publisher = :publisher
 			WHERE
-				ISBN = :isbn;
+				ISBN = :isbn
 		";
 		$DB->query($query, array(
 				'isbn' => $book['isbn'],
@@ -272,6 +281,25 @@ class InventoryController {
 				'language' => $book['language'],
 				'publisher' => $book['publisher'],
 			));
+
+		$query = "
+			DELETE FROM
+				BookAuthor
+			WHERE
+				ISBN = :isbn
+		";
+		$DB->query($query, array(
+				'isbn' => $book['isbn'],
+			));
+
+		$authorIds = array_unique(explode(',', $book['authorIds']));
+		foreach ($authorIds as $id) {
+			$tempResult = array();
+			$this->addAuthorToBook(array(
+					'author-isbn' => $book['isbn'],
+					'author-id' => $id,
+				), $tempResult);
+		}
 
 		$jsonResult['success'] = true;
 	}

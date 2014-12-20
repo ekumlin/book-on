@@ -19,6 +19,7 @@ if (isset($_POST['bookTitle'])) {
 
 	$isbn = $title = $language = $publisher = NULL;
 	$edition = $salePrice = $pageCount = 0;
+	$authors = '';
 
 	$isbn = str_replace('-', '', strval($_POST['isbn']));
 	if (!ctype_digit($isbn) || (strlen($isbn) != 13 && strlen($isbn) != 10)) {
@@ -53,6 +54,10 @@ if (isset($_POST['bookTitle'])) {
 		$publisher = intval($_POST['publisher']);
 	}
 
+	if (preg_match('/^[0-9]+(,[0-9]+)*$/', $_POST['authorIds'])) {
+		$authors = $_POST['authorIds'];
+	}
+
 	if (!$isbn) {
 		$errors[] = 'Invalid ISBN.';
 	}
@@ -77,6 +82,7 @@ if (isset($_POST['bookTitle'])) {
 							'edition' => $edition,
 							'language' => $language,
 							'publisher' => $publisher,
+							'authorIds' => $authors,
 						),
 				)));
 
@@ -94,6 +100,7 @@ if (isset($_POST['bookTitle'])) {
 							'edition' => $edition,
 							'language' => $language,
 							'publisher' => $publisher,
+							'authorIds' => $authors,
 						),
 				)));
 

@@ -32,11 +32,25 @@ form.material-form {
 			margin-top: 8px;
 		}
 
-			form.material-form .input-group > div.selector a {
+			form.material-form .input-group div.selector a {
 				float: right;
 				margin-top: -4px;
 				margin-left: 4px;
 			}
+
+			form.material-form .input-group div.selector-content {
+				margin-bottom: 16px;
+			}
+
+				form.material-form .input-group div.selector-content .removelink {
+					color: #F44336;
+					cursor: pointer;
+					opacity: 0.5;
+				}
+
+					form.material-form .input-group div.selector-content .removelink:hover {
+						opacity: 1.0;
+					}
 
 	form.material-form .form-controls {
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
