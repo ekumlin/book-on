@@ -66,7 +66,7 @@ function askCreatePublisher($group, $input, $popup, field, mode) {
 				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
-			alert('Failed to load publishers');
+			alert('Failed to create publisher');
 		});
 
 		ei.preventDefault();
@@ -119,6 +119,42 @@ function askSelectPublisher($group, $input, $popup, field, mode) {
 	});
 }
 
+function askCreateAuthor($group, $input, $popup, field, mode) {
+	var $title = $popup.find('.title').text('Create author');
+	var $body = $popup.find('.body').text('');
+
+	var $form = $('<form />');
+	$form.addClass('material-form');
+	$form.html($('#createAuthorFields').html());
+	$body.append($form);
+
+	openPopup($popup);
+	positionPopup($popup);
+
+	$popup.off().on('submit', 'form', function(ei) {
+		$.ajax({
+			url: BookOnData.host + 'api.php',
+			data: {
+				controller: 'inventory',
+				action: 'addNewAuthor',
+				'author-firstName': $(this).find('[name=firstName]').val(),
+				'author-lastName': $(this).find('[name=lastName]').val(),
+			},
+			dataType: 'json',
+		}).done(function(msg) {
+			if (msg.success) {
+				askSelectAuthor($group, $input, $popup, field, mode);
+			} else {
+				alert(msg.errstr);
+			}
+		}).fail(function(jqXHR, textStatus) {
+			alert('Failed to create author');
+		});
+
+		ei.preventDefault();
+	});
+}
+
 function askSelectAuthor($group, $input, $popup, field, mode) {
 	var $title = $popup.find('.title').text('Select author');
 	var $body = $popup.find('.body').html('<div>Loading...</div>');
@@ -137,7 +173,7 @@ function askSelectAuthor($group, $input, $popup, field, mode) {
 			for (var i in msg.data) {
 				var $element = $('<div/>');
 				$element.addClass('popup-list-item');
-				$element.text(msg.data[i].firstName + ' ' + msg.data[i].lastName);
+				$element.text(msg.data[i].lastName + ', ' + msg.data[i].firstName);
 				$element.data('id', msg.data[i].id);
 
 				$body.append($element);

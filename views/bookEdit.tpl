@@ -52,7 +52,7 @@
 			<a href="#" class="button-flat action-creative create">Create</a>
 			<div class="selector-content">
 				<?php foreach ($viewBag['book']->authors as $a): ?>
-				<div data-authorid="<?php echo $a->id; ?>"><span class="removelink">&#x2716;</span> <?php echo "{$a->firstName} {$a->lastName}"; ?></div>
+				<div data-authorid="<?php echo $a->id; ?>"><span class="removelink">&#x2716;</span> <?php echo "{$a->lastName}, {$a->firstName}"; ?></div>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -65,3 +65,4 @@
 </form>
 <?php View::render('popup', array('class' => 'bookEditPopup', 'content' => '')); ?>
 <?php View::render('bookEditPublisher'); ?>
+<?php View::render('bookEditAuthor'); ?>

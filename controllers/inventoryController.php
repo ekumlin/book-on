@@ -37,8 +37,8 @@ class InventoryController {
 						'action' => 'addNewAuthor',
 						'author-firstName' => $request['author-firstName'],
 						'author-lastName' => $request['author-lastName'],
-						'author-birthDate' => $request['author-birthDate'],
-						'author-homeCountry' => $request['author-homeCountry'],
+						'author-birthDate' => isset($request['author-birthDate']) ? $request['author-birthDate'] : NULL,
+						'author-homeCountry' => isset($request['author-homeCountry']) ? $request['author-homeCountry'] : NULL,
 					)));
 			}
 
@@ -137,8 +137,8 @@ class InventoryController {
 		$DB->query($query, array(
 				'firstName' => $request['author-firstName'],
 				'lastName' => $request['author-lastName'],
-				'birthDate' => $request['author-birthDate'],
-				'homeCountry' => $request['author-homeCountry'],
+				'birthDate' => isset($request['author-birthDate']) ? $request['author-birthDate'] : NULL,
+				'homeCountry' => isset($request['author-homeCountry']) ? $request['author-homeCountry'] : NULL,
 			));
 
 		$jsonResult['success'] = true;
