@@ -53,6 +53,7 @@ if ($collections->success) {
 				));
 		}
 
+		$content .= '<div style="padding: 16px"><a href="#" class="button-flat action-negative removecollection">Delete collection</a></div>';
 		$pgTitle = $collections->data[0]->name;
 	}
 } else {

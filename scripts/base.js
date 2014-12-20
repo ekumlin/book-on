@@ -162,8 +162,34 @@ $(document).ready(function() {
 				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
-			alert('Failed to save password');
+			alert('Failed to add collection');
 		});
+
+		e.preventDefault();
+	});
+	$('body').on('click', '.removecollection', function(e) {
+		var id = $('.collection-item-list').data('collectionid');
+		console.log(id);
+
+		if (confirm('Are you sure you want to delete this collection?')) {
+			$.ajax({
+				url: BookOnData.host + 'api.php',
+				data: {
+					controller: 'collection',
+					action: 'removeCollection',
+					collectionId: id,
+				},
+				dataType: 'json',
+			}).done(function(msg) {
+				if (msg.success) {
+					window.location = BookOnData.host + 'collections';
+				} else {
+					alert(msg.errstr);
+				}
+			}).fail(function(jqXHR, textStatus) {
+				alert('Failed to remove collection');
+			});
+		}
 
 		e.preventDefault();
 	});

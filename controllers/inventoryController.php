@@ -20,27 +20,33 @@ class InventoryController {
 			return;
 		}
 
-		$authorId = json_decode(apiCall(array(
-				'controller' => 'read',
-				'action' => 'viewAuthorId',
-				'firstName' => $request['author-firstName'],
-				'lastName' => $request['author-lastName'],
-			)));
-
-		//test for $authorId present or not. if not, insert
-		if ($authorId->data[0] == -1) { //Should really use a constant error value here
+		if (isset($request['author-id'])) {
+			$idVal = $request['author-id'];
+		} else {
 			$authorId = json_decode(apiCall(array(
-					'controller' => 'inventory',
-					'action' => 'addNewAuthor',
-					'author-firstName' => $request['author-firstName'],
-					'author-lastName' => $request['author-lastName'],
-					'author-birthDate' => $request['author-birthDate'],
-					'author-homeCountry' => $request['author-homeCountry'],
+					'controller' => 'read',
+					'action' => 'viewAuthorId',
+					'firstName' => $request['author-firstName'],
+					'lastName' => $request['author-lastName'],
 				)));
-		}
 
-		if (!$authorId->success) {
-			return;
+			//test for $authorId present or not. if not, insert
+			if ($authorId->data[0] == -1) { //Should really use a constant error value here
+				$authorId = json_decode(apiCall(array(
+						'controller' => 'inventory',
+						'action' => 'addNewAuthor',
+						'author-firstName' => $request['author-firstName'],
+						'author-lastName' => $request['author-lastName'],
+						'author-birthDate' => $request['author-birthDate'],
+						'author-homeCountry' => $request['author-homeCountry'],
+					)));
+			}
+
+			if (!$authorId->success) {
+				return;
+			}
+
+			$idVal = $authorId->data[0];
 		}
 
 		$query = "
@@ -53,7 +59,7 @@ class InventoryController {
 		";
 		$DB->query($query, array(
 				'isbn' => $request['author-isbn'],
-				'authorId' => $authorId->data[0],
+				'authorId' => $idVal,
 			));
 
 		$jsonResult['success'] = true;

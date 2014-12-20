@@ -32,7 +32,9 @@
 		<a href="<?php echo _HOST; ?>books/edit/<?php echo $viewBag['book']->isbn; ?>" class="button button-raised edit">Edit</a>
 		<?php endif; endif; ?>
 	</div><div class="data">
+		<?php if (Http::canAccess(User::USER_BASIC)): ?>
 		<div id="collect-button"><a href="#" class="button button-floating collect" data-collect="<?php echo $viewBag['book']->isbn; ?>"><img src="<?php echo _HOST; ?>assets/icon-collect.white.png" title="Collect"/></a></div>
+		<?php endif; ?>
 		<table>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-buy.png" title="Price"/></td>

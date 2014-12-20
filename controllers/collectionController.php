@@ -147,6 +147,61 @@ class CollectionController {
 	}
 
 	/**
+	 * Makes an API call to remove a user's collection.
+	 *
+	 * @param array $request A bundle of request data. Usually comes from URL parameter string.
+	 * @param array $jsonResult A bundle that holds the JSON result. Requires success element to be true or false.
+	 */
+	public function removeCollection($request, &$jsonResult) {
+		global $DB;
+
+		if (!Controller::verifyAccess(User::USER_BASIC, $jsonResult)) {
+			return;
+		}
+
+		$user = $_SESSION['User'];
+
+		$query = "
+			SELECT c.*
+			FROM
+				Collection AS c
+			WHERE
+				c.CollectionId = :collectionId
+				AND c.CardNumber = :cardNumber
+		";
+		$DB->query($query, array(
+				'collectionId' => $request['collectionId'],
+				'cardNumber' => $user->cardNumber,
+			));
+
+		if ($DB->affectedRows() > 0) {
+			$query = "
+				DELETE FROM
+					BookCollected
+				WHERE
+					CollectionId = :collectionId
+			";
+			$DB->query($query, array(
+					'collectionId' => $request['collectionId'],
+				));
+
+			$query = "
+				DELETE FROM
+					Collection
+				WHERE
+					CollectionId = :collectionId
+					AND CardNumber = :cardNumber
+			";
+			$DB->query($query, array(
+					'collectionId' => $request['collectionId'],
+					'cardNumber' => $user->cardNumber,
+				));
+
+			$jsonResult['success'] = true;
+		}
+	}
+
+	/**
 	 * Makes an API call to get all of a user's collections.
 	 *
 	 * @param array $request A bundle of request data. Usually comes from URL parameter string.

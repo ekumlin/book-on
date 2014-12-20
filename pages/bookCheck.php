@@ -43,17 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$cardNo = (Http::canAccess(User::USER_STAFF) && isset($_POST['cardNumber'])) ? $_POST['cardNumber'] : $_SESSION['User']->cardNumber;
 	$maxCInd = intval($_POST['maxCopyIndex']);
 
-	if (!ctype_digit($cardNo)) {
-		$errors[] = "Invalid card number '{$cardNo}' provided";
-	} else {
-		$users = json_decode(apiCall(array(
-				'controller' => 'user',
-				'action' => 'getUserByCard',
-				'cardNumber' => $cardNo,
-			)));
+	if ($mode != 'in') {
+		if (!ctype_digit($cardNo)) {
+			$errors[] = "Invalid card number '{$cardNo}' provided";
+		} else {
+			$users = json_decode(apiCall(array(
+					'controller' => 'user',
+					'action' => 'getUserByCard',
+					'cardNumber' => $cardNo,
+				)));
 
-		if (!$users->success) {
-			$errors[] = "No account exists with card number '{$cardNo}'";
+			if (!$users->success) {
+				$errors[] = "No account exists with card number '{$cardNo}'";
+			}
 		}
 	}
 
