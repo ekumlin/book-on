@@ -38,7 +38,7 @@
 		<table>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-buy.png" title="Price"/></td>
-				<td><div><?php echo $viewBag['book']->copiesForSale; ?> copies at $<?php echo $viewBag['book']->salePrice; ?></div></td>
+				<td><div><?php echo $viewBag['book']->copiesForSale; ?> copies at $<?php echo number_format($viewBag['book']->salePrice, 2); ?></div></td>
 			</tr>
 			<tr class="section-end">
 				<td><img src="<?php echo _HOST; ?>assets/icon-rent.png" title="Rent"/></td>
