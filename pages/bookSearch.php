@@ -30,10 +30,6 @@ if ($books->success) {
 		$fmtTemplate = $listFormats['cards'];
 	}
 
-	if (array_key_exists($format, $headerFormats)) {
-		$content .= View::toString($headerFormats[$format]);
-	}
-
 	$searchString = trim($_GET['q']);
 	if ($searchString) {
 		// Remove books from the results if they don't match our criteria
@@ -71,6 +67,12 @@ if ($books->success) {
 				}
 			}
 		}
+
+		$content .= "<h1>Results for '{$searchString}'</h1>";
+	}
+
+	if (array_key_exists($format, $headerFormats)) {
+		$content .= View::toString($headerFormats[$format]);
 	}
 
 	foreach ($books->data as $book) {

@@ -4,6 +4,12 @@
 	}
 }
 
+@media only screen and (min-width: 1224px) {
+	.mobile-only {
+		display: none;
+	}
+}
+
 body {
 	background: #FAFAFA;
 	font: 16px Roboto, Helvetica, 'Trebuchet MS', sans-serif;

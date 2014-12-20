@@ -63,8 +63,20 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#drawer tr').click(function() {
-		window.location = $(this).find('a').attr('href');
+	$('#drawer tr').click(function(e) {
+		$(this).find('a').click();
+
+		e.preventDefault();
+	}).find('*').click(function(e) {
+		e.stopPropagation();
+	});
+
+	/* Mobile search */
+	$('.searchbox-open').click(function(e) {
+		console.log("HI?");
+		window.location = BookOnData.host + 'books/search?' + $.param({ q : prompt('Search query:') });
+
+		e.preventDefault();
 	});
 
 	/* All popups */
@@ -109,7 +121,9 @@ $(document).ready(function() {
 			},
 			dataType: 'json',
 		}).done(function(msg) {
-			if (!msg.success) {
+			if (msg.success) {
+				window.location = window.location
+			} else {
 				alert(msg.errstr);
 			}
 		}).fail(function(jqXHR, textStatus) {
