@@ -18,7 +18,7 @@
 		</div>
 		<div class="info">
 			<span class="pri3"><?php echo Locale::getLanguageName($viewBag['book']->language); ?></span>
-			<span class="pri3"><?php echo String::ordinal($viewBag['book']->edition); ?> edition</span>
+			<span class="pri3"><?php echo StringUtil::ordinal($viewBag['book']->edition); ?> edition</span>
 			<span class="pri<?php echo $rating > 0.0 ? 2 : 3; ?>" title="<?php echo $rating > 0.0 ? "{$rating} / 5" : "No rating"; ?>"><?php View::render('rating', array('rating' => $viewBag['book']->avgRating, 'color' => 'white')); ?></span>
 		</div>
 		<div class="buttons">

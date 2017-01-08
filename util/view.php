@@ -23,7 +23,7 @@ class View {
 	 * @param array $args The arguments to be subtituted into the $viewBag variable in the view.
 	 */
 	public static function toString($name, $args = array()) {
-		if (!preg_match(String::FILE_TITLE_REGEX, $name)) {
+		if (!preg_match(StringUtil::FILE_TITLE_REGEX, $name)) {
 			throw new Exception("Invalid view name '{$name}'");
 		}
 

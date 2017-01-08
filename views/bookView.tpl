@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-edition.png" title="Edition"/></td>
-				<td><div><?php echo String::ordinal($viewBag['book']->edition); ?> edition</div></td>
+				<td><div><?php echo StringUtil::ordinal($viewBag['book']->edition); ?> edition</div></td>
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-language.png" title="Language"/></td>
@@ -54,7 +54,7 @@
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-isbn.png" title="ISBN"/></td>
-				<td><div><?php echo String::formatIsbn($viewBag['book']->isbn); ?></div></td>
+				<td><div><?php echo StringUtil::formatIsbn($viewBag['book']->isbn); ?></div></td>
 			</tr>
 			<tr>
 				<td><img src="<?php echo _HOST; ?>assets/icon-pages.png" title="Page count"/></td>

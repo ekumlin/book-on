@@ -5,7 +5,7 @@ if (!defined('VALID_REQUEST')) {
 	exit;
 }
 
-class String {
+class StringUtil {
 	const FILE_TITLE_REGEX = '@^[^/?*:;{}\\\\]+$@';
 
 	/**
